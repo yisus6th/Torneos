@@ -1247,7 +1247,7 @@
                 seleccion: ["mundial", "eurocopa"].filter(k => isCupEnabledInSeason(seasonId, k)),
                 locales: ["copadelrey", "facup", "copaitaliana", "dfbpokal", "copafrancesa"].filter(k => isCupEnabledInSeason(seasonId, k))
             };
-            const catWeights = { importantes: 40.0, seleccion: 40.0, locales: 20.0 };
+            const catWeights = { importantes: 35.0, seleccion: 40.0, locales: 25.0 };
 
             TOURNAMENTS_CATALOG.forEach(cup => {
                 if (!isCupEnabledInSeason(seasonId, cup.key)) return;
