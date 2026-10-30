@@ -1247,7 +1247,8 @@
                 seleccion: ["mundial", "eurocopa"].filter(k => isCupEnabledInSeason(seasonId, k)),
                 locales: ["copadelrey", "facup", "copaitaliana", "dfbpokal", "copafrancesa"].filter(k => isCupEnabledInSeason(seasonId, k))
             };
-            const catWeights = { importantes: 35.0, seleccion: 40.0, locales: 25.0 };
+            // Criterio oficial: Selecciones 40% • Importantes 35% • Locales 25%
+            const catWeights = { seleccion: 40.0, importantes: 35.0, locales: 25.0 };
 
             TOURNAMENTS_CATALOG.forEach(cup => {
                 if (!isCupEnabledInSeason(seasonId, cup.key)) return;
@@ -1315,13 +1316,12 @@
                 const selShare = grandTotEff > 0 ? (catEff.seleccion[p] / grandTotEff) * 100 : 0;
                 const locShare = grandTotEff > 0 ? (catEff.locales[p] / grandTotEff) * 100 : 0;
                 const finalPct = impShare + selShare + locShare;
-                const points = seasonTotal > 0 ? Math.round(finalPct * 10) : 0;
 
                 return {
                     player: p,
                     origIdx,
                     pct: finalPct,
-                    points: points,
+                    points: 0,
                     impShare,
                     selShare,
                     locShare,
@@ -1329,6 +1329,22 @@
                     totalCups: totals[p]
                 };
             }).sort((a, b) => (b.pct - a.pct) || (b.totalCups - a.totalCups) || (a.origIdx - b.origIdx));
+
+            // Si el 3° está muy lejos en títulos totales (< 50% de los títulos del 2°),
+            // se queda con menos de la mitad de su % normal (40%) y transfiere el 60% restante al 2° lugar
+            if (ballonEvaluation.length >= 3 && ballonEvaluation[1].totalCups > 0) {
+                const ratioThirdToSecond = ballonEvaluation[2].totalCups / ballonEvaluation[1].totalCups;
+                if (ratioThirdToSecond < 0.50) {
+                    const keptByThird = ballonEvaluation[2].pct * 0.40;
+                    const transferredToSecond = ballonEvaluation[2].pct - keptByThird;
+                    ballonEvaluation[2].pct = keptByThird;
+                    ballonEvaluation[1].pct += transferredToSecond;
+                }
+            }
+
+            ballonEvaluation.forEach(item => {
+                item.points = seasonTotal > 0 ? Math.round(item.pct * 10) : 0;
+            });
 
             const ranking = ORDERED_PLAYERS.map((p, origIdx) => ({
                 player: p,
@@ -1343,7 +1359,6 @@
 
             return { totals, clubes, clubesImportantes, clubesLocales, seleccion, ranking, ballonEvaluation, seasonTotal };
         }
-
         // Muestra únicamente el líder y el total de títulos, sin diferenciales (+3, +4, +8)
         function getCategoryLeaderLabel(scoreMap) {
             const entries = ORDERED_PLAYERS.map((p, i) => ({ player: p, val: scoreMap[p] || 0, i }))
