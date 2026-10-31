@@ -893,21 +893,11 @@
             });
             return true;
         }
-
+        // 1. Envía a la nube TANTO las copas como los Balones de Oro
         function buildLightweightCloudPayload() {
             const payload = JSON.parse(JSON.stringify(APP_STATE));
-            payload.customCupPhotos = {};
-            let serialized = JSON.stringify(payload);
-            if (serialized.length > 85000) {
-                SEASON_KEYS.forEach(sKey => {
-                    if (payload.seasons[sKey]) {
-                        payload.seasons[sKey].ballonDorCustomPhoto = "";
-                    }
-                });
-            }
             return payload;
         }
-
         function mergeCloudRecordIntoLocalState(cloudRecord) {
             if (!ensureValidStateStructure(cloudRecord)) return false;
             const localCupPhotos = APP_STATE.customCupPhotos || {};
@@ -993,12 +983,15 @@
                 setTimeout(() => toast.classList.add("hidden"), 300);
             }, 2400);
         }
-
-        function normalizeDataUrlTo355x466(srcDataUrl, callback) {
+        // 2. Motor dual: Intacto para Balón de Oro (355x466 HD) y ligero para Copas (220x289)
+        function normalizeDataUrlTo355x466(srcDataUrl, callback, isBallonDor = false) {
             const img = new Image();
             img.onload = function() {
-                const targetW = 355;
-                const targetH = 466;
+                // Balón de Oro mantiene su 355x466 intacto; Copas bajan a 220x289
+                const targetW = isBallonDor ? 355 : 220;
+                const targetH = isBallonDor ? 466 : 289;
+                const quality = isBallonDor ? 0.85 : 0.58;
+
                 const canvas = document.createElement("canvas");
                 canvas.width = targetW;
                 canvas.height = targetH;
@@ -1013,14 +1006,19 @@
                 ctx.fillStyle = "#03091c";
                 ctx.fillRect(0, 0, targetW, targetH);
                 ctx.drawImage(img, offsetX, offsetY, scaledW, scaledH);
-                callback(canvas.toDataURL("image/jpeg", 0.84));
+
+                // Usa WebP para mantener nitidez en el Balón de Oro sin saturar los 100 KB
+                let output = canvas.toDataURL("image/webp", quality);
+                if (!output.startsWith("data:image/webp")) {
+                    output = canvas.toDataURL("image/jpeg", quality);
+                }
+                callback(output);
             };
             img.onerror = function() {
                 callback(srcDataUrl);
             };
             img.src = srcDataUrl;
         }
-
         function handleAdminButtonClick() {
             if (isAdminUnlocked) {
                 lockAdminMode();
@@ -1879,10 +1877,10 @@
             }
         }
 
-        function compressAndReadImage(file, callback) {
+        function compressAndReadImage(file, callback, isBallonDor = false) {
             const reader = new FileReader();
             reader.onload = function(e) {
-                normalizeDataUrlTo355x466(e.target.result, callback);
+                normalizeDataUrlTo355x466(e.target.result, callback, isBallonDor);
             };
             reader.readAsDataURL(file);
         }
@@ -1897,25 +1895,26 @@
         function handleCupPhotoSelected(event) {
             const file = event.target.files[0];
             if (!file || !pendingCupPhotoKey) return;
+            // false = comprime la copa para ahorrar espacio
             compressAndReadImage(file, (dataUrl) => {
                 APP_STATE.customCupPhotos[pendingCupPhotoKey] = dataUrl;
                 refreshAllViews();
                 saveStateEverywhere();
-                showToast("📷 Foto de copa guardada");
-            });
+                showToast("📷 Foto de copa sincronizada en la nube");
+            }, false);
         }
 
         function handleBallonDorPhotoUpload(event) {
             const file = event.target.files[0];
             if (!file || currentSeason === "HISTORICO") return;
+            // true = deja el Balón de Oro en resolución 355x466 intacta
             compressAndReadImage(file, (dataUrl) => {
                 APP_STATE.seasons[currentSeason].ballonDorCustomPhoto = dataUrl;
                 refreshAllViews();
                 saveStateEverywhere();
-                showToast("🏆 Foto del Balón de Oro guardada");
-            });
+                showToast("🏆 Foto del Balón de Oro HD sincronizada");
+            }, true);
         }
-
         function resetBallonDorPhoto() {
             if (currentSeason === "HISTORICO") return;
             APP_STATE.seasons[currentSeason].ballonDorCustomPhoto = "";
