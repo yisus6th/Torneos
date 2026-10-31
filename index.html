@@ -2974,7 +2974,6 @@
                 showToast("🔑 Nuevo PIN guardado: " + APP_STATE.adminPin);
             }
         }
-
         // ==========================================
         // MOTOR MATEMÁTICO DE TEMPORADA Y POINTS RANKING (BALÓN DE ORO)
         // ==========================================
@@ -3036,7 +3035,8 @@
                         cupPts[p] += Number(sc[p] || 0);
                     });
 
-                    if (gap > 0) {
+                    // Bono por ventaja SOLO cuando lleva 3 o más copas de diferencia al 2.° lugar
+                    if (gap >= 3) {
                         const leader = ordered[0];
                         cupPts[leader] += gap * 0.85;
                         gapPower[leader] += Math.pow(gap, 1.45);
@@ -3076,20 +3076,21 @@
                 };
             }).sort((a, b) => (b.pct - a.pct) || (b.totalCups - a.totalCups) || (a.origIdx - b.origIdx));
 
-            // Si el 3° está muy lejos en títulos totales (< 50% de los títulos del 2°),
-            // se queda con menos de la mitad de su % normal (40%) y transfiere el 60% restante al 2° lugar
+            // Si el 3.° tiene menos del 50% de las copas del 2.°, conserva el 10%
+            // y reparte el 90% restante: 50% para el 1.° y 40% para el 2.°
             if (ballonEvaluation.length >= 3 && ballonEvaluation[1].totalCups > 0) {
                 const ratioThirdToSecond = ballonEvaluation[2].totalCups / ballonEvaluation[1].totalCups;
                 if (ratioThirdToSecond < 0.50) {
-                    const keptByThird = ballonEvaluation[2].pct * 0.40;
-                    const transferredToSecond = ballonEvaluation[2].pct - keptByThird;
-                    ballonEvaluation[2].pct = keptByThird;
-                    ballonEvaluation[1].pct += transferredToSecond;
+                    const thirdOriginalPct = ballonEvaluation[2].pct;
+                    ballonEvaluation[0].pct += thirdOriginalPct * 0.50;
+                    ballonEvaluation[1].pct += thirdOriginalPct * 0.40;
+                    ballonEvaluation[2].pct = thirdOriginalPct * 0.10;
                 }
             }
 
+            // Base de 2000 puntos (pct * 20)
             ballonEvaluation.forEach(item => {
-                item.points = seasonTotal > 0 ? Math.round(item.pct * 10) : 0;
+                item.points = seasonTotal > 0 ? Math.round(item.pct * 20) : 0;
             });
 
             const ranking = ORDERED_PLAYERS.map((p, origIdx) => ({
