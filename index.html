@@ -9,11 +9,11 @@
     <meta name="theme-color" content="#020817">
     <title>EA SPORTS TORNEOS FC | Salón de la Fama PS5</title>
 
-    <!-- ÍCONO DE LA PESTAÑA DEL NAVEGADOR (FAVICON) -->
+    <!-- FAVICON -->
     <link id="faviconLink" rel="icon" type="image/jpeg" href="logo.jpg">
     <link id="appleTouchIconLink" rel="apple-touch-icon" href="logo.jpg">
 
-    <!-- PRE-CARGA PRIORITARIA DE FOTOS PRINCIPALES -->
+    <!-- PRE-CARGA DE FOTOS PRINCIPALES -->
     <link rel="preload" as="image" href="logo.jpg" fetchpriority="high">
     <link rel="preload" as="image" href="balon-fc27.jpg" fetchpriority="high">
     <link rel="preload" as="image" href="balon-fc26.jpg" fetchpriority="high">
@@ -21,17 +21,14 @@
     <link rel="preload" as="image" href="libertadores.jpg" fetchpriority="high">
     <link rel="preload" as="image" href="mundial.jpg" fetchpriority="high">
 
-    <!-- PRECONEXIONES RÁPIDAS -->
     <link rel="preconnect" href="https://api.jsonbin.io" crossorigin>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
 
-    <!-- FUENTES E ÍCONOS -->
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700;800&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-    <!-- TAILWIND CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -56,24 +53,14 @@
         }
     </script>
 
-    <!-- ESTILOS OPTIMIZADOS PARA GPU (60 FPS) -->
     <style>
         :root { --safe-bottom: env(safe-area-inset-bottom, 12px); }
         body {
-            background-color: #020817;
-            color: #f8fafc;
-            font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
-            -webkit-tap-highlight-color: transparent;
-            -webkit-font-smoothing: antialiased;
+            background-color: #020817; color: #f8fafc; font-family: 'Inter', sans-serif;
+            overflow-x: hidden; -webkit-tap-highlight-color: transparent; -webkit-font-smoothing: antialiased;
         }
         .bg-ucl-stadium::before {
-            content: "";
-            position: fixed;
-            inset: 0;
-            z-index: -1;
-            pointer-events: none;
-            transform: translateZ(0);
+            content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none; transform: translateZ(0);
             background-color: #020817;
             background-image:
                 radial-gradient(ellipse 95% 55% at 50% -10%, rgba(37, 99, 235, 0.48) 0%, transparent 70%),
@@ -83,37 +70,29 @@
         }
         .ucl-card {
             background: linear-gradient(160deg, rgba(14, 34, 82, 0.92) 0%, rgba(5, 13, 34, 0.97) 100%);
-            border: 1px solid rgba(56, 189, 248, 0.22);
-            box-shadow: 0 10px 24px -8px rgba(0, 0, 0, 0.7);
+            border: 1px solid rgba(56, 189, 248, 0.22); box-shadow: 0 10px 24px -8px rgba(0, 0, 0, 0.7);
         }
         .ucl-card-gold {
             background: linear-gradient(165deg, rgba(58, 41, 8, 0.96) 0%, rgba(12, 24, 58, 0.98) 52%, rgba(44, 30, 6, 0.97) 100%);
-            border: 2px solid rgba(255, 215, 0, 0.65);
-            box-shadow: 0 14px 32px -10px rgba(255, 215, 0, 0.25);
+            border: 2px solid rgba(255, 215, 0, 0.65); box-shadow: 0 14px 32px -10px rgba(255, 215, 0, 0.25);
         }
         .cup-card-aspect { aspect-ratio: 355 / 466; }
         .gold-text-shine {
             background: linear-gradient(90deg, #fff9d6 0%, #ffd700 32%, #f59e0b 65%, #fff9d6 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-size: 200% auto;
-            animation: textShine 4s linear infinite;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-size: 200% auto; animation: textShine 4s linear infinite;
         }
         @keyframes textShine { to { background-position: 200% center; } }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         .ios-bottom-nav {
-            background: rgba(4, 12, 32, 0.96);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-top: 1px solid rgba(0, 229, 255, 0.24);
+            background: rgba(4, 12, 32, 0.96); backdrop-filter: blur(12px); border-top: 1px solid rgba(0, 229, 255, 0.24);
             padding-bottom: calc(var(--safe-bottom) + 2px);
         }
     </style>
 </head>
 <body class="bg-ucl-stadium min-h-screen flex flex-col pb-20 md:pb-8 selection:bg-uclCyan selection:text-uclNight">
 
-    <!-- 1. BARRA SUPERIOR COMPACTA -->
+    <!-- BARRA SUPERIOR -->
     <header class="sticky top-0 z-40 bg-[#020817]/95 border-b border-sky-400/20">
         <div class="max-w-6xl mx-auto px-3 h-12 sm:h-14 flex items-center justify-between">
             <div class="flex items-center gap-2 min-w-0">
@@ -125,7 +104,7 @@
                 <div class="truncate">
                     <div class="flex items-center gap-1.5">
                         <span class="font-oswald font-bold tracking-wider text-xs sm:text-sm text-white uppercase">EA SPORTS TORNEOS FC</span>
-                        <span id="liveDotIndicator" onclick="pullStateFromCloud(false, true)" class="w-2 h-2 rounded-full bg-uclNeon shadow-[0_0_8px_#00ff87] cursor-pointer" title="Sincronizar con la Nube"></span>
+                        <span id="liveDotIndicator" onclick="pullStateFromCloud(false, true)" class="w-2 h-2 rounded-full bg-uclNeon shadow-[0_0_8px_#00ff87] cursor-pointer" title="Sincronizado con la Nube"></span>
                     </div>
                     <p class="text-[10px] text-sky-200/80 truncate leading-none">Jesús • Sebastián • David</p>
                 </div>
@@ -136,19 +115,23 @@
             </button>
         </div>
 
+        <!-- PANEL DE ADMIN: INCLUYE ACCESO AL GESTOR DE WHATSAPP Y TEMPORADAS -->
         <div id="adminToolbar" class="bg-[#071636] border-t border-uclGold/50 shadow-xl hidden">
-            <div class="max-w-6xl mx-auto px-3 py-2 flex items-center justify-between gap-2">
+            <div class="max-w-6xl mx-auto px-3 py-2 flex items-center justify-between gap-2 flex-wrap">
                 <span class="px-2.5 py-1 rounded-lg bg-uclNeon/20 border border-uclNeon/40 text-uclNeon font-extrabold text-[10px] uppercase tracking-wider flex items-center gap-1.5">
-                    <i class="fa-solid fa-bolt"></i> Admin Activo (Guardado Automático)
+                    <i class="fa-solid fa-shield-halved"></i> Admin Activo
                 </span>
-                <div class="flex items-center gap-2">
-                    <button onclick="openCloudConfigModal()" title="Nube en Vivo" class="w-9 h-9 rounded-xl bg-sky-500/20 text-uclCyan border border-sky-400/40 flex items-center justify-center active:scale-95">
-                        <i class="fa-solid fa-cloud text-sm"></i>
+                <div class="flex items-center gap-2 flex-wrap">
+                    <button onclick="openWhatsAppModal()" class="px-3 py-1 rounded-xl bg-emerald-500/20 text-emerald-300 border border-emerald-400/40 font-bold text-[10px] flex items-center gap-1.5 active:scale-95 shadow">
+                        <i class="fa-brands fa-whatsapp text-sm"></i> Generador de WhatsApp
                     </button>
-                    <button onclick="openChangePinModal()" title="Cambiar PIN" class="w-9 h-9 rounded-xl bg-amber-500/15 text-amber-300 border border-amber-400/30 flex items-center justify-center active:scale-95">
-                        <i class="fa-solid fa-key text-sm"></i>
+                    <button onclick="openCloudConfigModal()" title="Nube en Vivo" class="w-8 h-8 rounded-xl bg-sky-500/20 text-uclCyan border border-sky-400/40 flex items-center justify-center active:scale-95">
+                        <i class="fa-solid fa-cloud text-xs"></i>
                     </button>
-                    <button onclick="lockAdminMode()" class="px-2.5 py-1.5 rounded-xl text-[10px] font-bold bg-red-500/20 text-red-300 border border-red-400/30 flex items-center gap-1 active:scale-95">
+                    <button onclick="openChangePinModal()" title="Cambiar PIN" class="w-8 h-8 rounded-xl bg-amber-500/15 text-amber-300 border border-amber-400/30 flex items-center justify-center active:scale-95">
+                        <i class="fa-solid fa-key text-xs"></i>
+                    </button>
+                    <button onclick="lockAdminMode()" class="px-2.5 py-1 rounded-xl text-[10px] font-bold bg-red-500/20 text-red-300 border border-red-400/30 flex items-center gap-1 active:scale-95">
                         <i class="fa-solid fa-lock"></i> Salir
                     </button>
                 </div>
@@ -156,7 +139,7 @@
         </div>
     </header>
 
-    <!-- 2. HERO BANNER -->
+    <!-- HERO BANNER -->
     <section class="relative overflow-hidden border-b border-sky-400/20 pt-2.5 pb-3 sm:py-4">
         <div class="relative z-10 max-w-6xl mx-auto px-3 text-center">
             <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-blue-950/90 border border-uclCyan/40 text-[9px] font-extrabold uppercase tracking-widest text-uclCyan mb-1">
@@ -173,14 +156,13 @@
         </div>
     </section>
 
-    <!-- 3. CONTENIDO PRINCIPAL -->
+    <!-- CONTENIDO PRINCIPAL -->
     <main class="flex-grow max-w-6xl w-full mx-auto px-2.5 sm:px-5 pt-3 pb-6 space-y-4 sm:space-y-5">
 
-        <!-- VISTA DE TEMPORADA -->
         <div id="seasonViewContainer" class="space-y-4 sm:space-y-5">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-3.5 sm:gap-4 items-stretch">
 
-                <!-- TARJETA DEL BALÓN DE ORO -->
+                <!-- TARJETA BALÓN DE ORO -->
                 <div class="lg:col-span-5 ucl-card-gold rounded-2xl p-3.5 sm:p-4 flex flex-col justify-between gap-3 relative overflow-hidden order-1 lg:order-2">
                     <div class="relative z-10 flex flex-col items-center text-center gap-1">
                         <div class="w-full flex items-center justify-between gap-2">
@@ -273,13 +255,13 @@
                             <h2 class="font-oswald text-base sm:text-xl font-bold text-white uppercase tracking-wide">🥅 A NIVEL DE SELECCIÓN 📢</h2>
                         </div>
                     </div>
-                    <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-amber-500/10 text-uclGold border border-uclGold/30">2 Torneos</span>
+                    <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-amber-500/10 text-uclGold border border-uclGold/30">Torneos Oficiales</span>
                 </div>
                 <div id="nationalTrophiesGrid" class="flex flex-wrap justify-center gap-2.5 sm:gap-3.5"></div>
             </div>
         </div>
 
-        <!-- VISTA HISTÓRICA GENERAL + RÉCORDS EN AÑO CALENDARIO -->
+        <!-- VISTA HISTÓRICA GENERAL -->
         <div id="historicalViewContainer" class="space-y-5 hidden">
             <div class="ucl-card rounded-2xl p-3.5 sm:p-5">
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4 border-b border-sky-400/15 pb-3">
@@ -314,7 +296,7 @@
                 </div>
             </div>
 
-            <!-- SECCIÓN DE RÉCORDS EN UN AÑO CALENDARIO -->
+            <!-- RÉCORDS EN AÑO CALENDARIO -->
             <div class="space-y-2.5">
                 <div class="flex items-center justify-between gap-2 border-b border-uclGold/30 pb-2">
                     <div class="flex items-center gap-2">
@@ -326,7 +308,6 @@
                             <h3 class="font-oswald text-base sm:text-xl font-bold text-white uppercase tracking-wide">⚡ RÉCORDS HISTÓRICOS Y LEYENDAS</h3>
                         </div>
                     </div>
-                    <span class="text-[9px] font-extrabold px-2.5 py-0.5 rounded-full bg-uclGold/15 text-uclGold border border-uclGold/35 uppercase">En Vivo</span>
                 </div>
                 <div id="historicalRecordsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-3"></div>
             </div>
@@ -347,7 +328,105 @@
         <div class="grid grid-cols-5 gap-1 max-w-md mx-auto" id="mobileBottomNav"></div>
     </nav>
 
-    <!-- 4. MODALES -->
+    <!-- MODAL GENERADOR DE WHATSAPP Y GESTOR DE FASES -->
+    <div id="whatsappModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden flex items-center justify-center p-3 sm:p-5">
+        <div class="ucl-card max-w-lg w-full rounded-3xl p-4 sm:p-5 border border-emerald-500/40 shadow-2xl max-h-[90vh] flex flex-col">
+            <div class="flex items-center justify-between pb-2.5 border-b border-white/10">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center">
+                        <i class="fa-brands fa-whatsapp text-base"></i>
+                    </div>
+                    <h3 class="font-oswald text-lg font-bold text-white uppercase">Gestor de Torneo & WhatsApp</h3>
+                </div>
+                <button onclick="closeWhatsAppModal()" class="w-8 h-8 rounded-xl bg-white/10 text-slate-300 flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <div class="my-3 space-y-3 overflow-y-auto flex-1 pr-1">
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-300 mb-1">Seleccionar Temporada:</label>
+                        <select id="waSeasonSelect" onchange="updateWaCupOptions()" class="w-full px-2.5 py-2 rounded-xl bg-[#020817] border border-sky-400/30 text-xs text-white font-bold">
+                            <option value="FC27">Temporada • FC27</option>
+                            <option value="FC26">Temporada • FC26</option>
+                            <option value="FC25">Temporada • FC25</option>
+                            <option value="FC24">Temporada • FC24</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-300 mb-1">Seleccionar Torneo:</label>
+                        <select id="waCupSelect" class="w-full px-2.5 py-2 rounded-xl bg-[#020817] border border-sky-400/30 text-xs text-white font-bold"></select>
+                    </div>
+                </div>
+
+                <div class="p-2.5 rounded-xl bg-[#020817]/80 border border-white/10 space-y-2">
+                    <span class="text-[10px] font-extrabold uppercase text-uclCyan block">Asignar Instancias (Jesús, Sebastián, David):</span>
+                    <div class="grid grid-cols-3 gap-2">
+                        <div>
+                            <label class="block text-[9px] font-bold text-slate-400">Jesús:</label>
+                            <select id="waInst_Jesus" class="w-full px-2 py-1 rounded-lg bg-black/60 border border-white/15 text-[11px] text-white">
+                                <option value="Campeón">👑 Campeón</option>
+                                <option value="Subcampeón">🥈 Subcampeón</option>
+                                <option value="Semis">🛑 Semis</option>
+                                <option value="Cuartos">🛑 Cuartos</option>
+                                <option value="8vos">🛑 8vos</option>
+                                <option value="16vos">🛑 16vos</option>
+                                <option value="Fase de grupos">🛑 Grupos</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-[9px] font-bold text-slate-400">Sebastián:</label>
+                            <select id="waInst_Sebastián" class="w-full px-2 py-1 rounded-lg bg-black/60 border border-white/15 text-[11px] text-white">
+                                <option value="Campeón">👑 Campeón</option>
+                                <option value="Subcampeón" selected>🥈 Subcampeón</option>
+                                <option value="Semis">🛑 Semis</option>
+                                <option value="Cuartos">🛑 Cuartos</option>
+                                <option value="8vos">🛑 8vos</option>
+                                <option value="16vos">🛑 16vos</option>
+                                <option value="Fase de grupos">🛑 Grupos</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-[9px] font-bold text-slate-400">David:</label>
+                            <select id="waInst_David" class="w-full px-2 py-1 rounded-lg bg-black/60 border border-white/15 text-[11px] text-white">
+                                <option value="Campeón">👑 Campeón</option>
+                                <option value="Subcampeón">🥈 Subcampeón</option>
+                                <option value="Semis">🛑 Semis</option>
+                                <option value="Cuartos">🛑 Cuartos</option>
+                                <option value="8vos" selected>🛑 8vos</option>
+                                <option value="16vos">🛑 16vos</option>
+                                <option value="Fase de grupos">🛑 Grupos</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="pt-1 flex items-center justify-between">
+                        <span class="text-[9px] text-amber-300">💡 Si seleccionas Campeón, se sumará +1 punto automáticamente a la tabla.</span>
+                        <button onclick="applyMatchResultAndGenerateReport()" class="px-3 py-1.5 rounded-xl bg-uclNeon text-uclNight font-extrabold text-[11px] uppercase shadow">
+                            Registrar & Generar
+                        </button>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="flex items-center justify-between mb-1">
+                        <label class="text-[10px] font-bold text-slate-300">Mensaje listo para WhatsApp:</label>
+                        <button onclick="copyWhatsAppText()" class="text-[10px] text-emerald-400 font-bold hover:underline">
+                            <i class="fa-regular fa-copy mr-1"></i> Copiar Mensaje
+                        </button>
+                    </div>
+                    <textarea id="whatsappOutputBox" rows="6" readonly class="w-full p-2.5 rounded-xl bg-[#020817] border border-emerald-500/30 text-xs text-slate-100 font-mono resize-none focus:outline-none"></textarea>
+                </div>
+            </div>
+
+            <div class="pt-2 border-t border-white/10 flex items-center justify-between">
+                <button onclick="generateSeasonSummaryReport()" class="px-3 py-1.5 rounded-xl bg-sky-500/20 text-sky-300 border border-sky-400/30 font-bold text-xs">
+                    📋 Copiar Resumen de Temporada
+                </button>
+                <button onclick="closeWhatsAppModal()" class="px-4 py-1.5 rounded-xl bg-white/10 text-slate-300 font-bold text-xs">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODALES ESTÁNDAR -->
     <div id="adminPinModal" class="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4 hidden">
         <div class="ucl-card max-w-xs w-full rounded-3xl p-5 border border-uclCyan/40 text-center">
             <h3 class="font-oswald text-lg font-bold text-white uppercase">Acceso Administrador</h3>
@@ -437,7 +516,7 @@
     </footer>
 
     <!-- ==========================================
-         5. MOTOR JAVASCRIPT DE ARRANQUE INSTANTÁNEO (CERO SALTO)
+         5. MOTOR JAVASCRIPT CON GESTOR WHATSAPP & REGLA INTERCONTINENTAL
     =========================================== -->
     <script>
         const RESOLVED_IMAGE_URLS = {};
@@ -455,9 +534,7 @@
                 const img = new Image();
                 img.decoding = "async";
                 if (index < 6) img.fetchPriority = "high";
-                img.onload = function() {
-                    RESOLVED_IMAGE_URLS[key] = img.src;
-                };
+                img.onload = function() { RESOLVED_IMAGE_URLS[key] = img.src; };
                 img.src = `${key}.jpg`;
                 RAM_IMAGE_POOL[key] = img;
             });
@@ -484,14 +561,7 @@
 
         function handleSmartImageError(imgEl, photoBaseName) {
             const step = Number(imgEl.getAttribute("data-step") || 0);
-            const fallbacks = [
-                `img/${photoBaseName}.jpg`,
-                `imagenes/${photoBaseName}.jpg`,
-                `Imágenes/${photoBaseName}.jpg`,
-                `${photoBaseName}.png`,
-                `img/${photoBaseName}.png`,
-                `${photoBaseName}.webp`
-            ];
+            const fallbacks = [`img/${photoBaseName}.jpg`, `imagenes/${photoBaseName}.jpg`, `Imágenes/${photoBaseName}.jpg`, `${photoBaseName}.png`, `img/${photoBaseName}.png`, `${photoBaseName}.webp`];
             if (step < fallbacks.length) {
                 imgEl.setAttribute("data-step", step + 1);
                 imgEl.src = fallbacks[step];
@@ -519,7 +589,6 @@
             { key: "eurocopa", name: "Eurocopa", subtitle: "UEFA Euro Championship", category: "seleccion", subType: "seleccion", dot: "🟤", barColor: "#ffd700", borderGlow: "border-amber-400/40" }
         ];
 
-        // ESTADO INICIAL ACTUALIZADO: FC26 YA ESTÁ FINALIZADA Y FC27 EN CURSO
         let APP_STATE = {
             adminPin: "0571",
             cloud: {
@@ -600,7 +669,6 @@
         const SEASON_KEYS = ["FC24", "FC25", "FC26", "FC27"];
         const ORDERED_PLAYERS = ["Jesús", "Sebastián", "David"];
 
-        // Carga instantánea de los últimos marcadores conocidos antes del primer render (0 saltos)
         function loadFastScoresCache() {
             try {
                 const cached = localStorage.getItem(FAST_SCORES_CACHE_KEY);
@@ -616,13 +684,6 @@
                 }
             } catch (e) {}
         }
-
-        function saveFastScoresCache(cleanPayload) {
-            try {
-                localStorage.setItem(FAST_SCORES_CACHE_KEY, JSON.stringify(cleanPayload));
-            } catch (e) {}
-        }
-
         loadFastScoresCache();
 
         let currentSeason = "FC27";
@@ -634,9 +695,20 @@
             SUMMARY_CACHE = {};
         }
 
+        // REGLA CLAVE: La Intercontinental solo se habilita si hay un ganador en Champions o Libertadores en esa temporada
         function isCupEnabledInSeason(seasonId, cupKey) {
             if (seasonId === "FC24" && (cupKey === "dfbpokal" || cupKey === "copafrancesa")) return false;
             if (seasonId === "FC25" && cupKey === "copafrancesa") return false;
+
+            if (cupKey === "intercontinental") {
+                const season = APP_STATE.seasons[seasonId];
+                if (!season || !season.scores) return false;
+                const champScores = season.scores["champions"] || {};
+                const libScores = season.scores["libertadores"] || {};
+                const hasChampWinner = ORDERED_PLAYERS.some(p => Number(champScores[p] || 0) > 0);
+                const hasLibWinner = ORDERED_PLAYERS.some(p => Number(libScores[p] || 0) > 0);
+                return (hasChampWinner || hasLibWinner);
+            }
             return true;
         }
 
@@ -680,7 +752,7 @@
                         }
                     });
                     const afterSnapshot = JSON.stringify(APP_STATE.seasons);
-                    saveFastScoresCache(buildCleanCloudPayload());
+                    try { localStorage.setItem(FAST_SCORES_CACHE_KEY, JSON.stringify(data.record)); } catch(e){}
 
                     if (beforeSnapshot !== afterSnapshot) {
                         invalidateSummaryCache();
@@ -699,14 +771,14 @@
         }
 
         function schedulePushToCloud() {
-            saveFastScoresCache(buildCleanCloudPayload());
+            try { localStorage.setItem(FAST_SCORES_CACHE_KEY, JSON.stringify(buildCleanCloudPayload())); } catch(e){}
             clearTimeout(saveTimeout);
             saveTimeout = setTimeout(() => { pushStateToCloud(); }, 400);
         }
 
         async function pushStateToCloud() {
             const payload = buildCleanCloudPayload();
-            saveFastScoresCache(payload);
+            try { localStorage.setItem(FAST_SCORES_CACHE_KEY, JSON.stringify(payload)); } catch(e){}
             if (!APP_STATE.cloud?.binId || !APP_STATE.cloud?.apiKey) return;
             try {
                 const res = await fetch(`https://api.jsonbin.io/v3/b/${APP_STATE.cloud.binId}`, {
@@ -1041,7 +1113,117 @@
             </div>`;
         }
 
-        // --- F. MOTOR DE RÉCORDS EN AÑO CALENDARIO (SIN HISTÓRICO REPETIDO) ---
+        // --- G. GESTOR DE WHATSAPP Y REPORTES DE INSTANCIAS ---
+        function openWhatsAppModal() {
+            document.getElementById("waSeasonSelect").value = currentSeason === "HISTORICO" ? "FC27" : currentSeason;
+            updateWaCupOptions();
+            document.getElementById("whatsappModal").classList.remove("hidden");
+        }
+
+        function closeWhatsAppModal() {
+            document.getElementById("whatsappModal").classList.add("hidden");
+        }
+
+        function updateWaCupOptions() {
+            const sKey = document.getElementById("waSeasonSelect").value;
+            const select = document.getElementById("waCupSelect");
+            const enabledCups = TOURNAMENTS_CATALOG.filter(c => isCupEnabledInSeason(sKey, c.key));
+            select.innerHTML = enabledCups.map(c => `<option value="${c.key}">${c.dot} ${c.name}</option>`).join("");
+        }
+
+        function applyMatchResultAndGenerateReport() {
+            const sKey = document.getElementById("waSeasonSelect").value;
+            const cupKey = document.getElementById("waCupSelect").value;
+            const cupObj = TOURNAMENTS_CATALOG.find(c => c.key === cupKey);
+            const season = APP_STATE.seasons[sKey];
+
+            const pResults = {
+                "Jesús": document.getElementById("waInst_Jesús").value,
+                "Sebastián": document.getElementById("waInst_Sebastián").value,
+                "David": document.getElementById("waInst_David").value
+            };
+
+            // Detectar si hubo campeón en esta instancia y actualizar automáticamente el marcador general
+            let champName = null;
+            ORDERED_PLAYERS.forEach(p => {
+                if (pResults[p] === "Campeón") champName = p;
+            });
+
+            if (champName) {
+                if (!season.scores[cupKey]) season.scores[cupKey] = { "Jesús": 0, "Sebastián": 0, "David": 0 };
+                // Sumar 1 punto al campeón si no lo tenía ya registrado en esta copa
+                ORDERED_PLAYERS.forEach(p => {
+                    season.scores[cupKey][p] = (p === champName) ? 1 : 0;
+                });
+                if (season.status === "PRÓXIMAMENTE") {
+                    season.status = "EN CURSO";
+                    season.ballonDorMode = "EN DISPUTA";
+                }
+                invalidateSummaryCache();
+                refreshAllViews();
+                schedulePushToCloud();
+            }
+
+            // Armar texto listo para WhatsApp
+            let text = `⚽ *REPORTE OFICIAL • ${season.title}*\n`;
+            text += `${cupObj.dot} *Torneo:* ${cupObj.name}\n\n`;
+
+            ORDERED_PLAYERS.forEach(p => {
+                const inst = pResults[p];
+                const emoji = inst === "Campeón" ? "👑 *¡CAMPEÓN!* 🏆 (+1 título)" : (inst === "Subcampeón" ? "🥈 Subcampeón" : `🛑 Eliminado en ${inst}`);
+                text += `• *${p}:* ${emoji}\n`;
+            });
+
+            const { totals } = computeSeasonSummary(sKey);
+            text += `\n📊 *Acumulado ${cupObj.name} (${sKey}):* Jesús (${totals["Jesús"]}) • Sebastián (${totals["Sebastián"]}) • David (${totals["David"]})`;
+
+            document.getElementById("whatsappOutputBox").value = text;
+            showToast("📲 ¡Reporte generado!");
+        }
+
+        function generateSeasonSummaryReport() {
+            const sKey = document.getElementById("waSeasonSelect").value;
+            const season = APP_STATE.seasons[sKey];
+            const { totals } = computeSeasonSummary(sKey);
+
+            let text = `🏆 *RESUMEN FINAL • ${season.title}* 🏆\n\n`;
+            text += `🕹️ *A NIVEL DE CLUBES:*\n`;
+            
+            const clubList = TOURNAMENTS_CATALOG.filter(c => c.category === "clubes" && isCupEnabledInSeason(sKey, c.key));
+            clubList.forEach(c => {
+                const sc = season.scores[c.key] || {};
+                let winner = "❌ Ninguno";
+                ORDERED_PLAYERS.forEach(p => { if (Number(sc[p] || 0) > 0) winner = `👑 ${p}`; });
+                text += `${c.dot} *${c.name}:* ${winner}\n`;
+            });
+
+            text += `\n🥅 *A NIVEL DE SELECCIÓN:*\n`;
+            const selList = TOURNAMENTS_CATALOG.filter(c => c.category === "seleccion" && isCupEnabledInSeason(sKey, c.key));
+            if (selList.length > 0) {
+                selList.forEach(c => {
+                    const sc = season.scores[c.key] || {};
+                    let winner = "❌ Ninguno";
+                    ORDERED_PLAYERS.forEach(p => { if (Number(sc[p] || 0) > 0) winner = `👑 ${p}`; });
+                    text += `${c.dot} *${c.name}:* ${winner}\n`;
+                });
+            } else {
+                text += `⏳ No se disputaron selecciones en esta temporada.\n`;
+            }
+
+            text += `\n📈 *Balance Final (${sKey}):* Jesús (${totals["Jesús"]}) • Sebastián (${totals["Sebastián"]}) • David (${totals["David"]})`;
+
+            document.getElementById("whatsappOutputBox").value = text;
+            showToast("📋 Resumen de temporada copiado");
+        }
+
+        function copyWhatsAppText() {
+            const box = document.getElementById("whatsappOutputBox");
+            box.select();
+            navigator.clipboard.writeText(box.value);
+            showToast("📋 ¡Texto copiado al portapapeles!");
+        }
+
+        // --- H. RÉCORDS HISTÓRICOS Y VISTA GENERAL ---
         function computeSingleCupRecords(cupKey) {
             let bestVal = 0;
             let players = [];
