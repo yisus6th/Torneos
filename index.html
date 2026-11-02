@@ -109,9 +109,10 @@
     <header class="sticky top-0 z-40 bg-[#020817]/95 border-b border-sky-400/20">
         <div class="max-w-6xl mx-auto px-3 h-12 sm:h-14 flex items-center justify-between">
             <div class="flex items-center gap-2 min-w-0">
+                <!-- LOGO DINÁMICO EN LA ESQUINA SUPERIOR IZQUIERDA -->
                 <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-blue-500 via-uclCyan to-uclNeon p-[1.5px] shrink-0">
-                    <div class="w-full h-full bg-[#030b1e] rounded-[10px] flex items-center justify-center">
-                        <i class="fa-solid fa-futbol text-uclCyan text-xs sm:text-sm"></i>
+                    <div class="w-full h-full bg-[#030b1e] rounded-[10px] flex items-center justify-center overflow-hidden">
+                        <img id="logoWeb" src="" data-step="0" alt="Logo" class="w-full h-full object-cover" onerror="handleSmartImageError(this, 'logo')">
                     </div>
                 </div>
                 <div class="truncate">
@@ -148,7 +149,7 @@
         </div>
     </header>
 
-    <!-- 2. HERO BANNER LIGERO (SIN IMAGEN EXTERNA PESADA DE UNSPLASH) -->
+    <!-- 2. HERO BANNER LIGERO -->
     <section class="relative overflow-hidden border-b border-sky-400/20 pt-2.5 pb-3 sm:py-4">
         <div class="relative z-10 max-w-6xl mx-auto px-3 text-center">
             <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-blue-950/90 border border-uclCyan/40 text-[9px] font-extrabold uppercase tracking-widest text-uclCyan mb-1">
@@ -172,7 +173,7 @@
         <div id="seasonViewContainer" class="space-y-4 sm:space-y-5">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-3.5 sm:gap-4 items-stretch">
 
-                <!-- TARJETA DEL BALÓN DE ORO (CARGA PRIORITARIA) -->
+                <!-- TARJETA DEL BALÓN DE ORO -->
                 <div class="lg:col-span-5 ucl-card-gold rounded-2xl p-3.5 sm:p-4 flex flex-col justify-between gap-3 relative overflow-hidden order-1 lg:order-2">
                     <div class="relative z-10 flex flex-col items-center text-center gap-1">
                         <div class="w-full flex items-center justify-between gap-2">
@@ -415,7 +416,6 @@
     =========================================== -->
     <script>
         // --- A. SISTEMA RÁPIDO DE FOTOS CON MEMORIA DE FORMATO ---
-        // Guarda en memoria qué formato (.jpg o .png) funcionó para no repetir pruebas
         const RESOLVED_IMAGE_URLS = {};
 
         function getFallbackSVG(type) {
@@ -431,14 +431,19 @@
 
         function handleSmartImageError(imgEl, photoBaseName) {
             const step = Number(imgEl.getAttribute("data-step") || 0);
-            const fallbacks = [`img/${photoBaseName}.jpg`, `${photoBaseName}.png`, `${photoBaseName}.webp`];
+            const fallbacks = [`img/${photoBaseName}.jpg`, `${photoBaseName}.png`, `img/${photoBaseName}.png`, `${photoBaseName}.webp`];
             if (step < fallbacks.length) {
                 imgEl.setAttribute("data-step", step + 1);
                 imgEl.src = fallbacks[step];
             } else {
                 imgEl.onerror = null;
-                RESOLVED_IMAGE_URLS[photoBaseName] = getFallbackSVG(photoBaseName);
-                imgEl.src = RESOLVED_IMAGE_URLS[photoBaseName];
+                // Si el logo personalizado falla, se dibuja un icono de fútbol como salvavidas
+                if (photoBaseName === 'logo') {
+                    imgEl.parentNode.innerHTML = `<i class="fa-solid fa-futbol text-uclCyan text-sm animate-pulse"></i>`;
+                } else {
+                    RESOLVED_IMAGE_URLS[photoBaseName] = getFallbackSVG(photoBaseName);
+                    imgEl.src = RESOLVED_IMAGE_URLS[photoBaseName];
+                }
             }
         }
 
@@ -638,7 +643,11 @@
         // Arranque inmediato sin bloquear el hilo principal
         window.addEventListener("DOMContentLoaded", () => {
             currentSeason = getActiveDefaultSeason();
+            
+            // Carga inicial de Logo y contenido
+            document.getElementById("logoWeb").src = getPhotoSrc("logo");
             refreshAllViews();
+            
             pullStateFromCloud(true, false);
         });
 
@@ -849,13 +858,13 @@
                 const pct = seasonTotal > 0 ? Math.round((r.total / seasonTotal) * 100) : 0;
                 const barW = seasonTotal > 0 ? Math.round((r.total / topScore) * 100) : 0;
                 const isFirst = idx === 0 && seasonTotal > 0;
-                return `<div class="rounded-xl p-3 border ${isFirst ? 'bg-gradient-to-r from-amber-500/20 via-blue-950/60 to-transparent border-uclGold/50' : 'bg-[#040d24] border-sky-400/15'}">
+                return `<div class="rounded-xl p-3 border ${isFirst ? 'bg-gradient-to-r from-amber-500/20 via-blue-950/60 to-transparent border-uclGold/50' : 'bg-[#040d24]' border-sky-400/15'} font-medium">
                     <div class="flex items-center justify-between gap-2 mb-1.5">
                         <div class="flex items-center gap-2.5">
                             <span class="text-xl">${medals[idx]}</span>
                             <div>
                                 <span class="font-oswald text-base sm:text-lg font-bold text-white">${r.player}</span>
-                                <div class="text-[10px] text-sky-200/80">🌟 Imp: <strong>${r.importantes}</strong> • 🥅 Sel: <strong>${r.seleccion}</strong> • 🛡️ Loc: <strong>${r.locales}</strong></div>
+                                <div class="text-[10px] text-sky-200/85">🌟 Imp: <strong>${r.importantes}</strong> • 🥅 Sel: <strong>${r.seleccion}</strong> • 🛡️ Loc: <strong>${r.locales}</strong></div>
                             </div>
                         </div>
                         <div class="text-right">
@@ -1024,7 +1033,7 @@
             }).join("");
         }
 
-        // --- G. CONTROLES DE ADMINISTRADOR CON GUARDADO DEBOUNCED ---
+        // --- G. CONTROLES DE ADMINISTRADOR ---
         function handleAdminButtonClick() {
             if (isAdminUnlocked) { lockAdminMode(); return; }
             document.getElementById("adminPinInputField").value = "";
