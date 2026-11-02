@@ -15,6 +15,7 @@
 
     <!-- PRE-CARGA PRIORITARIA DE FOTOS PRINCIPALES -->
     <link rel="preload" as="image" href="logo.jpg" fetchpriority="high">
+    <link rel="preload" as="image" href="balon-fc27.jpg" fetchpriority="high">
     <link rel="preload" as="image" href="balon-fc26.jpg" fetchpriority="high">
     <link rel="preload" as="image" href="champions.jpg" fetchpriority="high">
     <link rel="preload" as="image" href="libertadores.jpg" fetchpriority="high">
@@ -197,7 +198,7 @@
 
                     <div class="relative z-10 w-full max-w-[235px] sm:max-w-[260px] mx-auto cup-card-aspect rounded-2xl overflow-hidden border-2 border-uclGold/85 bg-[#03091a] group flex items-center justify-center cursor-pointer" onclick="openLightboxBallonDor()">
                         <div class="absolute inset-[3.5%] rounded-xl overflow-hidden border border-uclGold/35">
-                            <img id="ballonDorImageDisplay" src="balon-fc26.jpg" data-step="0" loading="eager" fetchpriority="high" decoding="sync" alt="Balón de Oro" class="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-105" onerror="handleSmartImageError(this, 'balon-fc26')">
+                            <img id="ballonDorImageDisplay" src="balon-fc27.jpg" data-step="0" loading="eager" fetchpriority="high" decoding="sync" alt="Balón de Oro" class="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-105" onerror="handleSmartImageError(this, 'balon-fc27')">
                             <div class="absolute inset-x-0 bottom-0 h-14 bg-gradient-to-t from-black/90 via-black/40 to-transparent pointer-events-none"></div>
                         </div>
                         <button type="button" class="absolute top-2.5 right-2.5 w-7 h-7 rounded-lg bg-black/80 border border-uclGold/60 text-xs text-uclGold flex items-center justify-center">
@@ -436,13 +437,15 @@
     </footer>
 
     <!-- ==========================================
-         5. MOTOR JAVASCRIPT CON PRE-CARGA EN RAM Y RÉCORDS LIMPIOS
+         5. MOTOR JAVASCRIPT DE ARRANQUE INSTANTÁNEO (CERO SALTO)
     =========================================== -->
     <script>
         const RESOLVED_IMAGE_URLS = {};
         const RAM_IMAGE_POOL = {};
+        const FAST_SCORES_CACHE_KEY = "EA_FC_FAST_SCORES_ONLY_V1";
+
         const ALL_PHOTO_KEYS = [
-            "logo", "balon-fc26", "balon-fc25", "balon-fc24", "balon-fc27",
+            "logo", "balon-fc27", "balon-fc26", "balon-fc25", "balon-fc24",
             "champions", "libertadores", "copadelrey", "facup", "copaitaliana",
             "dfbpokal", "copafrancesa", "intercontinental", "mundial", "eurocopa"
         ];
@@ -516,6 +519,7 @@
             { key: "eurocopa", name: "Eurocopa", subtitle: "UEFA Euro Championship", category: "seleccion", subType: "seleccion", dot: "🟤", barColor: "#ffd700", borderGlow: "border-amber-400/40" }
         ];
 
+        // ESTADO INICIAL ACTUALIZADO: FC26 YA ESTÁ FINALIZADA Y FC27 EN CURSO
         let APP_STATE = {
             adminPin: "0571",
             cloud: {
@@ -556,7 +560,7 @@
                     }
                 },
                 FC26: {
-                    id: "FC26", year: "2026", title: "TEMPORADA FC26", status: "EN CURSO",
+                    id: "FC26", year: "2026", title: "TEMPORADA FC26", status: "FINALIZADA",
                     ballonDorMode: "OFICIAL", ballonDorWinner: "Jesús",
                     ballonDorCustomText: "Sebastián lideró la tabla general, pero Jesús fue quien marcó la diferencia en las noches decisivas, ganando su segundo Balón de Oro. 👑",
                     scores: {
@@ -573,8 +577,8 @@
                     }
                 },
                 FC27: {
-                    id: "FC27", year: "2027", title: "TEMPORADA FC27", status: "PRÓXIMAMENTE",
-                    ballonDorMode: "PRÓXIMAMENTE", ballonDorWinner: "AUTO",
+                    id: "FC27", year: "2027", title: "TEMPORADA FC27", status: "EN CURSO",
+                    ballonDorMode: "EN DISPUTA", ballonDorWinner: "AUTO",
                     ballonDorCustomText: "¿Jesús por el tercero, Sebas por el segundo o David por el primero? La próxima gala tendrá la respuesta. 🏆",
                     scores: {
                         champions: { "Jesús": 0, "Sebastián": 0, "David": 0 },
@@ -595,7 +599,33 @@
         const DISPLAY_SEASON_ORDER = ["FC27", "FC26", "FC25", "FC24"];
         const SEASON_KEYS = ["FC24", "FC25", "FC26", "FC27"];
         const ORDERED_PLAYERS = ["Jesús", "Sebastián", "David"];
-        let currentSeason = "FC26";
+
+        // Carga instantánea de los últimos marcadores conocidos antes del primer render (0 saltos)
+        function loadFastScoresCache() {
+            try {
+                const cached = localStorage.getItem(FAST_SCORES_CACHE_KEY);
+                if (cached) {
+                    const parsed = JSON.parse(cached);
+                    if (parsed && parsed.seasons) {
+                        SEASON_KEYS.forEach(sKey => {
+                            if (parsed.seasons[sKey]) {
+                                APP_STATE.seasons[sKey] = { ...APP_STATE.seasons[sKey], ...parsed.seasons[sKey] };
+                            }
+                        });
+                    }
+                }
+            } catch (e) {}
+        }
+
+        function saveFastScoresCache(cleanPayload) {
+            try {
+                localStorage.setItem(FAST_SCORES_CACHE_KEY, JSON.stringify(cleanPayload));
+            } catch (e) {}
+        }
+
+        loadFastScoresCache();
+
+        let currentSeason = "FC27";
         let isAdminUnlocked = false;
         let SUMMARY_CACHE = {};
         let saveTimeout = null;
@@ -614,7 +644,7 @@
             for (const sKey of DISPLAY_SEASON_ORDER) {
                 if (APP_STATE.seasons[sKey] && APP_STATE.seasons[sKey].status === "EN CURSO") return sKey;
             }
-            return "FC26";
+            return "FC27";
         }
 
         function buildCleanCloudPayload() {
@@ -641,6 +671,8 @@
                 const data = await res.json();
                 if (data.record && data.record.seasons) {
                     const beforeSnapshot = JSON.stringify(APP_STATE.seasons);
+                    const prevActiveSeason = getActiveDefaultSeason();
+
                     APP_STATE.adminPin = data.record.adminPin || APP_STATE.adminPin;
                     SEASON_KEYS.forEach(sKey => {
                         if (data.record.seasons[sKey]) {
@@ -648,10 +680,14 @@
                         }
                     });
                     const afterSnapshot = JSON.stringify(APP_STATE.seasons);
+                    saveFastScoresCache(buildCleanCloudPayload());
 
                     if (beforeSnapshot !== afterSnapshot) {
                         invalidateSummaryCache();
-                        if (selectActiveOnLoad) currentSeason = getActiveDefaultSeason();
+                        const newActiveSeason = getActiveDefaultSeason();
+                        if (selectActiveOnLoad && currentSeason === prevActiveSeason) {
+                            currentSeason = newActiveSeason;
+                        }
                         refreshAllViews();
                     }
                     updateCloudIndicator(true);
@@ -663,17 +699,20 @@
         }
 
         function schedulePushToCloud() {
+            saveFastScoresCache(buildCleanCloudPayload());
             clearTimeout(saveTimeout);
             saveTimeout = setTimeout(() => { pushStateToCloud(); }, 400);
         }
 
         async function pushStateToCloud() {
+            const payload = buildCleanCloudPayload();
+            saveFastScoresCache(payload);
             if (!APP_STATE.cloud?.binId || !APP_STATE.cloud?.apiKey) return;
             try {
                 const res = await fetch(`https://api.jsonbin.io/v3/b/${APP_STATE.cloud.binId}`, {
                     method: "PUT",
                     headers: { "Content-Type": "application/json", "X-Master-Key": APP_STATE.cloud.apiKey },
-                    body: JSON.stringify(buildCleanCloudPayload())
+                    body: JSON.stringify(payload)
                 });
                 if (!res.ok) throw new Error();
                 updateCloudIndicator(true);
@@ -1037,7 +1076,6 @@
             const libRec = computeSingleCupRecords("libertadores");
             const wcRec = computeSingleCupRecords("mundial");
 
-            // Récord de Copas Locales en un solo Año Calendario
             let bestLocalYear = { val: 0, player: "Por definir", seasonLabel: "Por definir" };
             SEASON_KEYS.forEach(sKey => {
                 const s = APP_STATE.seasons[sKey];
@@ -1049,7 +1087,6 @@
                 });
             });
 
-            // Récord de Títulos Totales en un solo Año Calendario
             let bestTotalYear = { val: 0, player: "Por definir", seasonLabel: "Por definir" };
             SEASON_KEYS.forEach(sKey => {
                 const s = APP_STATE.seasons[sKey];
@@ -1061,7 +1098,6 @@
                 });
             });
 
-            // Máximo ganador del Balón de Oro
             const maxBallons = Math.max(...ORDERED_PLAYERS.map(p => ballonCount[p]));
             const ballonLeaders = ORDERED_PLAYERS.filter(p => ballonCount[p] === maxBallons && maxBallons > 0);
             const ballonLeaderName = ballonLeaders.join(" y ") || "Por definir";
