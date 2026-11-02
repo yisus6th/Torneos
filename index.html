@@ -9,9 +9,16 @@
     <meta name="theme-color" content="#020817">
     <title>EA SPORTS TORNEOS FC | Salón de la Fama PS5</title>
 
-    <!-- ÍCONO DE LA PESTAÑA DEL NAVEGADOR (FAVICON) Y ACCESO DIRECTO EN CELULAR -->
+    <!-- ÍCONO DE LA PESTAÑA DEL NAVEGADOR (FAVICON) -->
     <link id="faviconLink" rel="icon" type="image/jpeg" href="logo.jpg">
     <link id="appleTouchIconLink" rel="apple-touch-icon" href="logo.jpg">
+
+    <!-- PRE-CARGA PRIORITARIA DE FOTOS PRINCIPALES (ELIMINA EL DELAY INICIAL) -->
+    <link rel="preload" as="image" href="logo.jpg" fetchpriority="high">
+    <link rel="preload" as="image" href="balon-fc26.jpg" fetchpriority="high">
+    <link rel="preload" as="image" href="champions.jpg" fetchpriority="high">
+    <link rel="preload" as="image" href="libertadores.jpg" fetchpriority="high">
+    <link rel="preload" as="image" href="mundial.jpg" fetchpriority="high">
 
     <!-- PRECONEXIONES RÁPIDAS -->
     <link rel="preconnect" href="https://api.jsonbin.io" crossorigin>
@@ -48,7 +55,7 @@
         }
     </script>
 
-    <!-- ESTILOS OPTIMIZADOS -->
+    <!-- ESTILOS OPTIMIZADOS PARA GPU (60 FPS) -->
     <style>
         :root { --safe-bottom: env(safe-area-inset-bottom, 12px); }
         body {
@@ -111,7 +118,7 @@
             <div class="flex items-center gap-2 min-w-0">
                 <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-blue-500 via-uclCyan to-uclNeon p-[1.5px] shrink-0">
                     <div class="w-full h-full bg-[#030b1e] rounded-[10px] flex items-center justify-center overflow-hidden">
-                        <img id="logoWeb" src="logo.jpg" data-step="0" alt="Logo" class="w-full h-full object-cover" onload="updateFavicon(this.src)" onerror="handleSmartImageError(this, 'logo')">
+                        <img id="logoWeb" src="logo.jpg" data-step="0" fetchpriority="high" decoding="sync" alt="Logo" class="w-full h-full object-cover" onload="updateFavicon(this.src)" onerror="handleSmartImageError(this, 'logo')">
                     </div>
                 </div>
                 <div class="truncate">
@@ -190,7 +197,7 @@
 
                     <div class="relative z-10 w-full max-w-[235px] sm:max-w-[260px] mx-auto cup-card-aspect rounded-2xl overflow-hidden border-2 border-uclGold/85 bg-[#03091a] group flex items-center justify-center cursor-pointer" onclick="openLightboxBallonDor()">
                         <div class="absolute inset-[3.5%] rounded-xl overflow-hidden border border-uclGold/35">
-                            <img id="ballonDorImageDisplay" src="balon-fc26.jpg" data-step="0" fetchpriority="high" decoding="async" alt="Balón de Oro" class="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-105" onerror="handleSmartImageError(this, 'balon-fc26')">
+                            <img id="ballonDorImageDisplay" src="balon-fc26.jpg" data-step="0" loading="eager" fetchpriority="high" decoding="sync" alt="Balón de Oro" class="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-105" onerror="handleSmartImageError(this, 'balon-fc26')">
                             <div class="absolute inset-x-0 bottom-0 h-14 bg-gradient-to-t from-black/90 via-black/40 to-transparent pointer-events-none"></div>
                         </div>
                         <button type="button" class="absolute top-2.5 right-2.5 w-7 h-7 rounded-lg bg-black/80 border border-uclGold/60 text-xs text-uclGold flex items-center justify-center">
@@ -271,7 +278,7 @@
             </div>
         </div>
 
-        <!-- VISTA HISTÓRICA GENERAL -->
+        <!-- VISTA HISTÓRICA GENERAL + RÉCORDS HISTÓRICOS -->
         <div id="historicalViewContainer" class="space-y-5 hidden">
             <div class="ucl-card rounded-2xl p-3.5 sm:p-5">
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4 border-b border-sky-400/15 pb-3">
@@ -306,6 +313,24 @@
                 </div>
             </div>
 
+            <!-- NUEVA SECCIÓN: RÉCORDS HISTÓRICOS Y TÍTULOS HONORÍFICOS -->
+            <div class="space-y-2.5">
+                <div class="flex items-center justify-between gap-2 border-b border-uclGold/30 pb-2">
+                    <div class="flex items-center gap-2">
+                        <div class="w-8 h-8 rounded-xl bg-uclGold/20 border border-uclGold/50 flex items-center justify-center text-uclGold text-sm">
+                            <i class="fa-solid fa-bolt"></i>
+                        </div>
+                        <div>
+                            <span class="text-[9px] font-extrabold uppercase tracking-widest text-uclGold block leading-none">Hitos Oficiales • Año Calendario y Era PS5</span>
+                            <h3 class="font-oswald text-base sm:text-xl font-bold text-white uppercase tracking-wide">⚡ RÉCORDS HISTÓRICOS Y LEYENDAS</h3>
+                        </div>
+                    </div>
+                    <span class="text-[9px] font-extrabold px-2.5 py-0.5 rounded-full bg-uclGold/15 text-uclGold border border-uclGold/35 uppercase">En Vivo</span>
+                </div>
+                <div id="historicalRecordsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-3"></div>
+            </div>
+
+            <!-- REYES HISTÓRICOS DE CADA COPA -->
             <div class="space-y-2.5">
                 <div class="border-b border-sky-400/20 pb-2">
                     <span class="text-[9px] font-extrabold uppercase tracking-widest text-uclCyan block">Acumulado por Competición</span>
@@ -380,7 +405,7 @@
     <!-- Visor Lightbox -->
     <div id="trophyLightboxModal" onclick="closeTrophyLightbox()" class="fixed inset-0 z-50 bg-black/95 flex flex-col items-center justify-center p-3 sm:p-5 overflow-y-auto hidden">
         <div class="max-w-md w-full flex flex-col items-center my-auto" onclick="event.stopPropagation()">
-            <img id="lightboxImg" src="" decoding="async" alt="Trofeo" onclick="closeTrophyLightbox()" class="max-h-[48vh] w-auto object-contain rounded-3xl border-2 border-uclGold/60 p-2 bg-[#040d21]">
+            <img id="lightboxImg" src="" decoding="sync" alt="Trofeo" onclick="closeTrophyLightbox()" class="max-h-[48vh] w-auto object-contain rounded-3xl border-2 border-uclGold/60 p-2 bg-[#040d21]">
             <h4 id="lightboxTitle" class="font-oswald text-xl sm:text-2xl font-bold text-uclGold mt-2.5 uppercase text-center"></h4>
             <p id="lightboxSubtitle" class="text-[11px] text-sky-200/80 mt-0.5 text-center"></p>
 
@@ -411,10 +436,32 @@
     </footer>
 
     <!-- ==========================================
-         5. MOTOR JAVASCRIPT DE ALTA VELOCIDAD
+         5. MOTOR JAVASCRIPT CON PRE-CARGA EN RAM Y RÉCORDS HISTÓRICOS
     =========================================== -->
     <script>
+        // --- A. PRE-CARGADOR EN RAM (CERO DELAY AL INICIAR O CAMBIAR DE PESTAÑA) ---
         const RESOLVED_IMAGE_URLS = {};
+        const RAM_IMAGE_POOL = {};
+        const ALL_PHOTO_KEYS = [
+            "logo", "balon-fc26", "balon-fc25", "balon-fc24", "balon-fc27",
+            "champions", "libertadores", "copadelrey", "facup", "copaitaliana",
+            "dfbpokal", "copafrancesa", "intercontinental", "mundial", "eurocopa"
+        ];
+
+        // Descarga y decodifica en paralelo todas las fotos directamente en la RAM del navegador
+        function preloadAllPhotosIntoRAM() {
+            ALL_PHOTO_KEYS.forEach((key, index) => {
+                const img = new Image();
+                img.decoding = "async";
+                if (index < 6) img.fetchPriority = "high";
+                img.onload = function() {
+                    RESOLVED_IMAGE_URLS[key] = img.src;
+                };
+                img.src = `${key}.jpg`;
+                RAM_IMAGE_POOL[key] = img;
+            });
+        }
+        preloadAllPhotosIntoRAM();
 
         function updateFavicon(validUrl) {
             const fav = document.getElementById("faviconLink");
@@ -458,6 +505,7 @@
             }
         }
 
+        // --- B. CATÁLOGO DE LAS 10 COPAS ---
         const TOURNAMENTS_CATALOG = [
             { key: "champions", name: "Champions League", subtitle: "UEFA Champions League", category: "clubes", subType: "importantes", dot: "🔴", barColor: "#00e5ff", borderGlow: "border-sky-400/40" },
             { key: "libertadores", name: "Copa Libertadores", subtitle: "CONMEBOL Libertadores", category: "clubes", subType: "importantes", dot: "🟢", barColor: "#00ff87", borderGlow: "border-emerald-400/40" },
@@ -471,6 +519,7 @@
             { key: "eurocopa", name: "Eurocopa", subtitle: "UEFA Euro Championship", category: "seleccion", subType: "seleccion", dot: "🟤", barColor: "#ffd700", borderGlow: "border-amber-400/40" }
         ];
 
+        // --- C. ESTADO INICIAL ---
         let APP_STATE = {
             adminPin: "0571",
             cloud: {
@@ -652,6 +701,7 @@
             pullStateFromCloud(true, false);
         });
 
+        // --- D. MOTOR MATEMÁTICO CON CACHÉ (BASE 2000 PTS) ---
         function computeSeasonSummary(seasonId) {
             if (SUMMARY_CACHE[seasonId]) return SUMMARY_CACHE[seasonId];
 
@@ -752,6 +802,7 @@
             return SUMMARY_CACHE[seasonId];
         }
 
+        // --- E. RENDERIZADO DE VISTAS ---
         function switchSeason(seasonKey) {
             if (currentSeason === seasonKey) return;
             currentSeason = seasonKey;
@@ -913,6 +964,7 @@
             document.getElementById("nationalTrophiesGrid").innerHTML = nationalCups.map(c => buildCupCardHTML(seasonId, c, wClass)).join("");
         }
 
+        // Tarjetas de Copas con carga inmediata (loading="eager" + decoding="sync")
         function buildCupCardHTML(seasonId, cup, sizeClasses) {
             const cupScores = APP_STATE.seasons[seasonId].scores[cup.key] || { "Jesús": 0, "Sebastián": 0, "David": 0 };
             const ordered = [...ORDERED_PLAYERS].sort((a, b) => (cupScores[b] || 0) - (cupScores[a] || 0));
@@ -926,7 +978,7 @@
 
             return `<div class="${sizeClasses} cup-card-aspect ucl-card rounded-2xl p-2.5 flex flex-col justify-between relative overflow-hidden border ${cup.borderGlow} group shrink-0">
                 <div class="absolute inset-[5%] z-0 rounded-xl overflow-hidden pointer-events-none border border-white/15 bg-[#03091c]">
-                    <img src="${getPhotoSrc(cup.key)}" data-step="0" loading="lazy" decoding="async" alt="${cup.name}" class="w-full h-full object-cover object-center opacity-95" onload="RESOLVED_IMAGE_URLS['${cup.key}']=this.src" onerror="handleSmartImageError(this, '${cup.key}')">
+                    <img src="${getPhotoSrc(cup.key)}" data-step="0" loading="eager" decoding="sync" alt="${cup.name}" class="w-full h-full object-cover object-center opacity-95" onload="RESOLVED_IMAGE_URLS['${cup.key}']=this.src" onerror="handleSmartImageError(this, '${cup.key}')">
                     <div class="absolute inset-0 bg-gradient-to-t from-[#020817]/95 via-[#020817]/45 to-transparent"></div>
                 </div>
                 <div class="relative z-10 flex items-center justify-between px-1 pt-0.5">
@@ -957,17 +1009,180 @@
             </div>`;
         }
 
+        // --- F. MOTOR DE RÉCORDS HISTÓRICOS Y VISTA GENERAL ---
+        function computeSingleCupRecords(cupKey) {
+            const career = { "Jesús": 0, "Sebastián": 0, "David": 0 };
+            let bestSingle = { val: 0, holders: [] };
+
+            SEASON_KEYS.forEach(sKey => {
+                if (!isCupEnabledInSeason(sKey, cupKey)) return;
+                const s = APP_STATE.seasons[sKey];
+                const sc = (s.scores && s.scores[cupKey]) ? s.scores[cupKey] : {};
+                ORDERED_PLAYERS.forEach(p => {
+                    const v = Number(sc[p] || 0);
+                    career[p] += v;
+                    if (v > bestSingle.val && v > 0) {
+                        bestSingle = { val: v, holders: [`${p} (${s.id} • ${s.year})`] };
+                    } else if (v === bestSingle.val && v > 0) {
+                        bestSingle.holders.push(`${p} (${s.id} • ${s.year})`);
+                    }
+                });
+            });
+
+            const sortedCareer = [...ORDERED_PLAYERS].sort((a, b) => career[b] - career[a]);
+            const topCareerVal = career[sortedCareer[0]];
+            const topCareerHolders = ORDERED_PLAYERS.filter(p => career[p] === topCareerVal && topCareerVal > 0);
+
+            return {
+                careerLeader: topCareerHolders.join(" y ") || "Por definir",
+                careerVal: topCareerVal,
+                careerBreakdown: ORDERED_PLAYERS.map(p => `${p}: ${career[p]}`).join(" • "),
+                singleVal: bestSingle.val,
+                singleHolder: bestSingle.holders.join(" / ") || "Por definir"
+            };
+        }
+
+        function renderHistoricalRecordsSection(sums, ballonCount, ballonYears) {
+            const uclRec = computeSingleCupRecords("champions");
+            const libRec = computeSingleCupRecords("libertadores");
+            const wcRec = computeSingleCupRecords("mundial");
+
+            // Récord de Copas Locales (Acumulado Histórico + Año Calendario + Récord en 1 sola copa local)
+            const localCareer = {
+                "Jesús": sums.FC24.clubesLocales["Jesús"] + sums.FC25.clubesLocales["Jesús"] + sums.FC26.clubesLocales["Jesús"] + sums.FC27.clubesLocales["Jesús"],
+                "Sebastián": sums.FC24.clubesLocales["Sebastián"] + sums.FC25.clubesLocales["Sebastián"] + sums.FC26.clubesLocales["Sebastián"] + sums.FC27.clubesLocales["Sebastián"],
+                "David": sums.FC24.clubesLocales["David"] + sums.FC25.clubesLocales["David"] + sums.FC26.clubesLocales["David"] + sums.FC27.clubesLocales["David"]
+            };
+            const maxLocalCareer = Math.max(...ORDERED_PLAYERS.map(p => localCareer[p]));
+            const localCareerHolders = ORDERED_PLAYERS.filter(p => localCareer[p] === maxLocalCareer).join(" y ");
+
+            let bestLocalYear = { val: 0, text: "" };
+            SEASON_KEYS.forEach(sKey => {
+                const s = APP_STATE.seasons[sKey];
+                ORDERED_PLAYERS.forEach(p => {
+                    const v = sums[sKey].clubesLocales[p];
+                    if (v > bestLocalYear.val) {
+                        bestLocalYear = { val: v, text: `${p} (${v} en ${s.id} • ${s.year})` };
+                    }
+                });
+            });
+
+            // Récord de más títulos totales en un solo Año Calendario
+            let bestTotalYear = { val: 0, player: "", seasonLabel: "" };
+            SEASON_KEYS.forEach(sKey => {
+                const s = APP_STATE.seasons[sKey];
+                ORDERED_PLAYERS.forEach(p => {
+                    const v = sums[sKey].totals[p];
+                    if (v > bestTotalYear.val) {
+                        bestTotalYear = { val: v, player: p, seasonLabel: `${s.id} (${s.year})` };
+                    }
+                });
+            });
+
+            // Máximo ganador del Balón de Oro
+            const maxBallons = Math.max(...ORDERED_PLAYERS.map(p => ballonCount[p]));
+            const ballonLeaders = ORDERED_PLAYERS.filter(p => ballonCount[p] === maxBallons && maxBallons > 0);
+            const ballonLeaderName = ballonLeaders.join(" y ");
+            const ballonLeaderYears = ballonLeaders.map(p => `${p} (${ballonYears[p].join(", ")})`).join(" • ");
+
+            const recordsCards = [
+                {
+                    badge: "🔵 MR. CHAMPIONS",
+                    icon: "fa-trophy",
+                    accent: "border-sky-400/50",
+                    titleColor: "text-uclCyan",
+                    heroName: uclRec.careerLeader,
+                    heroStat: `${uclRec.careerVal} Champions`,
+                    subLine1: `🔥 <strong>Récord Año Calendario:</strong> ${uclRec.singleVal} (${uclRec.singleHolder})`,
+                    subLine2: `📊 Histórico: ${uclRec.careerBreakdown}`
+                },
+                {
+                    badge: "🌍 MR. MUNDIALES",
+                    icon: "fa-earth-americas",
+                    accent: "border-amber-400/50",
+                    titleColor: "text-uclGold",
+                    heroName: wcRec.careerLeader,
+                    heroStat: `${wcRec.careerVal} Mundiales`,
+                    subLine1: `🔥 <strong>Récord Año Calendario:</strong> ${wcRec.singleVal} (${wcRec.singleHolder})`,
+                    subLine2: `📊 Histórico: ${wcRec.careerBreakdown}`
+                },
+                {
+                    badge: "🟢 REY DE LIBERTADORES",
+                    icon: "fa-shield-halved",
+                    accent: "border-emerald-400/50",
+                    titleColor: "text-uclNeon",
+                    heroName: libRec.careerLeader,
+                    heroStat: `${libRec.careerVal} Libertadores`,
+                    subLine1: `🔥 <strong>Récord Año Calendario:</strong> ${libRec.singleVal} (${libRec.singleHolder})`,
+                    subLine2: `📊 Histórico: ${libRec.careerBreakdown}`
+                },
+                {
+                    badge: "🛡️ REY DE COPAS LOCALES",
+                    icon: "fa-chess-rook",
+                    accent: "border-purple-400/50",
+                    titleColor: "text-purple-300",
+                    heroName: localCareerHolders,
+                    heroStat: `${maxLocalCareer} Locales`,
+                    subLine1: `🔥 <strong>Récord Año Calendario:</strong> ${bestLocalYear.text}`,
+                    subLine2: `📊 Histórico: Jesús: ${localCareer["Jesús"]} • Sebastián: ${localCareer["Sebastián"]} • David: ${localCareer["David"]}`
+                },
+                {
+                    badge: "🌕 MÁXIMO GANADOR BALÓN DE ORO",
+                    icon: "fa-crown",
+                    accent: "border-uclGold/70",
+                    titleColor: "text-uclGold",
+                    heroName: ballonLeaderName,
+                    heroStat: `${maxBallons} Balones de Oro`,
+                    subLine1: `🏆 <strong>Galas ganadas:</strong> ${ballonLeaderYears}`,
+                    subLine2: `📊 Histórico: Jesús: ${ballonCount["Jesús"]} • Sebastián: ${ballonCount["Sebastián"]} • David: ${ballonCount["David"]}`
+                },
+                {
+                    badge: "⚡ RÉCORD EN AÑO CALENDARIO",
+                    icon: "fa-fire-flame-curved",
+                    accent: "border-orange-400/50",
+                    titleColor: "text-orange-300",
+                    heroName: bestTotalYear.player,
+                    heroStat: `${bestTotalYear.val} Títulos`,
+                    subLine1: `🗓️ <strong>Temporada Récord:</strong> ${bestTotalYear.seasonLabel}`,
+                    subLine2: `🏅 Mayor cantidad de campeonatos logrados en un solo año`
+                }
+            ];
+
+            document.getElementById("historicalRecordsGrid").innerHTML = recordsCards.map(r => `
+                <div class="ucl-card rounded-2xl p-3.5 border ${r.accent} flex flex-col justify-between gap-2">
+                    <div class="flex items-center justify-between gap-2">
+                        <span class="px-2.5 py-0.5 rounded-full bg-black/60 border border-white/15 text-[9px] font-extrabold uppercase tracking-wider ${r.titleColor}">
+                            ${r.badge}
+                        </span>
+                        <i class="fa-solid ${r.icon} ${r.titleColor} text-sm"></i>
+                    </div>
+                    <div class="flex items-baseline justify-between gap-2 my-0.5">
+                        <h4 class="font-oswald text-lg sm:text-xl font-bold text-white uppercase truncate">${r.heroName}</h4>
+                        <span class="font-display text-2xl sm:text-3xl gold-text-shine leading-none shrink-0">${r.heroStat}</span>
+                    </div>
+                    <div class="space-y-1 pt-2 border-t border-white/10 text-[10px] text-sky-100/90">
+                        <div class="bg-black/45 px-2.5 py-1 rounded-lg border border-white/5 truncate">${r.subLine1}</div>
+                        <div class="text-[9px] text-slate-300 px-1 truncate">${r.subLine2}</div>
+                    </div>
+                </div>
+            `).join("");
+        }
+
         function renderHistoricalView() {
             const sums = { FC24: computeSeasonSummary("FC24"), FC25: computeSeasonSummary("FC25"), FC26: computeSeasonSummary("FC26"), FC27: computeSeasonSummary("FC27") };
             const grandTotal = sums.FC24.seasonTotal + sums.FC25.seasonTotal + sums.FC26.seasonTotal + sums.FC27.seasonTotal;
             document.getElementById("historicalGrandTotalBadge").textContent = `${grandTotal} Títulos`;
 
             const ballonCount = { "Jesús": 0, "Sebastián": 0, "David": 0 };
+            const ballonYears = { "Jesús": [], "Sebastián": [], "David": [] };
             SEASON_KEYS.forEach(sKey => {
                 const s = APP_STATE.seasons[sKey];
                 if (s.ballonDorMode === "OFICIAL" && sums[sKey].seasonTotal > 0) {
                     const w = (s.ballonDorWinner && s.ballonDorWinner !== "AUTO") ? s.ballonDorWinner : sums[sKey].ballonEvaluation[0].player;
-                    if (ballonCount[w] !== undefined) ballonCount[w]++;
+                    if (ballonCount[w] !== undefined) {
+                        ballonCount[w]++;
+                        ballonYears[w].push(s.year);
+                    }
                 }
             });
 
@@ -1007,6 +1222,9 @@
                     <td class="py-2.5 px-2.5 text-right font-oswald text-lg font-bold text-uclGold">${d.total}</td>
                 </tr>`).join("");
 
+            // Renderizar el nuevo bloque de Récords Históricos y Leyendas
+            renderHistoricalRecordsSection(sums, ballonCount, ballonYears);
+
             document.getElementById("historicalPerCupGrid").innerHTML = TOURNAMENTS_CATALOG.map(cup => {
                 const cupTotals = { "Jesús": 0, "Sebastián": 0, "David": 0 };
                 SEASON_KEYS.forEach(sKey => {
@@ -1018,7 +1236,7 @@
                 const badge = cupTotals[ord[0]] === 0 ? "⏳ Por jugar" : (cupTotals[ord[0]] === cupTotals[ord[1]] ? "⚡ Empate" : `👑 ${ord[0]}`);
                 return `<div onclick="openTrophyLightbox('${cup.name}', '${cup.key}', '${cup.subtitle}')" class="w-[calc(50%-0.35rem)] sm:w-[calc(33.333%-0.6rem)] lg:w-[calc(20%-0.65rem)] max-w-[210px] cup-card-aspect ucl-card rounded-xl p-2 flex flex-col justify-between relative overflow-hidden cursor-pointer border ${cup.borderGlow}">
                     <div class="absolute inset-[5%] z-0 rounded-lg overflow-hidden border border-white/15 bg-[#03091c]">
-                        <img src="${getPhotoSrc(cup.key)}" data-step="0" loading="lazy" decoding="async" alt="${cup.name}" class="w-full h-full object-cover" onerror="handleSmartImageError(this, '${cup.key}')">
+                        <img src="${getPhotoSrc(cup.key)}" data-step="0" loading="eager" decoding="sync" alt="${cup.name}" class="w-full h-full object-cover" onerror="handleSmartImageError(this, '${cup.key}')">
                         <div class="absolute inset-0 bg-gradient-to-t from-[#020817]/95 via-[#020817]/50 to-transparent"></div>
                     </div>
                     <div class="relative z-10 flex justify-end"><span class="text-[8px] font-extrabold px-2 py-0.5 rounded-full bg-black/85 text-uclGold border border-uclGold/50">${badge}</span></div>
@@ -1031,6 +1249,7 @@
             }).join("");
         }
 
+        // --- G. CONTROLES DE ADMINISTRADOR ---
         function handleAdminButtonClick() {
             if (isAdminUnlocked) { lockAdminMode(); return; }
             document.getElementById("adminPinInputField").value = "";
@@ -1140,6 +1359,7 @@
             if (p && p.trim()) { APP_STATE.adminPin = p.trim(); pushStateToCloud(); }
         }
 
+        // --- H. VISOR LIGHTBOX ---
         function openTrophyLightbox(title, cupKey, subtitle) {
             const img = document.getElementById("lightboxImg");
             img.setAttribute("data-step", "0");
