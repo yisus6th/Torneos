@@ -297,7 +297,7 @@
                 <div class="flex items-center justify-between gap-2 mb-2.5 border-b border-sky-400/20 pb-2">
                     <div class="flex items-center gap-2">
                         <div class="w-7 h-7 rounded-lg bg-uclCyan/20 border border-uclCyan/40 flex items-center justify-center text-uclCyan text-xs">
-                            <i class="fa-solid fa-Scale-balanced"></i>
+                            <i class="fa-solid fa-scale-balanced"></i>
                         </div>
                         <div>
                             <span class="text-[9px] font-extrabold uppercase tracking-widest text-uclCyan block leading-none">Estadísticas de Finales • Solo Temporada Activa</span>
@@ -412,49 +412,61 @@
     </nav>
 
     <!-- ==========================================
-         MODAL PÚBLICO: RULETA DE ORDEN DE ELECCIÓN PS5 (1°, 2° Y 3° PICK)
+         MODAL PÚBLICO: RULETA PASO A PASO (1° PICK -> 2° PICK + 3° AUTOMÁTICO)
     =========================================== -->
     <div id="turnRouletteModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden flex items-center justify-center p-3 sm:p-5">
-        <div class="ucl-card neon-ambient-cyan max-w-md w-full rounded-3xl p-4 sm:p-5 flex flex-col gap-3.5 text-center">
+        <div class="ucl-card neon-ambient-cyan max-w-md w-full rounded-3xl p-4 sm:p-5 flex flex-col gap-3 text-center">
             <div class="flex items-center justify-between border-b border-white/10 pb-2.5">
                 <div class="flex items-center gap-2 text-left">
                     <div class="w-8 h-8 rounded-xl bg-uclCyan/20 border border-uclCyan/50 flex items-center justify-center text-uclGold">
                         <i class="fa-solid fa-dice text-base"></i>
                     </div>
                     <div>
-                        <span class="text-[9px] font-extrabold uppercase tracking-widest text-uclCyan block leading-none">Sorteo Oficial PS5</span>
+                        <span class="text-[9px] font-extrabold uppercase tracking-widest text-uclCyan block leading-none">Sorteo Clásico Paso a Paso</span>
                         <h3 class="font-oswald text-lg font-bold text-white uppercase">RULETA DE TURNOS DE EQUIPO</h3>
                     </div>
                 </div>
                 <button onclick="closeTurnRouletteModal()" class="w-8 h-8 rounded-xl bg-white/10 text-slate-300 flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button>
             </div>
 
-            <p class="text-[11px] text-sky-200/85">Gira la tómbola para definir al azar quién escoge equipo primero, segundo y tercero en este torneo.</p>
-
-            <!-- Casillas de 1°, 2° y 3° Turno -->
-            <div class="grid grid-cols-3 gap-2 my-1">
-                <div id="pickSlot_0" class="p-3 rounded-2xl bg-[#020817] border-2 border-uclGold/60 flex flex-col items-center justify-center gap-1 shadow-lg">
-                    <span class="px-2 py-0.5 rounded-full bg-uclGold/20 text-uclGold text-[9px] font-extrabold uppercase">🥇 1.° PICK</span>
-                    <span id="pickName_0" class="font-oswald text-lg sm:text-xl font-bold text-white uppercase tracking-wide mt-1">¿ ?</span>
-                    <span class="text-[9px] text-slate-400">Elige primero</span>
-                </div>
-
-                <div id="pickSlot_1" class="p-3 rounded-2xl bg-[#020817] border border-uclCyan/50 flex flex-col items-center justify-center gap-1 shadow-lg">
-                    <span class="px-2 py-0.5 rounded-full bg-uclCyan/20 text-uclCyan text-[9px] font-extrabold uppercase">🥈 2.° PICK</span>
-                    <span id="pickName_1" class="font-oswald text-lg sm:text-xl font-bold text-white uppercase tracking-wide mt-1">¿ ?</span>
-                    <span class="text-[9px] text-slate-400">Elige segundo</span>
-                </div>
-
-                <div id="pickSlot_2" class="p-3 rounded-2xl bg-[#020817] border border-orange-400/50 flex flex-col items-center justify-center gap-1 shadow-lg">
-                    <span class="px-2 py-0.5 rounded-full bg-orange-500/20 text-orange-300 text-[9px] font-extrabold uppercase">🥉 3.° PICK</span>
-                    <span id="pickName_2" class="font-oswald text-lg sm:text-xl font-bold text-white uppercase tracking-wide mt-1">¿ ?</span>
-                    <span class="text-[9px] text-slate-400">Elige tercero</span>
+            <!-- PANTALLA CENTRAL DE TÓMBOLA -->
+            <div class="p-3.5 rounded-2xl bg-[#020817] border-2 border-uclCyan/50 shadow-inner relative overflow-hidden">
+                <span id="rouletteStageSubtitle" class="text-[10px] font-extrabold uppercase tracking-widest text-uclCyan block mb-0.5">
+                    PASO 1: SORTEAR QUIÉN ELIGE PRIMERO
+                </span>
+                <div id="rouletteCentralBanner" class="font-display text-4xl sm:text-5xl tracking-wider text-white uppercase leading-none py-1">
+                    ¿QUIÉN SALE?
                 </div>
             </div>
 
+            <!-- Casillas de 1°, 2° y 3° Turno -->
+            <div class="grid grid-cols-3 gap-2">
+                <div id="pickSlot_0" class="p-2.5 rounded-2xl bg-[#020817]/90 border border-white/15 flex flex-col items-center justify-center gap-1 transition-all duration-300">
+                    <span class="px-2 py-0.5 rounded-full bg-uclGold/20 text-uclGold text-[9px] font-extrabold uppercase">🥇 1.° PICK</span>
+                    <span id="pickName_0" class="font-oswald text-base sm:text-lg font-bold text-slate-400 uppercase tracking-wide mt-0.5">Pendiente</span>
+                    <span class="text-[8px] text-slate-400">Elige 1.°</span>
+                </div>
+
+                <div id="pickSlot_1" class="p-2.5 rounded-2xl bg-[#020817]/90 border border-white/15 flex flex-col items-center justify-center gap-1 transition-all duration-300">
+                    <span class="px-2 py-0.5 rounded-full bg-uclCyan/20 text-uclCyan text-[9px] font-extrabold uppercase">🥈 2.° PICK</span>
+                    <span id="pickName_1" class="font-oswald text-base sm:text-lg font-bold text-slate-400 uppercase tracking-wide mt-0.5">Pendiente</span>
+                    <span class="text-[8px] text-slate-400">Elige 2.°</span>
+                </div>
+
+                <div id="pickSlot_2" class="p-2.5 rounded-2xl bg-[#020817]/90 border border-white/15 flex flex-col items-center justify-center gap-1 transition-all duration-300">
+                    <span class="px-2 py-0.5 rounded-full bg-orange-500/20 text-orange-300 text-[9px] font-extrabold uppercase">🥉 3.° PICK</span>
+                    <span id="pickName_2" class="font-oswald text-base sm:text-lg font-bold text-slate-400 uppercase tracking-wide mt-0.5">Pendiente</span>
+                    <span class="text-[8px] text-slate-400">Elige 3.°</span>
+                </div>
+            </div>
+
+            <!-- Botones de Acción de la Ruleta -->
             <div class="flex flex-col sm:flex-row gap-2 pt-1">
-                <button id="spinRouletteBtn" onclick="spinTurnRoulette()" class="flex-1 py-2.5 px-4 rounded-xl bg-gradient-to-r from-uclGold via-amber-400 to-yellow-300 text-uclNight font-oswald font-bold text-sm uppercase tracking-wider shadow-lg active:scale-95 transition">
-                    🎲 Girar Ruleta de Turnos
+                <button id="spinRouletteBtn" onclick="spinTurnRouletteStep()" class="flex-1 py-2.5 px-4 rounded-xl bg-gradient-to-r from-uclGold via-amber-400 to-yellow-300 text-uclNight font-oswald font-bold text-sm uppercase tracking-wider shadow-lg active:scale-95 transition">
+                    🎲 Girar para el 1.° Pick
+                </button>
+                <button id="resetRouletteBtn" onclick="resetTurnRoulette()" class="py-2.5 px-3 rounded-xl bg-white/10 hover:bg-white/15 text-slate-200 font-bold text-xs uppercase hidden active:scale-95">
+                    <i class="fa-solid fa-rotate-right mr-1"></i> Reiniciar
                 </button>
                 <button id="copyRouletteWaBtn" onclick="copyRouletteOrderToWhatsApp()" class="py-2.5 px-3.5 rounded-xl bg-emerald-500/20 border border-emerald-400/50 text-emerald-300 font-bold text-xs uppercase hidden active:scale-95">
                     <i class="fa-brands fa-whatsapp mr-1"></i> Copiar
@@ -730,12 +742,33 @@
             } catch (e) {}
         }
 
+        function playSinglePickLockSound() {
+            if (!soundEnabled) return;
+            try {
+                const ctx = getAudioContext();
+                if (!ctx) return;
+                [587.33, 880].forEach((freq, idx) => {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = "sine";
+                    const start = ctx.currentTime + (idx * 0.08);
+                    osc.frequency.setValueAtTime(freq, start);
+                    gain.gain.setValueAtTime(0.11, start);
+                    gain.gain.exponentialRampToValueAtTime(0.001, start + 0.28);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start(start);
+                    osc.stop(start + 0.30);
+                });
+            } catch (e) {}
+        }
+
         function playGalaFanfare() {
             if (!soundEnabled) return;
             try {
                 const ctx = getAudioContext();
                 if (!ctx) return;
-                const notes = [523.25, 659.25, 783.99, 1046.50]; // Acorde Mayor de Gala (Do - Mi - Sol - Do)
+                const notes = [523.25, 659.25, 783.99, 1046.50];
                 notes.forEach((freq, idx) => {
                     const osc = ctx.createOscillator();
                     const gain = ctx.createGain();
@@ -870,12 +903,7 @@
             players: ["Jesús", "Sebastián", "David"],
             fc27Tracker: {
                 seasonNumber: 1,
-                cupsPlayed: {},
-                archivedFinals: {
-                    "Jesús": { won: 0, runnerUp: 0 },
-                    "Sebastián": { won: 0, runnerUp: 0 },
-                    "David": { won: 0, runnerUp: 0 }
-                }
+                cupsPlayed: {}
             },
             seasons: {
                 FC24: {
@@ -952,7 +980,7 @@
 
         function ensureTrackerStructure() {
             if (!APP_STATE.fc27Tracker || typeof APP_STATE.fc27Tracker !== "object") {
-                APP_STATE.fc27Tracker = { seasonNumber: 1, cupsPlayed: {}, archivedFinals: {} };
+                APP_STATE.fc27Tracker = { seasonNumber: 1, cupsPlayed: {} };
             }
             if (!APP_STATE.fc27Tracker.seasonNumber || APP_STATE.fc27Tracker.seasonNumber < 1) {
                 APP_STATE.fc27Tracker.seasonNumber = 1;
@@ -960,14 +988,6 @@
             if (!APP_STATE.fc27Tracker.cupsPlayed || typeof APP_STATE.fc27Tracker.cupsPlayed !== "object") {
                 APP_STATE.fc27Tracker.cupsPlayed = {};
             }
-            if (!APP_STATE.fc27Tracker.archivedFinals || typeof APP_STATE.fc27Tracker.archivedFinals !== "object") {
-                APP_STATE.fc27Tracker.archivedFinals = {};
-            }
-            ORDERED_PLAYERS.forEach(p => {
-                if (!APP_STATE.fc27Tracker.archivedFinals[p]) {
-                    APP_STATE.fc27Tracker.archivedFinals[p] = { won: 0, runnerUp: 0 };
-                }
-            });
         }
 
         function loadFastScoresCache() {
@@ -995,7 +1015,6 @@
         let isAdminUnlocked = false;
         let SUMMARY_CACHE = {};
         let saveTimeout = null;
-        let currentRouletteOrder = [];
 
         function invalidateSummaryCache() {
             SUMMARY_CACHE = {};
@@ -1116,9 +1135,17 @@
         });
 
         // ==========================================
-        // RULETA PÚBLICA DE TURNOS DE EQUIPO (1°, 2° Y 3° PICK)
+        // RULETA CLÁSICA PASO A PASO (1.° PICK -> LUEGO 2.° Y 3.° PICK)
         // ==========================================
+        let rouletteStep = 0; // 0 = falta 1°, 1 = falta 2° y 3°, 2 = completo
+        let rouletteRemaining = [...ORDERED_PLAYERS];
+        let currentRouletteOrder = [];
+        let isSpinningRoulette = false;
+
         function openTurnRouletteModal() {
+            if (rouletteStep === 0 && currentRouletteOrder.length === 0) {
+                resetTurnRoulette();
+            }
             document.getElementById("turnRouletteModal").classList.remove("hidden");
         }
 
@@ -1126,54 +1153,137 @@
             document.getElementById("turnRouletteModal").classList.add("hidden");
         }
 
-        function spinTurnRoulette() {
-            const btn = document.getElementById("spinRouletteBtn");
-            const copyBtn = document.getElementById("copyRouletteWaBtn");
-            btn.disabled = true;
-            btn.classList.add("opacity-60");
-            copyBtn.classList.add("hidden");
+        function resetTurnRoulette() {
+            if (isSpinningRoulette) return;
+            rouletteStep = 0;
+            rouletteRemaining = [...ORDERED_PLAYERS];
+            currentRouletteOrder = [];
 
-            // Mezcla aleatoria imparcial (Fisher-Yates)
-            const shuffled = [...ORDERED_PLAYERS];
-            for (let i = shuffled.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            document.getElementById("rouletteStageSubtitle").textContent = "PASO 1: SORTEAR QUIÉN ELIGE PRIMERO";
+            const banner = document.getElementById("rouletteCentralBanner");
+            banner.textContent = "¿QUIÉN SALE?";
+            banner.className = "font-display text-4xl sm:text-5xl tracking-wider text-white uppercase leading-none py-1";
+
+            [0, 1, 2].forEach(idx => {
+                const nameEl = document.getElementById(`pickName_${idx}`);
+                const slotEl = document.getElementById(`pickSlot_${idx}`);
+                nameEl.textContent = "Pendiente";
+                nameEl.className = "font-oswald text-base sm:text-lg font-bold text-slate-400 uppercase tracking-wide mt-0.5";
+                slotEl.className = "p-2.5 rounded-2xl bg-[#020817]/90 border border-white/15 flex flex-col items-center justify-center gap-1 transition-all duration-300";
+            });
+
+            const spinBtn = document.getElementById("spinRouletteBtn");
+            spinBtn.disabled = false;
+            spinBtn.classList.remove("hidden", "opacity-60");
+            spinBtn.innerHTML = "🎲 Girar para el 1.° Pick";
+
+            document.getElementById("resetRouletteBtn").classList.add("hidden");
+            document.getElementById("copyRouletteWaBtn").classList.add("hidden");
+        }
+
+        function spinTurnRouletteStep() {
+            if (isSpinningRoulette) return;
+            if (rouletteStep >= 2) {
+                resetTurnRoulette();
+                return;
             }
-            currentRouletteOrder = shuffled;
 
-            let step = 0;
+            isSpinningRoulette = true;
+            const spinBtn = document.getElementById("spinRouletteBtn");
+            const banner = document.getElementById("rouletteCentralBanner");
+            const subtitle = document.getElementById("rouletteStageSubtitle");
+
+            spinBtn.disabled = true;
+            spinBtn.classList.add("opacity-60");
+
+            // Candidatos disponibles en este giro
+            const candidates = [...rouletteRemaining];
+            const chosenIdx = Math.floor(Math.random() * candidates.length);
+            const winner = candidates[chosenIdx];
+
+            let tick = 0;
             const totalTicks = 18;
-            const interval = setInterval(() => {
-                step++;
-                playRouletteTick(420 + (step * 18));
 
-                // Efecto visual de giro en cada casilla
-                [0, 1, 2].forEach(idx => {
-                    const el = document.getElementById(`pickName_${idx}`);
-                    if (step < 8 || (idx === 1 && step < 13) || (idx === 2 && step < totalTicks)) {
-                        el.textContent = ORDERED_PLAYERS[(step + idx) % 3];
-                        el.className = "font-oswald text-lg sm:text-xl font-bold text-slate-400 uppercase tracking-wide mt-1";
-                    } else {
-                        el.textContent = shuffled[idx];
-                        el.className = idx === 0
-                            ? "font-oswald text-lg sm:text-xl font-bold text-uclGold uppercase tracking-wide mt-1"
-                            : "font-oswald text-lg sm:text-xl font-bold text-white uppercase tracking-wide mt-1";
+            const runTick = () => {
+                tick++;
+                playRouletteTick(440 + (tick * 16));
+
+                const currentShown = candidates[tick % candidates.length];
+                banner.textContent = currentShown;
+                banner.className = "font-display text-4xl sm:text-5xl tracking-wider text-uclCyan uppercase leading-none py-1";
+
+                // Mostrar también el giro en la casilla que se está jugando
+                const targetSlotName = document.getElementById(`pickName_${rouletteStep}`);
+                targetSlotName.textContent = currentShown;
+                targetSlotName.className = "font-oswald text-base sm:text-lg font-bold text-uclCyan uppercase tracking-wide mt-0.5";
+
+                if (tick < totalTicks) {
+                    // Desaceleración progresiva estilo ruleta real
+                    const delay = 55 + Math.pow(tick, 1.55) * 2.2;
+                    setTimeout(runTick, delay);
+                } else {
+                    // Se detiene en el ganador elegido
+                    isSpinningRoulette = false;
+                    currentRouletteOrder.push(winner);
+                    rouletteRemaining = rouletteRemaining.filter(p => p !== winner);
+
+                    if (rouletteStep === 0) {
+                        // Fijar 1.° Pick
+                        playSinglePickLockSound();
+                        banner.textContent = `🥇 ${winner}`;
+                        banner.className = "font-display text-4xl sm:text-5xl tracking-wider gold-text-shine uppercase leading-none py-1";
+                        subtitle.textContent = `¡${winner.toUpperCase()} TIENE EL 1.° PICK! AHORA SORTEA EL 2.°`;
+
+                        const name0 = document.getElementById("pickName_0");
+                        const slot0 = document.getElementById("pickSlot_0");
+                        name0.textContent = winner;
+                        name0.className = "font-oswald text-lg sm:text-xl font-bold text-uclGold uppercase tracking-wide mt-0.5";
+                        slot0.className = "p-2.5 rounded-2xl bg-amber-500/15 border-2 border-uclGold flex flex-col items-center justify-center gap-1 shadow-[0_0_15px_rgba(255,215,0,0.3)]";
+
+                        rouletteStep = 1;
+                        spinBtn.disabled = false;
+                        spinBtn.classList.remove("opacity-60");
+                        spinBtn.innerHTML = `🎲 Sortear 2.° Pick (${rouletteRemaining.join(" vs ")})`;
+                        document.getElementById("resetRouletteBtn").classList.remove("hidden");
+                        showToast(`🥇 1.° Pick: ${winner}`);
+                    } else if (rouletteStep === 1) {
+                        // Fijar 2.° Pick y asignar automáticamente al último como 3.° Pick
+                        const thirdPlayer = rouletteRemaining[0];
+                        currentRouletteOrder.push(thirdPlayer);
+                        rouletteRemaining = [];
+
+                        playGalaFanfare();
+                        banner.textContent = `🥈 ${winner}`;
+                        banner.className = "font-display text-4xl sm:text-5xl tracking-wider text-uclNeon uppercase leading-none py-1";
+                        subtitle.textContent = "🎉 ¡ORDEN DE TURNOS COMPLETADO!";
+
+                        const name1 = document.getElementById("pickName_1");
+                        const slot1 = document.getElementById("pickSlot_1");
+                        name1.textContent = winner;
+                        name1.className = "font-oswald text-lg sm:text-xl font-bold text-uclCyan uppercase tracking-wide mt-0.5";
+                        slot1.className = "p-2.5 rounded-2xl bg-sky-500/15 border-2 border-uclCyan flex flex-col items-center justify-center gap-1 shadow-[0_0_15px_rgba(0,229,255,0.25)]";
+
+                        const name2 = document.getElementById("pickName_2");
+                        const slot2 = document.getElementById("pickSlot_2");
+                        name2.textContent = thirdPlayer;
+                        name2.className = "font-oswald text-lg sm:text-xl font-bold text-orange-300 uppercase tracking-wide mt-0.5";
+                        slot2.className = "p-2.5 rounded-2xl bg-orange-500/15 border-2 border-orange-400/80 flex flex-col items-center justify-center gap-1";
+
+                        rouletteStep = 2;
+                        spinBtn.disabled = false;
+                        spinBtn.classList.remove("opacity-60");
+                        spinBtn.innerHTML = "🔄 Nuevo Sorteo";
+                        document.getElementById("copyRouletteWaBtn").classList.remove("hidden");
+                        showToast(`✅ 1.° ${currentRouletteOrder[0]} • 2.° ${currentRouletteOrder[1]} • 3.° ${currentRouletteOrder[2]}`);
                     }
-                });
-
-                if (step >= totalTicks) {
-                    clearInterval(interval);
-                    playGalaFanfare();
-                    btn.disabled = false;
-                    btn.classList.remove("opacity-60");
-                    copyBtn.classList.remove("hidden");
-                    showToast(`🎲 1.° Pick: ${shuffled[0]} • 2.°: ${shuffled[1]} • 3.°: ${shuffled[2]}`);
                 }
-            }, 95);
+            };
+
+            runTick();
         }
 
         function copyRouletteOrderToWhatsApp() {
-            if (!currentRouletteOrder.length) return;
+            if (currentRouletteOrder.length < 3) return;
             const tNum = APP_STATE.fc27Tracker?.seasonNumber || 1;
             const text = `🎲 *ORDEN DE ELECCIÓN DE EQUIPOS • TEMP. ${tNum} (FC27)*\n\n` +
                 `🥇 *1.° Pick:* ${currentRouletteOrder[0]}\n` +
@@ -1198,7 +1308,6 @@
             const tNum = APP_STATE.fc27Tracker.seasonNumber;
             const played = APP_STATE.fc27Tracker.cupsPlayed || {};
 
-            // Contabiliza únicamente las finales registradas en la temporada en curso (Temporada N - FC27)
             const stats = {
                 "Jesús": { finals: 0, won: 0, sub: 0 },
                 "Sebastián": { finals: 0, won: 0, sub: 0 },
@@ -1226,13 +1335,11 @@
             document.getElementById("finalsFunFactsTitle").textContent = `⚖️ DATOS CURIOSOS DE FINALES • TEMPORADA ${tNum} (FC27)`;
             document.getElementById("finalsFunFactsSubBadge").textContent = `${registeredCupsCount} copas registradas`;
 
-            // 1. Jugador con más finales disputadas en esta temporada
             const maxFinals = Math.max(...ORDERED_PLAYERS.map(p => stats[p].finals));
             const mostFinalsPlayers = maxFinals > 0
                 ? ORDERED_PLAYERS.filter(p => stats[p].finals === maxFinals).join(" y ")
                 : "Por definir";
 
-            // 2. Mejor Efectividad en Finales en esta temporada
             let bestEff = -1;
             let bestEffLabel = "Por definir";
             let bestEffSub = "Se calcula al jugar la 1.ª final";
@@ -1249,7 +1356,6 @@
                 }
             });
 
-            // 3. Más Subcampeonatos en esta temporada
             const maxSub = Math.max(...ORDERED_PLAYERS.map(p => stats[p].sub));
             const mostSubPlayers = maxSub > 0
                 ? ORDERED_PLAYERS.filter(p => stats[p].sub === maxSub).join(" y ")
@@ -1493,7 +1599,6 @@
             const isUpcoming = season.status === "PRÓXIMAMENTE";
             const isDisputa = !isUpcoming && season.ballonDorMode === "EN DISPUTA";
 
-            // Aplicar Neón Dinámico Nivel Consola: Cian si está En Disputa/Curso, Dorado Intenso si tiene Campeón Oficial
             const tableCard = document.getElementById("seasonTableCardWrapper");
             const ballonCard = document.getElementById("ballonDorCardWrapper");
             if (isOngoing || isDisputa) {
@@ -1566,7 +1671,6 @@
             document.getElementById("ballonDorWinnerName").textContent = isDisputa ? `1° ${ballonEvaluation[0].player.toUpperCase()}` : `👑 ${winnerName.toUpperCase()}`;
             document.getElementById("ballonDorWinnerDesc").textContent = season.ballonDorCustomText || "";
 
-            // Renderizar Datos Curiosos de Finales (Exclusivo FC27)
             renderFinalsFunFacts(seasonId);
 
             const visibleClubs = TOURNAMENTS_CATALOG.filter(c => c.category === "clubes" && isCupEnabledInSeason(seasonId, c.key));
