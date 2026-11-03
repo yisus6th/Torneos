@@ -9,11 +9,11 @@
     <meta name="theme-color" content="#020817">
     <title>EA SPORTS TORNEOS FC | Salón de la Fama PS5</title>
 
-    <!-- FAVICON -->
+    <!-- FAVICON Y LOGO DE PESTAÑA -->
     <link id="faviconLink" rel="icon" type="image/jpeg" href="logo.jpg">
     <link id="appleTouchIconLink" rel="apple-touch-icon" href="logo.jpg">
 
-    <!-- PRE-CARGA PRIORITARIA DE FOTOS PRINCIPALES -->
+    <!-- PRE-CARGA PRIORITARIA EN RAM -->
     <link rel="preload" as="image" href="logo.jpg" fetchpriority="high">
     <link rel="preload" as="image" href="balon-fc27.jpg" fetchpriority="high">
     <link rel="preload" as="image" href="balon-fc26.jpg" fetchpriority="high">
@@ -53,29 +53,79 @@
         }
     </script>
 
+    <!-- ESTILOS VISUALES NIVEL CONSOLA: HEXÁGONOS, NEÓN DINÁMICO Y HOLOGRÁFICO 3D -->
     <style>
         :root { --safe-bottom: env(safe-area-inset-bottom, 12px); }
         body {
             background-color: #020817; color: #f8fafc; font-family: 'Inter', sans-serif;
             overflow-x: hidden; -webkit-tap-highlight-color: transparent; -webkit-font-smoothing: antialiased;
         }
+
+        /* Fondo de estadio con malla hexagonal nivel consola */
         .bg-ucl-stadium::before {
-            content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none; transform: translateZ(0);
+            content: ""; position: fixed; inset: 0; z-index: -2; pointer-events: none; transform: translateZ(0);
             background-color: #020817;
             background-image:
-                radial-gradient(ellipse 95% 55% at 50% -10%, rgba(37, 99, 235, 0.48) 0%, transparent 70%),
+                radial-gradient(ellipse 95% 55% at 50% -10%, rgba(37, 99, 235, 0.50) 0%, transparent 70%),
                 radial-gradient(circle at 85% 20%, rgba(0, 229, 255, 0.18) 0%, transparent 45%),
                 radial-gradient(circle at 15% 60%, rgba(59, 130, 246, 0.24) 0%, transparent 50%),
                 linear-gradient(180deg, #020817 0%, #061433 50%, #020817 100%);
         }
-        .ucl-card {
-            background: linear-gradient(160deg, rgba(14, 34, 82, 0.92) 0%, rgba(5, 13, 34, 0.97) 100%);
-            border: 1px solid rgba(56, 189, 248, 0.22); box-shadow: 0 10px 24px -8px rgba(0, 0, 0, 0.7);
+        .hex-console-mesh::after {
+            content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: 0.16;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='49' viewBox='0 0 28 49'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%2300e5ff' fill-opacity='0.45'%3E%3Cpath d='M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5zM3 17.9v12.7l10.99 6.34 11-6.35V17.9l-11-6.34L3 17.9zM0 15l12.98-7.5V0h-2v6.35L0 12.69v2.3zm0 18.5L12.98 41v8h-2v-6.85L0 35.81v-2.3zM15 0v7.5L27.99 15H28v-2.31h-.01L17 6.35V0h-2zm0 49v-8l12.99-7.5H28v2.31h-.01L17 42.15V49h-2z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
         }
+
+        /* Tarjetas con bisel deportivo e iluminación ambiental dinámica */
+        .ucl-card {
+            background: linear-gradient(160deg, rgba(12, 30, 74, 0.93) 0%, rgba(4, 11, 29, 0.98) 100%);
+            border: 1px solid rgba(56, 189, 248, 0.26);
+            box-shadow: 0 10px 26px -8px rgba(0, 0, 0, 0.78), inset 0 1px 0 0 rgba(255, 255, 255, 0.12);
+            clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+        }
+
+        /* Iluminación Neón Dinámica: Cian (En Disputa) vs Dorado Intenso (Campeón Oficial) */
+        .neon-ambient-cyan {
+            border: 1.5px solid rgba(0, 229, 255, 0.65) !important;
+            box-shadow: 0 0 26px -4px rgba(0, 229, 255, 0.32), inset 0 0 18px rgba(0, 229, 255, 0.10) !important;
+        }
+        .neon-ambient-gold {
+            border: 2px solid rgba(255, 215, 0, 0.82) !important;
+            box-shadow: 0 0 32px -4px rgba(255, 215, 0, 0.40), inset 0 0 22px rgba(255, 215, 0, 0.14) !important;
+        }
+
         .ucl-card-gold {
             background: linear-gradient(165deg, rgba(58, 41, 8, 0.96) 0%, rgba(12, 24, 58, 0.98) 52%, rgba(44, 30, 6, 0.97) 100%);
-            border: 2px solid rgba(255, 215, 0, 0.65); box-shadow: 0 14px 32px -10px rgba(255, 215, 0, 0.25);
+            border: 2px solid rgba(255, 215, 0, 0.72);
+            box-shadow: 0 14px 34px -8px rgba(255, 215, 0, 0.32), inset 0 1px 0 0 rgba(255, 245, 190, 0.35);
+            clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
         }
+
+        /* Efecto Holográfico 3D interactivo para Balón de Oro y las 10 Copas */
+        .holo-3d-card {
+            --rx: 0deg;
+            --ry: 0deg;
+            --holo-x: 50%;
+            --holo-y: 50%;
+            --holo-opacity: 0;
+            transform: perspective(900px) rotateX(var(--rx)) rotateY(var(--ry));
+            transition: transform 0.16s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.2s ease;
+            will-change: transform;
+        }
+        .holo-3d-card::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: 20;
+            pointer-events: none;
+            opacity: var(--holo-opacity);
+            transition: opacity 0.25s ease;
+            background:
+                radial-gradient(circle at var(--holo-x) var(--holo-y), rgba(255, 255, 255, 0.38) 0%, rgba(0, 229, 255, 0.22) 25%, rgba(255, 215, 0, 0.20) 50%, transparent 72%),
+                linear-gradient(125deg, transparent 20%, rgba(255, 255, 255, 0.18) 45%, rgba(0, 229, 255, 0.20) 50%, rgba(255, 215, 0, 0.18) 55%, transparent 80%);
+            mix-blend-mode: screen;
+        }
+
         .cup-card-aspect { aspect-ratio: 355 / 466; }
         .gold-text-shine {
             background: linear-gradient(90deg, #fff9d6 0%, #ffd700 32%, #f59e0b 65%, #fff9d6 100%);
@@ -90,11 +140,13 @@
         }
     </style>
 </head>
-<body class="bg-ucl-stadium min-h-screen flex flex-col pb-20 md:pb-8 selection:bg-uclCyan selection:text-uclNight">
+<body class="bg-ucl-stadium hex-console-mesh min-h-screen flex flex-col pb-20 md:pb-8 selection:bg-uclCyan selection:text-uclNight">
 
-    <!-- 1. BARRA SUPERIOR -->
-    <header class="sticky top-0 z-40 bg-[#020817]/95 border-b border-sky-400/20">
-        <div class="max-w-6xl mx-auto px-3 h-12 sm:h-14 flex items-center justify-between">
+    <!-- ==========================================
+         1. BARRA SUPERIOR CON BOTÓN PÚBLICO DE RULETA Y ADMIN
+    =========================================== -->
+    <header class="sticky top-0 z-40 bg-[#020817]/95 border-b border-sky-400/25">
+        <div class="max-w-6xl mx-auto px-3 h-12 sm:h-14 flex items-center justify-between gap-2">
             <div class="flex items-center gap-2 min-w-0">
                 <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-blue-500 via-uclCyan to-uclNeon p-[1.5px] shrink-0">
                     <div class="w-full h-full bg-[#030b1e] rounded-[10px] flex items-center justify-center overflow-hidden">
@@ -110,9 +162,21 @@
                 </div>
             </div>
 
-            <button id="adminGearBtn" onclick="handleAdminButtonClick()" title="Modo Administrador" class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl border border-white/15 bg-white/5 hover:bg-white/10 active:scale-90 text-slate-200 flex items-center justify-center transition-transform">
-                <i id="adminGearIcon" class="fa-solid fa-gear text-sm"></i>
-            </button>
+            <!-- CONTROLES PÚBLICOS (RULETA DE TURNOS + SONIDO) + TUERCA ADMIN -->
+            <div class="flex items-center gap-1.5 shrink-0">
+                <button onclick="openTurnRouletteModal()" title="Sortear Orden de Elección de Equipos" class="px-2.5 h-8 sm:h-9 rounded-xl bg-gradient-to-r from-uclCyan/20 to-blue-600/30 hover:from-uclCyan/30 hover:to-blue-600/40 border border-uclCyan/60 text-uclCyan font-oswald font-bold text-xs uppercase tracking-wider flex items-center gap-1.5 active:scale-95 transition shadow-[0_0_14px_rgba(0,229,255,0.25)]">
+                    <i class="fa-solid fa-dice text-uclGold"></i>
+                    <span>Turnos</span>
+                </button>
+
+                <button id="soundToggleBtn" onclick="toggleSoundEffects()" title="Activar/Silenciar Sonidos de Sorteo y Gala" class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl border border-white/15 bg-white/5 hover:bg-white/10 active:scale-90 text-uclCyan flex items-center justify-center transition">
+                    <i id="soundToggleIcon" class="fa-solid fa-volume-high text-xs"></i>
+                </button>
+
+                <button id="adminGearBtn" onclick="handleAdminButtonClick()" title="Modo Administrador" class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl border border-white/15 bg-white/5 hover:bg-white/10 active:scale-90 text-slate-200 flex items-center justify-center transition-transform">
+                    <i id="adminGearIcon" class="fa-solid fa-gear text-sm"></i>
+                </button>
+            </div>
         </div>
 
         <!-- BARRA EXCLUSIVA DE ADMINISTRADOR -->
@@ -159,11 +223,12 @@
     <!-- 3. CONTENIDO PRINCIPAL -->
     <main class="flex-grow max-w-6xl w-full mx-auto px-2.5 sm:px-5 pt-3 pb-6 space-y-4 sm:space-y-5">
 
+        <!-- VISTA DE TEMPORADA -->
         <div id="seasonViewContainer" class="space-y-4 sm:space-y-5">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-3.5 sm:gap-4 items-stretch">
 
-                <!-- TARJETA BALÓN DE ORO -->
-                <div class="lg:col-span-5 ucl-card-gold rounded-2xl p-3.5 sm:p-4 flex flex-col justify-between gap-3 relative overflow-hidden order-1 lg:order-2">
+                <!-- TARJETA DEL BALÓN DE ORO CON ILUMINACIÓN AMBIENTAL DINÁMICA Y HOLOGRÁFICO 3D -->
+                <div id="ballonDorCardWrapper" class="lg:col-span-5 ucl-card-gold rounded-2xl p-3.5 sm:p-4 flex flex-col justify-between gap-3 relative overflow-hidden order-1 lg:order-2 transition-all duration-300">
                     <div class="relative z-10 flex flex-col items-center text-center gap-1">
                         <div class="w-full flex items-center justify-between gap-2">
                             <div id="ballonDorStatusBadge" class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-uclGold text-uclNight text-[9px] font-extrabold uppercase shadow"></div>
@@ -178,15 +243,16 @@
                         </div>
                     </div>
 
-                    <div class="relative z-10 w-full max-w-[235px] sm:max-w-[260px] mx-auto cup-card-aspect rounded-2xl overflow-hidden border-2 border-uclGold/85 bg-[#03091a] group flex items-center justify-center cursor-pointer" onclick="openLightboxBallonDor()">
+                    <!-- Imagen del Balón de Oro con Efecto Holográfico 3D -->
+                    <div class="holo-3d-card relative z-10 w-full max-w-[235px] sm:max-w-[260px] mx-auto cup-card-aspect rounded-2xl overflow-hidden border-2 border-uclGold/85 bg-[#03091a] group flex items-center justify-center cursor-pointer" onclick="openLightboxBallonDor()">
                         <div class="absolute inset-[3.5%] rounded-xl overflow-hidden border border-uclGold/35">
                             <img id="ballonDorImageDisplay" src="balon-fc27.jpg" data-step="0" loading="eager" fetchpriority="high" decoding="sync" alt="Balón de Oro" class="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-105" onerror="handleSmartImageError(this, 'balon-fc27')">
                             <div class="absolute inset-x-0 bottom-0 h-14 bg-gradient-to-t from-black/90 via-black/40 to-transparent pointer-events-none"></div>
                         </div>
-                        <button type="button" class="absolute top-2.5 right-2.5 w-7 h-7 rounded-lg bg-black/80 border border-uclGold/60 text-xs text-uclGold flex items-center justify-center">
+                        <button type="button" class="absolute top-2.5 right-2.5 z-30 w-7 h-7 rounded-lg bg-black/80 border border-uclGold/60 text-xs text-uclGold flex items-center justify-center">
                             <i class="fa-solid fa-chart-simple"></i>
                         </button>
-                        <div class="absolute bottom-2.5 inset-x-3 flex items-center justify-center pointer-events-none">
+                        <div class="absolute bottom-2.5 inset-x-3 z-30 flex items-center justify-center pointer-events-none">
                             <span class="px-2.5 py-0.5 rounded-full bg-black/85 border border-uclGold/50 text-[9px] font-extrabold uppercase tracking-wider text-uclGold">
                                 <i class="fa-solid fa-star mr-1"></i> Ver Points Ranking
                             </span>
@@ -203,8 +269,8 @@
                     </div>
                 </div>
 
-                <!-- TABLA GENERAL -->
-                <div class="lg:col-span-7 ucl-card rounded-2xl p-3 sm:p-4 flex flex-col justify-between gap-3 relative overflow-hidden order-2 lg:order-1">
+                <!-- TABLA GENERAL CON NEÓN AMBIENTAL DINÁMICO -->
+                <div id="seasonTableCardWrapper" class="lg:col-span-7 ucl-card rounded-2xl p-3 sm:p-4 flex flex-col justify-between gap-3 relative overflow-hidden order-2 lg:order-1 transition-all duration-300">
                     <div class="flex items-center justify-between gap-2 border-b border-sky-400/15 pb-2">
                         <div>
                             <div class="flex items-center gap-1.5 flex-wrap">
@@ -224,6 +290,23 @@
                     <div id="seasonPodiumCards" class="space-y-2.5 my-auto"></div>
                     <div id="seasonBreakdownFooter" class="pt-2.5 border-t border-sky-400/15 grid grid-cols-2 sm:grid-cols-4 gap-1.5 text-center"></div>
                 </div>
+            </div>
+
+            <!-- BLOQUE EXCLUSIVO FC27: DATOS CURIOSOS DE FINALES (SOLO TEMPORADA ACTUAL) -->
+            <div id="finalsFunFactsWrapper" class="ucl-card neon-ambient-cyan rounded-2xl p-3 sm:p-4 hidden">
+                <div class="flex items-center justify-between gap-2 mb-2.5 border-b border-sky-400/20 pb-2">
+                    <div class="flex items-center gap-2">
+                        <div class="w-7 h-7 rounded-lg bg-uclCyan/20 border border-uclCyan/40 flex items-center justify-center text-uclCyan text-xs">
+                            <i class="fa-solid fa-Scale-balanced"></i>
+                        </div>
+                        <div>
+                            <span class="text-[9px] font-extrabold uppercase tracking-widest text-uclCyan block leading-none">Estadísticas de Finales • Solo Temporada Activa</span>
+                            <h3 id="finalsFunFactsTitle" class="font-oswald text-sm sm:text-base font-bold text-white uppercase tracking-wide">⚖️ DATOS CURIOSOS Y EFECTIVIDAD EN FINALES</h3>
+                        </div>
+                    </div>
+                    <span id="finalsFunFactsSubBadge" class="text-[9px] font-extrabold px-2 py-0.5 rounded-full bg-uclNeon/15 text-uclNeon border border-uclNeon/40">En Vivo</span>
+                </div>
+                <div id="finalsFunFactsGrid" class="grid grid-cols-1 sm:grid-cols-3 gap-2.5"></div>
             </div>
 
             <!-- COPAS DE CLUBES -->
@@ -263,7 +346,7 @@
 
         <!-- VISTA HISTÓRICA GENERAL -->
         <div id="historicalViewContainer" class="space-y-5 hidden">
-            <div class="ucl-card rounded-2xl p-3.5 sm:p-5">
+            <div class="ucl-card neon-ambient-gold rounded-2xl p-3.5 sm:p-5">
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4 border-b border-sky-400/15 pb-3">
                     <div>
                         <span class="text-[9px] font-extrabold uppercase tracking-widest text-uclGold block">🏆 SALÓN DE LA FAMA • ACUMULADO GENERAL (FC27 - FC24)</span>
@@ -329,12 +412,63 @@
     </nav>
 
     <!-- ==========================================
+         MODAL PÚBLICO: RULETA DE ORDEN DE ELECCIÓN PS5 (1°, 2° Y 3° PICK)
+    =========================================== -->
+    <div id="turnRouletteModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden flex items-center justify-center p-3 sm:p-5">
+        <div class="ucl-card neon-ambient-cyan max-w-md w-full rounded-3xl p-4 sm:p-5 flex flex-col gap-3.5 text-center">
+            <div class="flex items-center justify-between border-b border-white/10 pb-2.5">
+                <div class="flex items-center gap-2 text-left">
+                    <div class="w-8 h-8 rounded-xl bg-uclCyan/20 border border-uclCyan/50 flex items-center justify-center text-uclGold">
+                        <i class="fa-solid fa-dice text-base"></i>
+                    </div>
+                    <div>
+                        <span class="text-[9px] font-extrabold uppercase tracking-widest text-uclCyan block leading-none">Sorteo Oficial PS5</span>
+                        <h3 class="font-oswald text-lg font-bold text-white uppercase">RULETA DE TURNOS DE EQUIPO</h3>
+                    </div>
+                </div>
+                <button onclick="closeTurnRouletteModal()" class="w-8 h-8 rounded-xl bg-white/10 text-slate-300 flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <p class="text-[11px] text-sky-200/85">Gira la tómbola para definir al azar quién escoge equipo primero, segundo y tercero en este torneo.</p>
+
+            <!-- Casillas de 1°, 2° y 3° Turno -->
+            <div class="grid grid-cols-3 gap-2 my-1">
+                <div id="pickSlot_0" class="p-3 rounded-2xl bg-[#020817] border-2 border-uclGold/60 flex flex-col items-center justify-center gap-1 shadow-lg">
+                    <span class="px-2 py-0.5 rounded-full bg-uclGold/20 text-uclGold text-[9px] font-extrabold uppercase">🥇 1.° PICK</span>
+                    <span id="pickName_0" class="font-oswald text-lg sm:text-xl font-bold text-white uppercase tracking-wide mt-1">¿ ?</span>
+                    <span class="text-[9px] text-slate-400">Elige primero</span>
+                </div>
+
+                <div id="pickSlot_1" class="p-3 rounded-2xl bg-[#020817] border border-uclCyan/50 flex flex-col items-center justify-center gap-1 shadow-lg">
+                    <span class="px-2 py-0.5 rounded-full bg-uclCyan/20 text-uclCyan text-[9px] font-extrabold uppercase">🥈 2.° PICK</span>
+                    <span id="pickName_1" class="font-oswald text-lg sm:text-xl font-bold text-white uppercase tracking-wide mt-1">¿ ?</span>
+                    <span class="text-[9px] text-slate-400">Elige segundo</span>
+                </div>
+
+                <div id="pickSlot_2" class="p-3 rounded-2xl bg-[#020817] border border-orange-400/50 flex flex-col items-center justify-center gap-1 shadow-lg">
+                    <span class="px-2 py-0.5 rounded-full bg-orange-500/20 text-orange-300 text-[9px] font-extrabold uppercase">🥉 3.° PICK</span>
+                    <span id="pickName_2" class="font-oswald text-lg sm:text-xl font-bold text-white uppercase tracking-wide mt-1">¿ ?</span>
+                    <span class="text-[9px] text-slate-400">Elige tercero</span>
+                </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-2 pt-1">
+                <button id="spinRouletteBtn" onclick="spinTurnRoulette()" class="flex-1 py-2.5 px-4 rounded-xl bg-gradient-to-r from-uclGold via-amber-400 to-yellow-300 text-uclNight font-oswald font-bold text-sm uppercase tracking-wider shadow-lg active:scale-95 transition">
+                    🎲 Girar Ruleta de Turnos
+                </button>
+                <button id="copyRouletteWaBtn" onclick="copyRouletteOrderToWhatsApp()" class="py-2.5 px-3.5 rounded-xl bg-emerald-500/20 border border-emerald-400/50 text-emerald-300 font-bold text-xs uppercase hidden active:scale-95">
+                    <i class="fa-brands fa-whatsapp mr-1"></i> Copiar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================
          MODAL EXCLUSIVO ADMIN: CONTROL DE TEMPORADAS FC27 & WHATSAPP
     =========================================== -->
     <div id="whatsappModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden flex items-center justify-center p-2.5 sm:p-5">
         <div class="ucl-card max-w-xl w-full rounded-3xl p-4 sm:p-5 border border-emerald-500/40 shadow-2xl max-h-[92vh] flex flex-col">
 
-            <!-- Cabecera con Contador de Temporada FC27 -->
             <div class="flex items-center justify-between gap-2 pb-2.5 border-b border-white/10">
                 <div class="flex items-center gap-2.5">
                     <div class="w-9 h-9 rounded-xl bg-emerald-500/20 border border-emerald-400/40 text-emerald-400 flex items-center justify-center shrink-0">
@@ -352,10 +486,7 @@
                 <button onclick="closeWhatsAppModal()" class="w-8 h-8 rounded-xl bg-white/10 text-slate-300 flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button>
             </div>
 
-            <!-- Cuerpo desplazable -->
             <div class="my-3 space-y-3 overflow-y-auto flex-1 pr-1">
-
-                <!-- Tablero de Progreso de las Copas de la Temporada Actual -->
                 <div class="p-2.5 rounded-2xl bg-[#020817]/90 border border-sky-400/20">
                     <div class="flex items-center justify-between mb-1.5">
                         <span class="text-[10px] font-extrabold uppercase tracking-wider text-uclCyan">Progreso de Copas en esta Temporada:</span>
@@ -364,7 +495,6 @@
                     <div id="waCupsStatusPills" class="grid grid-cols-2 sm:grid-cols-3 gap-1.5"></div>
                 </div>
 
-                <!-- Aviso Dorado cuando se completan todas las copas de la temporada -->
                 <div id="waSeasonCompleteBanner" class="p-3 rounded-2xl ucl-card-gold hidden">
                     <div class="flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
                         <div>
@@ -377,7 +507,6 @@
                     </div>
                 </div>
 
-                <!-- Selector de Copa y Puestos de Jugadores -->
                 <div class="p-3 rounded-2xl bg-[#030b1e] border border-white/10 space-y-2.5">
                     <div>
                         <label class="block text-[10px] font-extrabold uppercase tracking-wider text-amber-300 mb-1">1. Selecciona la Copa jugada:</label>
@@ -387,7 +516,6 @@
                     <div>
                         <label class="block text-[10px] font-extrabold uppercase tracking-wider text-uclCyan mb-1.5">2. ¿En qué instancia quedó cada jugador?</label>
                         <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                            <!-- IDs numéricos (0, 1, 2) para evitar errores de tildes -->
                             <div class="bg-black/50 p-2 rounded-xl border border-white/10">
                                 <label class="block text-[10px] font-extrabold text-white mb-1">⚽ Jesús</label>
                                 <select id="waInst_0" onchange="handleInstanceChange(0)" class="w-full px-2 py-1.5 rounded-lg bg-[#020817] border border-white/20 text-xs text-uclGold font-bold">
@@ -437,27 +565,23 @@
                     </div>
                 </div>
 
-                <!-- Cuadro de Texto Generado para WhatsApp -->
                 <div>
                     <div class="flex items-center justify-between mb-1">
                         <label id="waOutputLabel" class="text-[10px] font-extrabold uppercase text-emerald-400">📲 Mensaje listo para copiar a WhatsApp:</label>
-                        <div class="flex items-center gap-2">
-                            <button type="button" onclick="copyWhatsAppText()" class="px-2.5 py-1 rounded-lg bg-emerald-500/20 border border-emerald-400/40 text-[10px] text-emerald-300 font-extrabold hover:bg-emerald-500/30">
-                                <i class="fa-regular fa-copy mr-1"></i> Copiar Texto
-                            </button>
-                        </div>
+                        <button type="button" onclick="copyWhatsAppText()" class="px-2.5 py-1 rounded-lg bg-emerald-500/20 border border-emerald-400/40 text-[10px] text-emerald-300 font-extrabold hover:bg-emerald-500/30">
+                            <i class="fa-regular fa-copy mr-1"></i> Copiar Texto
+                        </button>
                     </div>
                     <textarea id="whatsappOutputBox" rows="7" readonly placeholder="Aquí aparecerá el reporte de la copa o el resumen de la temporada..." class="w-full p-3 rounded-xl bg-[#020817] border border-emerald-500/40 text-xs text-white font-mono resize-none focus:outline-none"></textarea>
                 </div>
             </div>
 
-            <!-- Botones inferiores del Modal -->
             <div class="pt-2.5 border-t border-white/10 flex flex-wrap items-center justify-between gap-2">
                 <div class="flex items-center gap-1.5">
                     <button type="button" onclick="generateMiniSeasonSummaryText(true)" class="px-3 py-1.5 rounded-xl bg-sky-500/20 hover:bg-sky-500/30 text-uclCyan border border-sky-400/40 font-extrabold text-[11px]">
                         📋 Resumen de Temporada
                     </button>
-                    <button type="button" onclick="promptResetCurrentMiniSeason()" class="px-2.5 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-400 text-[10px] font-semibold" title="Limpiar copas registradas de esta temporada sin borrar el acumulado general">
+                    <button type="button" onclick="promptResetCurrentMiniSeason()" class="px-2.5 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-400 text-[10px] font-semibold">
                         Reiniciar Temp.
                     </button>
                 </div>
@@ -559,9 +683,115 @@
          5. MOTOR JAVASCRIPT COMPLETO
     =========================================== -->
     <script>
+        // --- A. SINTETIZADOR DE SONIDOS DE SORTEO Y GALA (0 KB - WEB AUDIO API) ---
+        let soundEnabled = true;
+        let audioCtx = null;
+
+        function getAudioContext() {
+            if (!audioCtx) {
+                const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+                if (AudioContextClass) audioCtx = new AudioContextClass();
+            }
+            if (audioCtx && audioCtx.state === "suspended") audioCtx.resume();
+            return audioCtx;
+        }
+
+        function toggleSoundEffects() {
+            soundEnabled = !soundEnabled;
+            const icon = document.getElementById("soundToggleIcon");
+            const btn = document.getElementById("soundToggleBtn");
+            if (soundEnabled) {
+                icon.className = "fa-solid fa-volume-high text-xs";
+                btn.className = "w-8 h-8 sm:w-9 sm:h-9 rounded-xl border border-white/15 bg-white/5 text-uclCyan flex items-center justify-center transition";
+                playRouletteTick(660);
+                showToast("🔊 Sonidos de Gala Activados");
+            } else {
+                icon.className = "fa-solid fa-volume-xmark text-xs";
+                btn.className = "w-8 h-8 sm:w-9 sm:h-9 rounded-xl border border-white/10 bg-white/5 text-slate-500 flex items-center justify-center transition";
+                showToast("🔇 Sonidos Silenciados");
+            }
+        }
+
+        function playRouletteTick(freq = 520) {
+            if (!soundEnabled) return;
+            try {
+                const ctx = getAudioContext();
+                if (!ctx) return;
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = "triangle";
+                osc.frequency.setValueAtTime(freq, ctx.currentTime);
+                gain.gain.setValueAtTime(0.08, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.045);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start();
+                osc.stop(ctx.currentTime + 0.05);
+            } catch (e) {}
+        }
+
+        function playGalaFanfare() {
+            if (!soundEnabled) return;
+            try {
+                const ctx = getAudioContext();
+                if (!ctx) return;
+                const notes = [523.25, 659.25, 783.99, 1046.50]; // Acorde Mayor de Gala (Do - Mi - Sol - Do)
+                notes.forEach((freq, idx) => {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = "sine";
+                    const startTime = ctx.currentTime + (idx * 0.07);
+                    osc.frequency.setValueAtTime(freq, startTime);
+                    gain.gain.setValueAtTime(0.11, startTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.45);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start(startTime);
+                    osc.stop(startTime + 0.46);
+                });
+            } catch (e) {}
+        }
+
+        // --- B. EFECTO HOLOGRÁFICO 3D INTERACTIVO EN TARJETAS ---
+        function attachHolo3DEvents() {
+            document.querySelectorAll(".holo-3d-card").forEach(card => {
+                if (card.dataset.holoBound === "1") return;
+                card.dataset.holoBound = "1";
+
+                const updateHolo = (clientX, clientY) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = clientX - rect.left;
+                    const y = clientY - rect.top;
+                    const pctX = Math.max(0, Math.min(100, (x / rect.width) * 100));
+                    const pctY = Math.max(0, Math.min(100, (y / rect.height) * 100));
+                    const rotY = ((pctX - 50) / 50) * 7;
+                    const rotX = ((50 - pctY) / 50) * 7;
+                    card.style.setProperty("--rx", `${rotX.toFixed(2)}deg`);
+                    card.style.setProperty("--ry", `${rotY.toFixed(2)}deg`);
+                    card.style.setProperty("--holo-x", `${pctX.toFixed(1)}%`);
+                    card.style.setProperty("--holo-y", `${pctY.toFixed(1)}%`);
+                    card.style.setProperty("--holo-opacity", "1");
+                };
+
+                const resetHolo = () => {
+                    card.style.setProperty("--rx", "0deg");
+                    card.style.setProperty("--ry", "0deg");
+                    card.style.setProperty("--holo-opacity", "0");
+                };
+
+                card.addEventListener("mousemove", e => updateHolo(e.clientX, e.clientY), { passive: true });
+                card.addEventListener("mouseleave", resetHolo, { passive: true });
+                card.addEventListener("touchmove", e => {
+                    if (e.touches && e.touches[0]) updateHolo(e.touches[0].clientX, e.touches[0].clientY);
+                }, { passive: true });
+                card.addEventListener("touchend", resetHolo, { passive: true });
+            });
+        }
+
+        // --- C. PRE-CARGADOR DE FOTOS EN RAM ---
         const RESOLVED_IMAGE_URLS = {};
         const RAM_IMAGE_POOL = {};
-        const FAST_SCORES_CACHE_KEY = "EA_FC_FAST_SCORES_ONLY_V2";
+        const FAST_SCORES_CACHE_KEY = "EA_FC_FAST_SCORES_ONLY_V3";
 
         const ALL_PHOTO_KEYS = [
             "logo", "balon-fc27", "balon-fc26", "balon-fc25", "balon-fc24",
@@ -638,10 +868,14 @@
                 apiKey: "$2a$10$fqNp9RW9J5.6/0hZH3ljkOxRxBY3S3IyPTpusVVwoB4RYsz2D5ley"
             },
             players: ["Jesús", "Sebastián", "David"],
-            // CONTADOR DE MINI-TEMPORADAS INTERNAS DE FC27
             fc27Tracker: {
                 seasonNumber: 1,
-                cupsPlayed: {}
+                cupsPlayed: {},
+                archivedFinals: {
+                    "Jesús": { won: 0, runnerUp: 0 },
+                    "Sebastián": { won: 0, runnerUp: 0 },
+                    "David": { won: 0, runnerUp: 0 }
+                }
             },
             seasons: {
                 FC24: {
@@ -718,7 +952,7 @@
 
         function ensureTrackerStructure() {
             if (!APP_STATE.fc27Tracker || typeof APP_STATE.fc27Tracker !== "object") {
-                APP_STATE.fc27Tracker = { seasonNumber: 1, cupsPlayed: {} };
+                APP_STATE.fc27Tracker = { seasonNumber: 1, cupsPlayed: {}, archivedFinals: {} };
             }
             if (!APP_STATE.fc27Tracker.seasonNumber || APP_STATE.fc27Tracker.seasonNumber < 1) {
                 APP_STATE.fc27Tracker.seasonNumber = 1;
@@ -726,6 +960,14 @@
             if (!APP_STATE.fc27Tracker.cupsPlayed || typeof APP_STATE.fc27Tracker.cupsPlayed !== "object") {
                 APP_STATE.fc27Tracker.cupsPlayed = {};
             }
+            if (!APP_STATE.fc27Tracker.archivedFinals || typeof APP_STATE.fc27Tracker.archivedFinals !== "object") {
+                APP_STATE.fc27Tracker.archivedFinals = {};
+            }
+            ORDERED_PLAYERS.forEach(p => {
+                if (!APP_STATE.fc27Tracker.archivedFinals[p]) {
+                    APP_STATE.fc27Tracker.archivedFinals[p] = { won: 0, runnerUp: 0 };
+                }
+            });
         }
 
         function loadFastScoresCache() {
@@ -753,12 +995,12 @@
         let isAdminUnlocked = false;
         let SUMMARY_CACHE = {};
         let saveTimeout = null;
+        let currentRouletteOrder = [];
 
         function invalidateSummaryCache() {
             SUMMARY_CACHE = {};
         }
 
-        // En las vistas públicas se muestran todas las copas de cada edición
         function isCupEnabledInSeason(seasonId, cupKey) {
             if (seasonId === "FC24" && (cupKey === "dfbpokal" || cupKey === "copafrancesa")) return false;
             if (seasonId === "FC25" && cupKey === "copafrancesa") return false;
@@ -872,6 +1114,184 @@
             refreshAllViews();
             pullStateFromCloud(true, false);
         });
+
+        // ==========================================
+        // RULETA PÚBLICA DE TURNOS DE EQUIPO (1°, 2° Y 3° PICK)
+        // ==========================================
+        function openTurnRouletteModal() {
+            document.getElementById("turnRouletteModal").classList.remove("hidden");
+        }
+
+        function closeTurnRouletteModal() {
+            document.getElementById("turnRouletteModal").classList.add("hidden");
+        }
+
+        function spinTurnRoulette() {
+            const btn = document.getElementById("spinRouletteBtn");
+            const copyBtn = document.getElementById("copyRouletteWaBtn");
+            btn.disabled = true;
+            btn.classList.add("opacity-60");
+            copyBtn.classList.add("hidden");
+
+            // Mezcla aleatoria imparcial (Fisher-Yates)
+            const shuffled = [...ORDERED_PLAYERS];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            currentRouletteOrder = shuffled;
+
+            let step = 0;
+            const totalTicks = 18;
+            const interval = setInterval(() => {
+                step++;
+                playRouletteTick(420 + (step * 18));
+
+                // Efecto visual de giro en cada casilla
+                [0, 1, 2].forEach(idx => {
+                    const el = document.getElementById(`pickName_${idx}`);
+                    if (step < 8 || (idx === 1 && step < 13) || (idx === 2 && step < totalTicks)) {
+                        el.textContent = ORDERED_PLAYERS[(step + idx) % 3];
+                        el.className = "font-oswald text-lg sm:text-xl font-bold text-slate-400 uppercase tracking-wide mt-1";
+                    } else {
+                        el.textContent = shuffled[idx];
+                        el.className = idx === 0
+                            ? "font-oswald text-lg sm:text-xl font-bold text-uclGold uppercase tracking-wide mt-1"
+                            : "font-oswald text-lg sm:text-xl font-bold text-white uppercase tracking-wide mt-1";
+                    }
+                });
+
+                if (step >= totalTicks) {
+                    clearInterval(interval);
+                    playGalaFanfare();
+                    btn.disabled = false;
+                    btn.classList.remove("opacity-60");
+                    copyBtn.classList.remove("hidden");
+                    showToast(`🎲 1.° Pick: ${shuffled[0]} • 2.°: ${shuffled[1]} • 3.°: ${shuffled[2]}`);
+                }
+            }, 95);
+        }
+
+        function copyRouletteOrderToWhatsApp() {
+            if (!currentRouletteOrder.length) return;
+            const tNum = APP_STATE.fc27Tracker?.seasonNumber || 1;
+            const text = `🎲 *ORDEN DE ELECCIÓN DE EQUIPOS • TEMP. ${tNum} (FC27)*\n\n` +
+                `🥇 *1.° Pick:* ${currentRouletteOrder[0]}\n` +
+                `🥈 *2.° Pick:* ${currentRouletteOrder[1]}\n` +
+                `🥉 *3.° Pick:* ${currentRouletteOrder[2]}`;
+            copyTextSilently(text);
+            showToast("📲 Orden de turnos copiado para WhatsApp");
+        }
+
+        // ==========================================
+        // DATOS CURIOSOS DE FINALES (SOLO TEMPORADA ACTIVA)
+        // ==========================================
+        function renderFinalsFunFacts(seasonId) {
+            const wrapper = document.getElementById("finalsFunFactsWrapper");
+            if (seasonId !== "FC27") {
+                wrapper.classList.add("hidden");
+                return;
+            }
+            wrapper.classList.remove("hidden");
+            ensureTrackerStructure();
+
+            const tNum = APP_STATE.fc27Tracker.seasonNumber;
+            const played = APP_STATE.fc27Tracker.cupsPlayed || {};
+
+            // Contabiliza únicamente las finales registradas en la temporada en curso (Temporada N - FC27)
+            const stats = {
+                "Jesús": { finals: 0, won: 0, sub: 0 },
+                "Sebastián": { finals: 0, won: 0, sub: 0 },
+                "David": { finals: 0, won: 0, sub: 0 }
+            };
+
+            let registeredCupsCount = 0;
+            Object.keys(played).forEach(cupKey => {
+                const entry = played[cupKey];
+                if (entry && entry.played && entry.results) {
+                    registeredCupsCount++;
+                    ORDERED_PLAYERS.forEach(p => {
+                        const res = entry.results[p];
+                        if (res === "Campeón") {
+                            stats[p].finals++;
+                            stats[p].won++;
+                        } else if (res === "Subcampeón") {
+                            stats[p].finals++;
+                            stats[p].sub++;
+                        }
+                    });
+                }
+            });
+
+            document.getElementById("finalsFunFactsTitle").textContent = `⚖️ DATOS CURIOSOS DE FINALES • TEMPORADA ${tNum} (FC27)`;
+            document.getElementById("finalsFunFactsSubBadge").textContent = `${registeredCupsCount} copas registradas`;
+
+            // 1. Jugador con más finales disputadas en esta temporada
+            const maxFinals = Math.max(...ORDERED_PLAYERS.map(p => stats[p].finals));
+            const mostFinalsPlayers = maxFinals > 0
+                ? ORDERED_PLAYERS.filter(p => stats[p].finals === maxFinals).join(" y ")
+                : "Por definir";
+
+            // 2. Mejor Efectividad en Finales en esta temporada
+            let bestEff = -1;
+            let bestEffLabel = "Por definir";
+            let bestEffSub = "Se calcula al jugar la 1.ª final";
+            ORDERED_PLAYERS.forEach(p => {
+                if (stats[p].finals > 0) {
+                    const eff = Math.round((stats[p].won / stats[p].finals) * 100);
+                    if (eff > bestEff) {
+                        bestEff = eff;
+                        bestEffLabel = `${p} (${eff}%)`;
+                        bestEffSub = `${stats[p].won} ganadas de ${stats[p].finals} finales`;
+                    } else if (eff === bestEff && bestEff > 0) {
+                        bestEffLabel += ` / ${p} (${eff}%)`;
+                    }
+                }
+            });
+
+            // 3. Más Subcampeonatos en esta temporada
+            const maxSub = Math.max(...ORDERED_PLAYERS.map(p => stats[p].sub));
+            const mostSubPlayers = maxSub > 0
+                ? ORDERED_PLAYERS.filter(p => stats[p].sub === maxSub).join(" y ")
+                : "Ninguno aún";
+
+            document.getElementById("finalsFunFactsGrid").innerHTML = `
+                <div class="p-3 rounded-xl bg-[#030b1e] border border-uclCyan/35 flex flex-col justify-between">
+                    <div class="flex items-center justify-between">
+                        <span class="text-[9px] font-extrabold uppercase tracking-wider text-uclCyan">🏟️ MÁS FINALES DISPUTADAS</span>
+                        <span class="text-xs">🔥</span>
+                    </div>
+                    <div class="flex items-baseline justify-between mt-1">
+                        <span class="font-oswald text-base sm:text-lg font-bold text-white uppercase truncate">${mostFinalsPlayers}</span>
+                        <span class="font-display text-2xl text-uclGold">${maxFinals} Finales</span>
+                    </div>
+                    <span class="text-[9px] text-slate-400 mt-1 block">Jesús: ${stats["Jesús"].finals} • Sebas: ${stats["Sebastián"].finals} • David: ${stats["David"].finals}</span>
+                </div>
+
+                <div class="p-3 rounded-xl bg-[#030b1e] border border-uclNeon/35 flex flex-col justify-between">
+                    <div class="flex items-center justify-between">
+                        <span class="text-[9px] font-extrabold uppercase tracking-wider text-uclNeon">🎯 REY DE FINALES (EFECTIVIDAD)</span>
+                        <span class="text-xs">👑</span>
+                    </div>
+                    <div class="flex items-baseline justify-between mt-1">
+                        <span class="font-oswald text-base sm:text-lg font-bold text-white uppercase truncate">${bestEffLabel}</span>
+                    </div>
+                    <span class="text-[9px] text-slate-400 mt-1 block">${bestEffSub}</span>
+                </div>
+
+                <div class="p-3 rounded-xl bg-[#030b1e] border border-amber-400/35 flex flex-col justify-between">
+                    <div class="flex items-center justify-between">
+                        <span class="text-[9px] font-extrabold uppercase tracking-wider text-amber-300">🥈 MÁS SUBCAMPEONATOS</span>
+                        <span class="text-xs">⚡</span>
+                    </div>
+                    <div class="flex items-baseline justify-between mt-1">
+                        <span class="font-oswald text-base sm:text-lg font-bold text-white uppercase truncate">${mostSubPlayers}</span>
+                        <span class="font-display text-2xl text-amber-300">${maxSub} Sub.</span>
+                    </div>
+                    <span class="text-[9px] text-slate-400 mt-1 block">Jesús: ${stats["Jesús"].sub} • Sebas: ${stats["Sebastián"].sub} • David: ${stats["David"].sub}</span>
+                </div>
+            `;
+        }
 
         // ==========================================
         // MOTOR MATEMÁTICO DE LA TABLA Y BALÓN DE ORO
@@ -999,6 +1419,7 @@
                 document.getElementById("seasonViewContainer").classList.remove("hidden");
                 renderSingleSeasonView(currentSeason);
             }
+            attachHolo3DEvents();
         }
 
         function renderMobileBottomNav() {
@@ -1031,7 +1452,7 @@
                 ? `Empate (${sortedHist[0][1]})`
                 : `Líder: <strong>${sortedHist[0][0]} (${sortedHist[0][1]})</strong>`;
 
-            let html = `<button onclick="switchSeason('HISTORICO')" class="snap-start shrink-0 w-40 md:w-auto rounded-xl p-2 sm:p-2.5 text-left ${currentSeason === 'HISTORICO' ? 'bg-gradient-to-br from-amber-500/35 via-[#0d2254] to-[#051029] border-2 border-uclGold' : 'ucl-card opacity-85'}">
+            let html = `<button onclick="switchSeason('HISTORICO')" class="snap-start shrink-0 w-40 md:w-auto rounded-xl p-2 sm:p-2.5 text-left ${currentSeason === 'HISTORICO' ? 'ucl-card neon-ambient-gold' : 'ucl-card opacity-85'}">
                 <div class="flex items-center justify-between"><span class="text-[9px] font-extrabold uppercase text-uclGold"><i class="fa-solid fa-trophy"></i> Histórico</span><span class="px-1.5 py-0.5 text-[8px] font-extrabold rounded-full bg-uclGold/20 text-uclGold">${allCups}</span></div>
                 <div class="font-oswald text-sm sm:text-base font-bold gold-text-shine mt-0.5">RANKING GENERAL</div>
                 <div class="text-[10px] text-sky-100/85 truncate">${histSub}</div>
@@ -1046,10 +1467,11 @@
 
                 const statusBadge = isUpcoming
                     ? `<span class="text-[9px] font-extrabold text-uclCyan">⏳ ${s.year}</span>`
-                    : (isOngoing ? `<span class="text-[9px] font-extrabold text-uclNeon">🟢 TEMP. ${APP_STATE.fc27Tracker.seasonNumber}</span>` : `<span class="text-[9px] font-bold text-sky-200/80">🏁 ${s.year}</span>`);
+                    : (isOngoing ? `<span class="text-[9px] font-extrabold text-uclNeon">🟢 TEMP. ${APP_STATE.fc27Tracker.seasonNumber}</span>` : `<span class="text-[9px] font-bold text-uclGold">🏁 ${s.year}</span>`);
                 const subText = isUpcoming ? "Próximamente" : (isOngoing ? `Líder: <strong>${ballonEvaluation[0].player}</strong>` : `🌕 <strong>${bWinner}</strong>`);
+                const activeBorderClass = currentSeason === sKey ? (isOngoing ? 'ucl-card neon-ambient-cyan' : 'ucl-card neon-ambient-gold') : 'ucl-card opacity-80';
 
-                html += `<button onclick="switchSeason('${sKey}')" class="snap-start shrink-0 w-36 md:w-auto rounded-xl p-2 sm:p-2.5 text-left ${currentSeason === sKey ? 'bg-gradient-to-br from-uclCyan/30 via-[#0d2254] to-[#051029] border-2 border-uclCyan' : 'ucl-card opacity-85'}">
+                html += `<button onclick="switchSeason('${sKey}')" class="snap-start shrink-0 w-36 md:w-auto rounded-xl p-2 sm:p-2.5 text-left ${activeBorderClass}">
                     <div class="flex items-center justify-between">${statusBadge}<span class="px-1.5 py-0.5 text-[8px] font-extrabold rounded-full bg-white/10 text-white">${seasonTotal}</span></div>
                     <div class="font-oswald text-sm sm:text-base font-bold text-white mt-0.5">${s.id} • ${s.year}</div>
                     <div class="text-[10px] text-sky-100/85 truncate">${subText}</div>
@@ -1069,6 +1491,18 @@
             const { clubesImportantes, clubesLocales, seleccion, ranking, ballonEvaluation, seasonTotal } = computeSeasonSummary(seasonId);
             const isOngoing = season.status === "EN CURSO";
             const isUpcoming = season.status === "PRÓXIMAMENTE";
+            const isDisputa = !isUpcoming && season.ballonDorMode === "EN DISPUTA";
+
+            // Aplicar Neón Dinámico Nivel Consola: Cian si está En Disputa/Curso, Dorado Intenso si tiene Campeón Oficial
+            const tableCard = document.getElementById("seasonTableCardWrapper");
+            const ballonCard = document.getElementById("ballonDorCardWrapper");
+            if (isOngoing || isDisputa) {
+                tableCard.className = "lg:col-span-7 ucl-card neon-ambient-cyan rounded-2xl p-3 sm:p-4 flex flex-col justify-between gap-3 relative overflow-hidden order-2 lg:order-1 transition-all duration-300";
+                ballonCard.className = "lg:col-span-5 ucl-card neon-ambient-cyan rounded-2xl p-3.5 sm:p-4 flex flex-col justify-between gap-3 relative overflow-hidden order-1 lg:order-2 transition-all duration-300";
+            } else {
+                tableCard.className = "lg:col-span-7 ucl-card neon-ambient-gold rounded-2xl p-3 sm:p-4 flex flex-col justify-between gap-3 relative overflow-hidden order-2 lg:order-1 transition-all duration-300";
+                ballonCard.className = "lg:col-span-5 ucl-card-gold neon-ambient-gold rounded-2xl p-3.5 sm:p-4 flex flex-col justify-between gap-3 relative overflow-hidden order-1 lg:order-2 transition-all duration-300";
+            }
 
             document.getElementById("seasonBadgeTag").textContent = seasonId === "FC27"
                 ? `⚽ ${season.title} • TEMPORADA ${APP_STATE.fc27Tracker.seasonNumber}`
@@ -1077,7 +1511,7 @@
             document.getElementById("seasonTotalCupsCounter").textContent = `${seasonTotal} Títulos`;
 
             const statusPill = document.getElementById("seasonStatusPill");
-            statusPill.className = `inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[8px] font-extrabold uppercase ${isUpcoming ? 'bg-uclCyan/20 text-uclCyan' : (isOngoing ? 'bg-uclNeon/20 text-uclNeon' : 'bg-white/10 text-slate-200')}`;
+            statusPill.className = `inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[8px] font-extrabold uppercase ${isUpcoming ? 'bg-uclCyan/20 text-uclCyan' : (isOngoing ? 'bg-uclNeon/20 text-uclNeon' : 'bg-uclGold/20 text-uclGold')}`;
             statusPill.textContent = season.status;
 
             const topScore = Math.max(1, ranking[0].total);
@@ -1117,7 +1551,6 @@
                 <div class="p-2 rounded-xl bg-[#030b1e] border border-sky-400/20"><span class="text-[8px] uppercase text-slate-300 font-extrabold block">⚡ Diferencia 1° vs 2°</span><span class="text-xs font-extrabold text-white block">${ventajaLabel}</span><span class="text-[8px] text-slate-400 block">Tabla General</span></div>
             `;
 
-            const isDisputa = !isUpcoming && season.ballonDorMode === "EN DISPUTA";
             const winnerName = isUpcoming ? "PRÓXIMAMENTE" : ((season.ballonDorWinner && season.ballonDorWinner !== "AUTO") ? season.ballonDorWinner : ballonEvaluation[0].player);
             document.getElementById("ballonDorStatusBadge").textContent = isUpcoming ? "⏳ PRÓXIMAMENTE" : (isDisputa ? "🔥 EN DISPUTA" : `🏆 GANADOR OFICIAL ${season.year}`);
 
@@ -1132,6 +1565,9 @@
             document.getElementById("ballonDorSeasonLabel").textContent = `BALÓN DE ORO ${season.year} • ${season.id}`;
             document.getElementById("ballonDorWinnerName").textContent = isDisputa ? `1° ${ballonEvaluation[0].player.toUpperCase()}` : `👑 ${winnerName.toUpperCase()}`;
             document.getElementById("ballonDorWinnerDesc").textContent = season.ballonDorCustomText || "";
+
+            // Renderizar Datos Curiosos de Finales (Exclusivo FC27)
+            renderFinalsFunFacts(seasonId);
 
             const visibleClubs = TOURNAMENTS_CATALOG.filter(c => c.category === "clubes" && isCupEnabledInSeason(seasonId, c.key));
             document.getElementById("clubCupsCountBadge").textContent = `${visibleClubs.length} Torneos`;
@@ -1155,16 +1591,16 @@
                 : (gap12 === 0 ? `<span class="px-2 py-0.5 rounded-full text-[8px] font-extrabold bg-black/85 text-uclCyan border border-uclCyan/50">⚡ Empate</span>`
                 : `<span class="px-2 py-0.5 rounded-full text-[8px] font-extrabold bg-black/90 text-uclGold border border-uclGold/60">👑 ${ordered[0]}</span>`);
 
-            return `<div class="${sizeClasses} cup-card-aspect ucl-card rounded-2xl p-2.5 flex flex-col justify-between relative overflow-hidden border ${cup.borderGlow} group shrink-0">
+            return `<div class="holo-3d-card ${sizeClasses} cup-card-aspect ucl-card rounded-2xl p-2.5 flex flex-col justify-between relative overflow-hidden border ${cup.borderGlow} group shrink-0">
                 <div class="absolute inset-[5%] z-0 rounded-xl overflow-hidden pointer-events-none border border-white/15 bg-[#03091c]">
                     <img src="${getPhotoSrc(cup.key)}" data-step="0" loading="eager" decoding="sync" alt="${cup.name}" class="w-full h-full object-cover object-center opacity-95" onload="RESOLVED_IMAGE_URLS['${cup.key}']=this.src" onerror="handleSmartImageError(this, '${cup.key}')">
                     <div class="absolute inset-0 bg-gradient-to-t from-[#020817]/95 via-[#020817]/45 to-transparent"></div>
                 </div>
-                <div class="relative z-10 flex items-center justify-between px-1 pt-0.5">
+                <div class="relative z-30 flex items-center justify-between px-1 pt-0.5">
                     ${kingBadge}
                     <button onclick="openTrophyLightbox('${cup.name}', '${cup.key}', '${cup.subtitle}')" class="w-5 h-5 rounded-md bg-black/85 border border-white/25 text-[9px] text-white flex items-center justify-center"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
                 </div>
-                <div class="relative z-10 mt-auto px-1 pb-0.5">
+                <div class="relative z-30 mt-auto px-1 pb-0.5">
                     <h3 class="font-oswald text-xs sm:text-[15px] font-bold text-white uppercase leading-tight mb-1 drop-shadow">${cup.dot} ${cup.name}</h3>
                     <div class="space-y-1">
                         ${ordered.map(player => {
@@ -1207,28 +1643,20 @@
                 libEntry && libEntry.played && libEntry.winner === "Ninguno"
             );
 
-            // La Intercontinental se desbloquea si hubo campeón en Champions o Libertadores
             const interUnlocked = hasChampWinner || hasLibWinner;
             const interCancelled = bothMajorsPlayedNoWinner;
 
-            // Lista de copas requeridas para dar por terminada esta Temporada N - FC27
             const requiredKeys = [...BASE_7_CLUB_CUPS];
             if (interUnlocked) requiredKeys.push("intercontinental");
             if (isEven) requiredKeys.push("mundial", "eurocopa");
 
-            // Para que una temporada de 7 copas se considere terminada, las 7 base deben haberse jugado
             const playedRequiredCount = requiredKeys.filter(k => played[k] && played[k].played).length;
             const isComplete = playedRequiredCount === requiredKeys.length && requiredKeys.length > 0;
 
             return {
-                tNum,
-                isEven,
-                interUnlocked,
-                interCancelled,
-                requiredKeys,
-                playedRequiredCount,
-                totalRequiredCount: requiredKeys.length,
-                isComplete
+                tNum, isEven, interUnlocked, interCancelled,
+                requiredKeys, playedRequiredCount,
+                totalRequiredCount: requiredKeys.length, isComplete
             };
         }
 
@@ -1254,7 +1682,6 @@
             showToast(`🗓️ Activa: Temporada ${nextNum} - FC27`);
         }
 
-        // Si el admin marca a un jugador como "Campeón", evita que otro jugador quede también como "Campeón" por accidente
         function handleInstanceChange(changedIdx) {
             const selVal = document.getElementById(`waInst_${changedIdx}`).value;
             if (selVal === "Campeón") {
@@ -1277,7 +1704,6 @@
 
             document.getElementById("waProgressCounterBadge").textContent = `${rules.playedRequiredCount} / ${rules.totalRequiredCount} Jugadas`;
 
-            // Construir píldoras visuales de estado de cada copa en la temporada actual
             const visibleInModal = TOURNAMENTS_CATALOG.filter(c => {
                 if (c.category === "seleccion") return rules.isEven;
                 return true;
@@ -1312,7 +1738,6 @@
                 </button>`;
             }).join("");
 
-            // Llenar el selector desplegable de copas disponibles en esta Temporada N
             const selectEl = document.getElementById("waCupSelect");
             const prevValue = selectEl.value;
             const selectableCups = visibleInModal.filter(c => {
@@ -1331,7 +1756,6 @@
             if (preserveSelectedCup && selectableCups.some(c => c.key === prevValue)) {
                 selectEl.value = prevValue;
             } else {
-                // Selecciona automáticamente la primera copa pendiente por jugar
                 const firstUnplayed = selectableCups.find(c => {
                     if (c.key === "intercontinental" && !rules.interUnlocked) return false;
                     return !played[c.key] || !played[c.key].played;
@@ -1341,7 +1765,6 @@
 
             loadSavedCupResultsIntoSelectors();
 
-            // Mostrar u ocultar el banner de Temporada Completada
             const banner = document.getElementById("waSeasonCompleteBanner");
             if (rules.isComplete) {
                 document.getElementById("waNextSeasonBtnLabel").textContent = `Temporada ${rules.tNum + 1} - FC27`;
@@ -1368,7 +1791,6 @@
                     if (savedVal) document.getElementById(`waInst_${idx}`).value = savedVal;
                 });
             } else {
-                // Valores por defecto rápidos
                 document.getElementById("waInst_0").value = "Campeón";
                 document.getElementById("waInst_1").value = "Semis";
                 document.getElementById("waInst_2").value = "8vos";
@@ -1381,7 +1803,6 @@
             return `Eliminado en ${inst}`;
         }
 
-        // BOTÓN VERDE: Registra la copa en la Temporada N, suma +1 en FC27 y genera el reporte al instante
         function registerCupAndBuildWhatsApp() {
             ensureTrackerStructure();
             const rulesBefore = getMiniSeasonRules();
@@ -1404,7 +1825,6 @@
                 if (val === "Campeón") winnerName = p;
             });
 
-            // Ajustar el marcador acumulado de FC27 sin duplicar si se edita una copa ya jugada en esta temporada
             const prevEntry = APP_STATE.fc27Tracker.cupsPlayed[cupKey];
             if (!APP_STATE.seasons.FC27.scores[cupKey]) {
                 APP_STATE.seasons.FC27.scores[cupKey] = { "Jesús": 0, "Sebastián": 0, "David": 0 };
@@ -1419,18 +1839,17 @@
                 APP_STATE.seasons.FC27.scores[cupKey][winnerName] = Number(APP_STATE.seasons.FC27.scores[cupKey][winnerName] || 0) + 1;
             }
 
-            // Guardar la copa dentro de la Temporada N - FC27
             APP_STATE.fc27Tracker.cupsPlayed[cupKey] = {
                 played: true,
                 winner: winnerName,
                 results: results
             };
 
+            playGalaFanfare();
             invalidateSummaryCache();
             refreshAllViews();
             schedulePushToCloud();
 
-            // Construir el reporte individual de la copa jugada
             let cupReport = `🏆 *RESUMEN DE LA ${cupObj.name.toUpperCase()}*\n`;
             cupReport += `⚽ *Temporada ${tNum} - FC27*\n\n`;
 
@@ -1444,7 +1863,6 @@
                 cupReport += `\n❌ *Campeón:* Ninguno (Copa desierta)`;
             }
 
-            // Verificar si con esta copa ya se completaron todas las copas de la Temporada N - FC27
             const rulesAfter = getMiniSeasonRules();
             renderWhatsAppModalState(false);
 
@@ -1486,7 +1904,6 @@
                 text += `${c.dot} *${c.name}:* ${wText}\n`;
             });
 
-            // 8va Copa: Copa Intercontinental (según regla de Champions / Libertadores)
             const interEntry = played["intercontinental"];
             if (rules.interCancelled) {
                 text += `⚪ *Copa Intercontinental:* 🚫 No se jugó (Sin campeón en UCL/LIB)\n`;
@@ -1501,7 +1918,6 @@
                 text += `⚪ *Copa Intercontinental:* ⏳ Pendiente\n`;
             }
 
-            // Selecciones Nacionales (Solo en temporadas pares: 2, 4, 6, 8...)
             if (rules.isEven) {
                 text += `\n🥅 *A NIVEL DE SELECCIÓN:*\n`;
                 ["mundial", "eurocopa"].forEach(k => {
@@ -1536,7 +1952,6 @@
             }
         }
 
-        // Copia el resumen final de la Temporada N y avanza el contador a la Temporada N + 1
         function finishAndAdvanceMiniSeason() {
             ensureTrackerStructure();
             const finishedNum = APP_STATE.fc27Tracker.seasonNumber;
@@ -1546,6 +1961,7 @@
             APP_STATE.fc27Tracker.seasonNumber = finishedNum + 1;
             APP_STATE.fc27Tracker.cupsPlayed = {};
 
+            playGalaFanfare();
             refreshAllViews();
             renderWhatsAppModalState(false);
             schedulePushToCloud();
@@ -1559,6 +1975,7 @@
             const tNum = APP_STATE.fc27Tracker.seasonNumber;
             if (confirm(`¿Deseas limpiar el registro de copas de la Temporada ${tNum} - FC27 para volver a empezarla?`)) {
                 APP_STATE.fc27Tracker.cupsPlayed = {};
+                refreshAllViews();
                 renderWhatsAppModalState(false);
                 schedulePushToCloud();
                 document.getElementById("whatsappOutputBox").value = "";
@@ -1790,13 +2207,13 @@
                 });
                 const ord = [...ORDERED_PLAYERS].sort((a, b) => cupTotals[b] - cupTotals[a]);
                 const badge = cupTotals[ord[0]] === 0 ? "⏳ Por jugar" : (cupTotals[ord[0]] === cupTotals[ord[1]] ? "⚡ Empate" : `👑 ${ord[0]}`);
-                return `<div onclick="openTrophyLightbox('${cup.name}', '${cup.key}', '${cup.subtitle}')" class="w-[calc(50%-0.35rem)] sm:w-[calc(33.333%-0.6rem)] lg:w-[calc(20%-0.65rem)] max-w-[210px] cup-card-aspect ucl-card rounded-xl p-2 flex flex-col justify-between relative overflow-hidden cursor-pointer border ${cup.borderGlow}">
+                return `<div onclick="openTrophyLightbox('${cup.name}', '${cup.key}', '${cup.subtitle}')" class="holo-3d-card w-[calc(50%-0.35rem)] sm:w-[calc(33.333%-0.6rem)] lg:w-[calc(20%-0.65rem)] max-w-[210px] cup-card-aspect ucl-card rounded-xl p-2 flex flex-col justify-between relative overflow-hidden cursor-pointer border ${cup.borderGlow}">
                     <div class="absolute inset-[5%] z-0 rounded-lg overflow-hidden border border-white/15 bg-[#03091c]">
                         <img src="${getPhotoSrc(cup.key)}" data-step="0" loading="eager" decoding="sync" alt="${cup.name}" class="w-full h-full object-cover" onerror="handleSmartImageError(this, '${cup.key}')">
                         <div class="absolute inset-0 bg-gradient-to-t from-[#020817]/95 via-[#020817]/50 to-transparent"></div>
                     </div>
-                    <div class="relative z-10 flex justify-end"><span class="text-[8px] font-extrabold px-2 py-0.5 rounded-full bg-black/85 text-uclGold border border-uclGold/50">${badge}</span></div>
-                    <div class="relative z-10 mt-auto"><h4 class="font-oswald text-xs sm:text-sm font-bold text-white uppercase mb-1">${cup.dot} ${cup.name}</h4>
+                    <div class="relative z-30 flex justify-end"><span class="text-[8px] font-extrabold px-2 py-0.5 rounded-full bg-black/85 text-uclGold border border-uclGold/50">${badge}</span></div>
+                    <div class="relative z-30 mt-auto"><h4 class="font-oswald text-xs sm:text-sm font-bold text-white uppercase mb-1">${cup.dot} ${cup.name}</h4>
                         <div class="text-[10px] text-slate-200 space-y-0.5 bg-black/85 p-1.5 rounded-lg border border-white/10">
                             ${ord.map((p, idx) => `<div class="flex justify-between"><span class="${idx === 0 && cupTotals[p] > 0 ? 'text-uclGold font-bold' : ''}">${p}</span><span class="font-bold">${cupTotals[p]}</span></div>`).join("")}
                         </div>
@@ -1820,6 +2237,7 @@
                 document.getElementById("adminToggleSeasonStatusBtn").classList.remove("hidden");
                 document.getElementById("adminBallonDorControls").classList.remove("hidden");
                 document.getElementById("adminBallonFooter").classList.remove("hidden");
+                playGalaFanfare();
                 refreshAllViews();
                 showToast("🔓 Modo Admin Activo");
             } else {
@@ -1844,6 +2262,8 @@
                 season.status = "EN CURSO";
                 season.ballonDorMode = "EN DISPUTA";
             }
+            if (delta > 0) playGalaFanfare();
+            else playRouletteTick(400);
             invalidateSummaryCache();
             refreshAllViews();
             schedulePushToCloud();
