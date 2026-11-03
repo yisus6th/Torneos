@@ -13,7 +13,7 @@
     <link id="faviconLink" rel="icon" type="image/jpeg" href="logo.jpg">
     <link id="appleTouchIconLink" rel="apple-touch-icon" href="logo.jpg">
 
-    <!-- PRE-CARGA DE FOTOS PRINCIPALES -->
+    <!-- PRE-CARGA PRIORITARIA DE FOTOS PRINCIPALES -->
     <link rel="preload" as="image" href="logo.jpg" fetchpriority="high">
     <link rel="preload" as="image" href="balon-fc27.jpg" fetchpriority="high">
     <link rel="preload" as="image" href="balon-fc26.jpg" fetchpriority="high">
@@ -92,7 +92,7 @@
 </head>
 <body class="bg-ucl-stadium min-h-screen flex flex-col pb-20 md:pb-8 selection:bg-uclCyan selection:text-uclNight">
 
-    <!-- BARRA SUPERIOR -->
+    <!-- 1. BARRA SUPERIOR -->
     <header class="sticky top-0 z-40 bg-[#020817]/95 border-b border-sky-400/20">
         <div class="max-w-6xl mx-auto px-3 h-12 sm:h-14 flex items-center justify-between">
             <div class="flex items-center gap-2 min-w-0">
@@ -115,15 +115,15 @@
             </button>
         </div>
 
-        <!-- PANEL DE ADMIN: INCLUYE ACCESO AL GESTOR DE WHATSAPP Y TEMPORADAS -->
+        <!-- BARRA EXCLUSIVA DE ADMINISTRADOR -->
         <div id="adminToolbar" class="bg-[#071636] border-t border-uclGold/50 shadow-xl hidden">
             <div class="max-w-6xl mx-auto px-3 py-2 flex items-center justify-between gap-2 flex-wrap">
                 <span class="px-2.5 py-1 rounded-lg bg-uclNeon/20 border border-uclNeon/40 text-uclNeon font-extrabold text-[10px] uppercase tracking-wider flex items-center gap-1.5">
                     <i class="fa-solid fa-shield-halved"></i> Admin Activo
                 </span>
                 <div class="flex items-center gap-2 flex-wrap">
-                    <button onclick="openWhatsAppModal()" class="px-3 py-1 rounded-xl bg-emerald-500/20 text-emerald-300 border border-emerald-400/40 font-bold text-[10px] flex items-center gap-1.5 active:scale-95 shadow">
-                        <i class="fa-brands fa-whatsapp text-sm"></i> Generador de WhatsApp
+                    <button onclick="openWhatsAppModal()" class="px-3 py-1.5 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-400/50 font-extrabold text-[11px] flex items-center gap-1.5 active:scale-95 shadow">
+                        <i class="fa-brands fa-whatsapp text-sm"></i> <span id="adminBarTempLabel">Temporada 1 - FC27</span>
                     </button>
                     <button onclick="openCloudConfigModal()" title="Nube en Vivo" class="w-8 h-8 rounded-xl bg-sky-500/20 text-uclCyan border border-sky-400/40 flex items-center justify-center active:scale-95">
                         <i class="fa-solid fa-cloud text-xs"></i>
@@ -139,7 +139,7 @@
         </div>
     </header>
 
-    <!-- HERO BANNER -->
+    <!-- 2. HERO BANNER -->
     <section class="relative overflow-hidden border-b border-sky-400/20 pt-2.5 pb-3 sm:py-4">
         <div class="relative z-10 max-w-6xl mx-auto px-3 text-center">
             <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-blue-950/90 border border-uclCyan/40 text-[9px] font-extrabold uppercase tracking-widest text-uclCyan mb-1">
@@ -156,7 +156,7 @@
         </div>
     </section>
 
-    <!-- CONTENIDO PRINCIPAL -->
+    <!-- 3. CONTENIDO PRINCIPAL -->
     <main class="flex-grow max-w-6xl w-full mx-auto px-2.5 sm:px-5 pt-3 pb-6 space-y-4 sm:space-y-5">
 
         <div id="seasonViewContainer" class="space-y-4 sm:space-y-5">
@@ -255,7 +255,7 @@
                             <h2 class="font-oswald text-base sm:text-xl font-bold text-white uppercase tracking-wide">🥅 A NIVEL DE SELECCIÓN 📢</h2>
                         </div>
                     </div>
-                    <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-amber-500/10 text-uclGold border border-uclGold/30">Torneos Oficiales</span>
+                    <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-amber-500/10 text-uclGold border border-uclGold/30">2 Torneos</span>
                 </div>
                 <div id="nationalTrophiesGrid" class="flex flex-wrap justify-center gap-2.5 sm:gap-3.5"></div>
             </div>
@@ -328,100 +328,140 @@
         <div class="grid grid-cols-5 gap-1 max-w-md mx-auto" id="mobileBottomNav"></div>
     </nav>
 
-    <!-- MODAL GENERADOR DE WHATSAPP Y GESTOR DE FASES -->
-    <div id="whatsappModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden flex items-center justify-center p-3 sm:p-5">
-        <div class="ucl-card max-w-lg w-full rounded-3xl p-4 sm:p-5 border border-emerald-500/40 shadow-2xl max-h-[90vh] flex flex-col">
-            <div class="flex items-center justify-between pb-2.5 border-b border-white/10">
-                <div class="flex items-center gap-2">
-                    <div class="w-8 h-8 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center">
-                        <i class="fa-brands fa-whatsapp text-base"></i>
+    <!-- ==========================================
+         MODAL EXCLUSIVO ADMIN: CONTROL DE TEMPORADAS FC27 & WHATSAPP
+    =========================================== -->
+    <div id="whatsappModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden flex items-center justify-center p-2.5 sm:p-5">
+        <div class="ucl-card max-w-xl w-full rounded-3xl p-4 sm:p-5 border border-emerald-500/40 shadow-2xl max-h-[92vh] flex flex-col">
+
+            <!-- Cabecera con Contador de Temporada FC27 -->
+            <div class="flex items-center justify-between gap-2 pb-2.5 border-b border-white/10">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-9 h-9 rounded-xl bg-emerald-500/20 border border-emerald-400/40 text-emerald-400 flex items-center justify-center shrink-0">
+                        <i class="fa-brands fa-whatsapp text-lg"></i>
                     </div>
-                    <h3 class="font-oswald text-lg font-bold text-white uppercase">Gestor de Torneo & WhatsApp</h3>
+                    <div>
+                        <div class="flex items-center gap-1.5">
+                            <span id="waModalSeasonBadge" class="font-oswald text-base sm:text-lg font-bold text-uclGold uppercase tracking-wide">TEMPORADA 1 - FC27</span>
+                            <button onclick="changeMiniSeasonNumber(-1)" title="Temporada anterior" class="w-5 h-5 rounded bg-white/10 hover:bg-white/20 text-xs text-slate-300 flex items-center justify-center">-</button>
+                            <button onclick="changeMiniSeasonNumber(1)" title="Siguiente temporada" class="w-5 h-5 rounded bg-white/10 hover:bg-white/20 text-xs text-slate-300 flex items-center justify-center">+</button>
+                        </div>
+                        <p id="waModalSeasonRuleSub" class="text-[10px] text-sky-200/80 leading-none mt-0.5"></p>
+                    </div>
                 </div>
                 <button onclick="closeWhatsAppModal()" class="w-8 h-8 rounded-xl bg-white/10 text-slate-300 flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button>
             </div>
 
+            <!-- Cuerpo desplazable -->
             <div class="my-3 space-y-3 overflow-y-auto flex-1 pr-1">
-                <div class="grid grid-cols-2 gap-2">
-                    <div>
-                        <label class="block text-[10px] font-bold text-slate-300 mb-1">Seleccionar Temporada:</label>
-                        <select id="waSeasonSelect" onchange="updateWaCupOptions()" class="w-full px-2.5 py-2 rounded-xl bg-[#020817] border border-sky-400/30 text-xs text-white font-bold">
-                            <option value="FC27">Temporada • FC27</option>
-                            <option value="FC26">Temporada • FC26</option>
-                            <option value="FC25">Temporada • FC25</option>
-                            <option value="FC24">Temporada • FC24</option>
-                        </select>
+
+                <!-- Tablero de Progreso de las Copas de la Temporada Actual -->
+                <div class="p-2.5 rounded-2xl bg-[#020817]/90 border border-sky-400/20">
+                    <div class="flex items-center justify-between mb-1.5">
+                        <span class="text-[10px] font-extrabold uppercase tracking-wider text-uclCyan">Progreso de Copas en esta Temporada:</span>
+                        <span id="waProgressCounterBadge" class="px-2 py-0.5 rounded-full bg-uclCyan/20 text-uclCyan text-[9px] font-extrabold">0 / 7 Jugadas</span>
                     </div>
-                    <div>
-                        <label class="block text-[10px] font-bold text-slate-300 mb-1">Seleccionar Torneo:</label>
-                        <select id="waCupSelect" class="w-full px-2.5 py-2 rounded-xl bg-[#020817] border border-sky-400/30 text-xs text-white font-bold"></select>
-                    </div>
+                    <div id="waCupsStatusPills" class="grid grid-cols-2 sm:grid-cols-3 gap-1.5"></div>
                 </div>
 
-                <div class="p-2.5 rounded-xl bg-[#020817]/80 border border-white/10 space-y-2">
-                    <span class="text-[10px] font-extrabold uppercase text-uclCyan block">Asignar Instancias (Jesús, Sebastián, David):</span>
-                    <div class="grid grid-cols-3 gap-2">
+                <!-- Aviso Dorado cuando se completan todas las copas de la temporada -->
+                <div id="waSeasonCompleteBanner" class="p-3 rounded-2xl ucl-card-gold hidden">
+                    <div class="flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
                         <div>
-                            <label class="block text-[9px] font-bold text-slate-400">Jesús:</label>
-                            <select id="waInst_Jesus" class="w-full px-2 py-1 rounded-lg bg-black/60 border border-white/15 text-[11px] text-white">
-                                <option value="Campeón">👑 Campeón</option>
-                                <option value="Subcampeón">🥈 Subcampeón</option>
-                                <option value="Semis">🛑 Semis</option>
-                                <option value="Cuartos">🛑 Cuartos</option>
-                                <option value="8vos">🛑 8vos</option>
-                                <option value="16vos">🛑 16vos</option>
-                                <option value="Fase de grupos">🛑 Grupos</option>
-                            </select>
+                            <span class="text-[10px] font-extrabold uppercase tracking-wider text-uclGold block">🎉 ¡TEMPORADA COMPLETADA!</span>
+                            <p class="text-xs text-white font-semibold">Ya se jugaron todas las copas. Envía el Resumen Final al grupo y pasa a la siguiente temporada.</p>
                         </div>
-                        <div>
-                            <label class="block text-[9px] font-bold text-slate-400">Sebastián:</label>
-                            <select id="waInst_Sebastián" class="w-full px-2 py-1 rounded-lg bg-black/60 border border-white/15 text-[11px] text-white">
-                                <option value="Campeón">👑 Campeón</option>
-                                <option value="Subcampeón" selected>🥈 Subcampeón</option>
-                                <option value="Semis">🛑 Semis</option>
-                                <option value="Cuartos">🛑 Cuartos</option>
-                                <option value="8vos">🛑 8vos</option>
-                                <option value="16vos">🛑 16vos</option>
-                                <option value="Fase de grupos">🛑 Grupos</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-[9px] font-bold text-slate-400">David:</label>
-                            <select id="waInst_David" class="w-full px-2 py-1 rounded-lg bg-black/60 border border-white/15 text-[11px] text-white">
-                                <option value="Campeón">👑 Campeón</option>
-                                <option value="Subcampeón">🥈 Subcampeón</option>
-                                <option value="Semis">🛑 Semis</option>
-                                <option value="Cuartos">🛑 Cuartos</option>
-                                <option value="8vos" selected>🛑 8vos</option>
-                                <option value="16vos">🛑 16vos</option>
-                                <option value="Fase de grupos">🛑 Grupos</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="pt-1 flex items-center justify-between">
-                        <span class="text-[9px] text-amber-300">💡 Si seleccionas Campeón, se sumará +1 punto automáticamente a la tabla.</span>
-                        <button onclick="applyMatchResultAndGenerateReport()" class="px-3 py-1.5 rounded-xl bg-uclNeon text-uclNight font-extrabold text-[11px] uppercase shadow">
-                            Registrar & Generar
+                        <button onclick="finishAndAdvanceMiniSeason()" class="w-full sm:w-auto shrink-0 px-3.5 py-2 rounded-xl bg-uclGold text-uclNight font-extrabold text-xs uppercase shadow-lg active:scale-95">
+                            🚀 Pasar a <span id="waNextSeasonBtnLabel">Temporada 2</span>
                         </button>
                     </div>
                 </div>
 
+                <!-- Selector de Copa y Puestos de Jugadores -->
+                <div class="p-3 rounded-2xl bg-[#030b1e] border border-white/10 space-y-2.5">
+                    <div>
+                        <label class="block text-[10px] font-extrabold uppercase tracking-wider text-amber-300 mb-1">1. Selecciona la Copa jugada:</label>
+                        <select id="waCupSelect" onchange="loadSavedCupResultsIntoSelectors()" class="w-full px-3 py-2 rounded-xl bg-[#020817] border border-sky-400/40 text-xs text-white font-bold focus:outline-none focus:border-uclCyan"></select>
+                    </div>
+
+                    <div>
+                        <label class="block text-[10px] font-extrabold uppercase tracking-wider text-uclCyan mb-1.5">2. ¿En qué instancia quedó cada jugador?</label>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                            <!-- IDs numéricos (0, 1, 2) para evitar errores de tildes -->
+                            <div class="bg-black/50 p-2 rounded-xl border border-white/10">
+                                <label class="block text-[10px] font-extrabold text-white mb-1">⚽ Jesús</label>
+                                <select id="waInst_0" onchange="handleInstanceChange(0)" class="w-full px-2 py-1.5 rounded-lg bg-[#020817] border border-white/20 text-xs text-uclGold font-bold">
+                                    <option value="Campeón">👑 Campeón</option>
+                                    <option value="Subcampeón">🥈 Subcampeón</option>
+                                    <option value="Semis">🛑 Semis</option>
+                                    <option value="4tos">🛑 4tos</option>
+                                    <option value="8vos">🛑 8vos</option>
+                                    <option value="16vos">🛑 16vos</option>
+                                    <option value="Fase de grupos">🛑 Fase de grupos</option>
+                                </select>
+                            </div>
+
+                            <div class="bg-black/50 p-2 rounded-xl border border-white/10">
+                                <label class="block text-[10px] font-extrabold text-white mb-1">⚽ Sebastián</label>
+                                <select id="waInst_1" onchange="handleInstanceChange(1)" class="w-full px-2 py-1.5 rounded-lg bg-[#020817] border border-white/20 text-xs text-uclGold font-bold">
+                                    <option value="Campeón">👑 Campeón</option>
+                                    <option value="Subcampeón" selected>🥈 Subcampeón</option>
+                                    <option value="Semis">🛑 Semis</option>
+                                    <option value="4tos">🛑 4tos</option>
+                                    <option value="8vos">🛑 8vos</option>
+                                    <option value="16vos">🛑 16vos</option>
+                                    <option value="Fase de grupos">🛑 Fase de grupos</option>
+                                </select>
+                            </div>
+
+                            <div class="bg-black/50 p-2 rounded-xl border border-white/10">
+                                <label class="block text-[10px] font-extrabold text-white mb-1">⚽ David</label>
+                                <select id="waInst_2" onchange="handleInstanceChange(2)" class="w-full px-2 py-1.5 rounded-lg bg-[#020817] border border-white/20 text-xs text-uclGold font-bold">
+                                    <option value="Campeón">👑 Campeón</option>
+                                    <option value="Subcampeón">🥈 Subcampeón</option>
+                                    <option value="Semis">🛑 Semis</option>
+                                    <option value="4tos">🛑 4tos</option>
+                                    <option value="8vos" selected>🛑 8vos</option>
+                                    <option value="16vos">🛑 16vos</option>
+                                    <option value="Fase de grupos">🛑 Fase de grupos</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-1 flex flex-col sm:flex-row items-center justify-between gap-2">
+                        <span class="text-[10px] text-slate-300">💡 Si nadie campeonó, pon a los 3 en la fase en que fueron eliminados.</span>
+                        <button type="button" onclick="registerCupAndBuildWhatsApp()" class="w-full sm:w-auto px-4 py-2 rounded-xl bg-uclNeon text-uclNight font-extrabold text-xs uppercase tracking-wide shadow-lg active:scale-95">
+                            ✅ Registrar y Generar Reporte
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Cuadro de Texto Generado para WhatsApp -->
                 <div>
                     <div class="flex items-center justify-between mb-1">
-                        <label class="text-[10px] font-bold text-slate-300">Mensaje listo para WhatsApp:</label>
-                        <button onclick="copyWhatsAppText()" class="text-[10px] text-emerald-400 font-bold hover:underline">
-                            <i class="fa-regular fa-copy mr-1"></i> Copiar Mensaje
-                        </button>
+                        <label id="waOutputLabel" class="text-[10px] font-extrabold uppercase text-emerald-400">📲 Mensaje listo para copiar a WhatsApp:</label>
+                        <div class="flex items-center gap-2">
+                            <button type="button" onclick="copyWhatsAppText()" class="px-2.5 py-1 rounded-lg bg-emerald-500/20 border border-emerald-400/40 text-[10px] text-emerald-300 font-extrabold hover:bg-emerald-500/30">
+                                <i class="fa-regular fa-copy mr-1"></i> Copiar Texto
+                            </button>
+                        </div>
                     </div>
-                    <textarea id="whatsappOutputBox" rows="6" readonly class="w-full p-2.5 rounded-xl bg-[#020817] border border-emerald-500/30 text-xs text-slate-100 font-mono resize-none focus:outline-none"></textarea>
+                    <textarea id="whatsappOutputBox" rows="7" readonly placeholder="Aquí aparecerá el reporte de la copa o el resumen de la temporada..." class="w-full p-3 rounded-xl bg-[#020817] border border-emerald-500/40 text-xs text-white font-mono resize-none focus:outline-none"></textarea>
                 </div>
             </div>
 
-            <div class="pt-2 border-t border-white/10 flex items-center justify-between">
-                <button onclick="generateSeasonSummaryReport()" class="px-3 py-1.5 rounded-xl bg-sky-500/20 text-sky-300 border border-sky-400/30 font-bold text-xs">
-                    📋 Copiar Resumen de Temporada
-                </button>
-                <button onclick="closeWhatsAppModal()" class="px-4 py-1.5 rounded-xl bg-white/10 text-slate-300 font-bold text-xs">Cerrar</button>
+            <!-- Botones inferiores del Modal -->
+            <div class="pt-2.5 border-t border-white/10 flex flex-wrap items-center justify-between gap-2">
+                <div class="flex items-center gap-1.5">
+                    <button type="button" onclick="generateMiniSeasonSummaryText(true)" class="px-3 py-1.5 rounded-xl bg-sky-500/20 hover:bg-sky-500/30 text-uclCyan border border-sky-400/40 font-extrabold text-[11px]">
+                        📋 Resumen de Temporada
+                    </button>
+                    <button type="button" onclick="promptResetCurrentMiniSeason()" class="px-2.5 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-400 text-[10px] font-semibold" title="Limpiar copas registradas de esta temporada sin borrar el acumulado general">
+                        Reiniciar Temp.
+                    </button>
+                </div>
+                <button type="button" onclick="closeWhatsAppModal()" class="px-4 py-1.5 rounded-xl bg-white/10 text-slate-200 font-bold text-xs">Cerrar</button>
             </div>
         </div>
     </div>
@@ -516,12 +556,12 @@
     </footer>
 
     <!-- ==========================================
-         5. MOTOR JAVASCRIPT CON GESTOR WHATSAPP & REGLA INTERCONTINENTAL
+         5. MOTOR JAVASCRIPT COMPLETO
     =========================================== -->
     <script>
         const RESOLVED_IMAGE_URLS = {};
         const RAM_IMAGE_POOL = {};
-        const FAST_SCORES_CACHE_KEY = "EA_FC_FAST_SCORES_ONLY_V1";
+        const FAST_SCORES_CACHE_KEY = "EA_FC_FAST_SCORES_ONLY_V2";
 
         const ALL_PHOTO_KEYS = [
             "logo", "balon-fc27", "balon-fc26", "balon-fc25", "balon-fc24",
@@ -589,6 +629,8 @@
             { key: "eurocopa", name: "Eurocopa", subtitle: "UEFA Euro Championship", category: "seleccion", subType: "seleccion", dot: "🟤", barColor: "#ffd700", borderGlow: "border-amber-400/40" }
         ];
 
+        const BASE_7_CLUB_CUPS = ["champions", "libertadores", "copadelrey", "facup", "copaitaliana", "dfbpokal", "copafrancesa"];
+
         let APP_STATE = {
             adminPin: "0571",
             cloud: {
@@ -596,6 +638,11 @@
                 apiKey: "$2a$10$fqNp9RW9J5.6/0hZH3ljkOxRxBY3S3IyPTpusVVwoB4RYsz2D5ley"
             },
             players: ["Jesús", "Sebastián", "David"],
+            // CONTADOR DE MINI-TEMPORADAS INTERNAS DE FC27
+            fc27Tracker: {
+                seasonNumber: 1,
+                cupsPlayed: {}
+            },
             seasons: {
                 FC24: {
                     id: "FC24", year: "2024", title: "TEMPORADA FC24", status: "FINALIZADA",
@@ -669,6 +716,18 @@
         const SEASON_KEYS = ["FC24", "FC25", "FC26", "FC27"];
         const ORDERED_PLAYERS = ["Jesús", "Sebastián", "David"];
 
+        function ensureTrackerStructure() {
+            if (!APP_STATE.fc27Tracker || typeof APP_STATE.fc27Tracker !== "object") {
+                APP_STATE.fc27Tracker = { seasonNumber: 1, cupsPlayed: {} };
+            }
+            if (!APP_STATE.fc27Tracker.seasonNumber || APP_STATE.fc27Tracker.seasonNumber < 1) {
+                APP_STATE.fc27Tracker.seasonNumber = 1;
+            }
+            if (!APP_STATE.fc27Tracker.cupsPlayed || typeof APP_STATE.fc27Tracker.cupsPlayed !== "object") {
+                APP_STATE.fc27Tracker.cupsPlayed = {};
+            }
+        }
+
         function loadFastScoresCache() {
             try {
                 const cached = localStorage.getItem(FAST_SCORES_CACHE_KEY);
@@ -681,8 +740,12 @@
                             }
                         });
                     }
+                    if (parsed && parsed.fc27Tracker) {
+                        APP_STATE.fc27Tracker = parsed.fc27Tracker;
+                    }
                 }
             } catch (e) {}
+            ensureTrackerStructure();
         }
         loadFastScoresCache();
 
@@ -695,20 +758,10 @@
             SUMMARY_CACHE = {};
         }
 
-        // REGLA CLAVE: La Intercontinental solo se habilita si hay un ganador en Champions o Libertadores en esa temporada
+        // En las vistas públicas se muestran todas las copas de cada edición
         function isCupEnabledInSeason(seasonId, cupKey) {
             if (seasonId === "FC24" && (cupKey === "dfbpokal" || cupKey === "copafrancesa")) return false;
             if (seasonId === "FC25" && cupKey === "copafrancesa") return false;
-
-            if (cupKey === "intercontinental") {
-                const season = APP_STATE.seasons[seasonId];
-                if (!season || !season.scores) return false;
-                const champScores = season.scores["champions"] || {};
-                const libScores = season.scores["libertadores"] || {};
-                const hasChampWinner = ORDERED_PLAYERS.some(p => Number(champScores[p] || 0) > 0);
-                const hasLibWinner = ORDERED_PLAYERS.some(p => Number(libScores[p] || 0) > 0);
-                return (hasChampWinner || hasLibWinner);
-            }
             return true;
         }
 
@@ -720,6 +773,7 @@
         }
 
         function buildCleanCloudPayload() {
+            ensureTrackerStructure();
             const cleanSeasons = {};
             SEASON_KEYS.forEach(sKey => {
                 const s = APP_STATE.seasons[sKey];
@@ -729,7 +783,13 @@
                     ballonDorCustomText: s.ballonDorCustomText, scores: s.scores
                 };
             });
-            return { adminPin: APP_STATE.adminPin, lastUpdated: Date.now(), players: ORDERED_PLAYERS, seasons: cleanSeasons };
+            return {
+                adminPin: APP_STATE.adminPin,
+                lastUpdated: Date.now(),
+                players: ORDERED_PLAYERS,
+                fc27Tracker: APP_STATE.fc27Tracker,
+                seasons: cleanSeasons
+            };
         }
 
         async function pullStateFromCloud(selectActiveOnLoad = false, showMsg = false) {
@@ -742,17 +802,22 @@
                 if (!res.ok) throw new Error();
                 const data = await res.json();
                 if (data.record && data.record.seasons) {
-                    const beforeSnapshot = JSON.stringify(APP_STATE.seasons);
+                    const beforeSnapshot = JSON.stringify({ s: APP_STATE.seasons, t: APP_STATE.fc27Tracker });
                     const prevActiveSeason = getActiveDefaultSeason();
 
                     APP_STATE.adminPin = data.record.adminPin || APP_STATE.adminPin;
+                    if (data.record.fc27Tracker) {
+                        APP_STATE.fc27Tracker = data.record.fc27Tracker;
+                    }
+                    ensureTrackerStructure();
+
                     SEASON_KEYS.forEach(sKey => {
                         if (data.record.seasons[sKey]) {
                             APP_STATE.seasons[sKey] = { ...APP_STATE.seasons[sKey], ...data.record.seasons[sKey] };
                         }
                     });
-                    const afterSnapshot = JSON.stringify(APP_STATE.seasons);
-                    try { localStorage.setItem(FAST_SCORES_CACHE_KEY, JSON.stringify(data.record)); } catch(e){}
+                    const afterSnapshot = JSON.stringify({ s: APP_STATE.seasons, t: APP_STATE.fc27Tracker });
+                    try { localStorage.setItem(FAST_SCORES_CACHE_KEY, JSON.stringify(buildCleanCloudPayload())); } catch(e){}
 
                     if (beforeSnapshot !== afterSnapshot) {
                         invalidateSummaryCache();
@@ -773,7 +838,7 @@
         function schedulePushToCloud() {
             try { localStorage.setItem(FAST_SCORES_CACHE_KEY, JSON.stringify(buildCleanCloudPayload())); } catch(e){}
             clearTimeout(saveTimeout);
-            saveTimeout = setTimeout(() => { pushStateToCloud(); }, 400);
+            saveTimeout = setTimeout(() => { pushStateToCloud(); }, 350);
         }
 
         async function pushStateToCloud() {
@@ -808,6 +873,9 @@
             pullStateFromCloud(true, false);
         });
 
+        // ==========================================
+        // MOTOR MATEMÁTICO DE LA TABLA Y BALÓN DE ORO
+        // ==========================================
         function computeSeasonSummary(seasonId) {
             if (SUMMARY_CACHE[seasonId]) return SUMMARY_CACHE[seasonId];
 
@@ -915,6 +983,11 @@
         }
 
         function refreshAllViews() {
+            ensureTrackerStructure();
+            const barLabel = document.getElementById("adminBarTempLabel");
+            if (barLabel) {
+                barLabel.textContent = `Temporada ${APP_STATE.fc27Tracker.seasonNumber} - FC27`;
+            }
             renderSeasonTabs();
             renderMobileBottomNav();
             if (currentSeason === "HISTORICO") {
@@ -973,7 +1046,7 @@
 
                 const statusBadge = isUpcoming
                     ? `<span class="text-[9px] font-extrabold text-uclCyan">⏳ ${s.year}</span>`
-                    : (isOngoing ? `<span class="text-[9px] font-extrabold text-uclNeon">🟢 EN CURSO</span>` : `<span class="text-[9px] font-bold text-sky-200/80">🏁 ${s.year}</span>`);
+                    : (isOngoing ? `<span class="text-[9px] font-extrabold text-uclNeon">🟢 TEMP. ${APP_STATE.fc27Tracker.seasonNumber}</span>` : `<span class="text-[9px] font-bold text-sky-200/80">🏁 ${s.year}</span>`);
                 const subText = isUpcoming ? "Próximamente" : (isOngoing ? `Líder: <strong>${ballonEvaluation[0].player}</strong>` : `🌕 <strong>${bWinner}</strong>`);
 
                 html += `<button onclick="switchSeason('${sKey}')" class="snap-start shrink-0 w-36 md:w-auto rounded-xl p-2 sm:p-2.5 text-left ${currentSeason === sKey ? 'bg-gradient-to-br from-uclCyan/30 via-[#0d2254] to-[#051029] border-2 border-uclCyan' : 'ucl-card opacity-85'}">
@@ -997,7 +1070,9 @@
             const isOngoing = season.status === "EN CURSO";
             const isUpcoming = season.status === "PRÓXIMAMENTE";
 
-            document.getElementById("seasonBadgeTag").textContent = `⚽ ${season.title}`;
+            document.getElementById("seasonBadgeTag").textContent = seasonId === "FC27"
+                ? `⚽ ${season.title} • TEMPORADA ${APP_STATE.fc27Tracker.seasonNumber}`
+                : `⚽ ${season.title}`;
             document.getElementById("seasonMainTitle").textContent = `TABLA GENERAL ${season.year}`;
             document.getElementById("seasonTotalCupsCounter").textContent = `${seasonTotal} Títulos`;
 
@@ -1113,10 +1188,53 @@
             </div>`;
         }
 
-        // --- G. GESTOR DE WHATSAPP Y REPORTES DE INSTANCIAS ---
+        // ==========================================
+        // MOTOR DE TEMPORADAS INTERNAS FC27 Y WHATSAPP (EXCLUSIVO ADMIN)
+        // ==========================================
+        function getMiniSeasonRules() {
+            ensureTrackerStructure();
+            const tNum = APP_STATE.fc27Tracker.seasonNumber;
+            const played = APP_STATE.fc27Tracker.cupsPlayed;
+            const isEven = (tNum % 2 === 0);
+
+            const champEntry = played["champions"];
+            const libEntry = played["libertadores"];
+
+            const hasChampWinner = Boolean(champEntry && champEntry.played && champEntry.winner && champEntry.winner !== "Ninguno");
+            const hasLibWinner = Boolean(libEntry && libEntry.played && libEntry.winner && libEntry.winner !== "Ninguno");
+            const bothMajorsPlayedNoWinner = Boolean(
+                champEntry && champEntry.played && champEntry.winner === "Ninguno" &&
+                libEntry && libEntry.played && libEntry.winner === "Ninguno"
+            );
+
+            // La Intercontinental se desbloquea si hubo campeón en Champions o Libertadores
+            const interUnlocked = hasChampWinner || hasLibWinner;
+            const interCancelled = bothMajorsPlayedNoWinner;
+
+            // Lista de copas requeridas para dar por terminada esta Temporada N - FC27
+            const requiredKeys = [...BASE_7_CLUB_CUPS];
+            if (interUnlocked) requiredKeys.push("intercontinental");
+            if (isEven) requiredKeys.push("mundial", "eurocopa");
+
+            // Para que una temporada de 7 copas se considere terminada, las 7 base deben haberse jugado
+            const playedRequiredCount = requiredKeys.filter(k => played[k] && played[k].played).length;
+            const isComplete = playedRequiredCount === requiredKeys.length && requiredKeys.length > 0;
+
+            return {
+                tNum,
+                isEven,
+                interUnlocked,
+                interCancelled,
+                requiredKeys,
+                playedRequiredCount,
+                totalRequiredCount: requiredKeys.length,
+                isComplete
+            };
+        }
+
         function openWhatsAppModal() {
-            document.getElementById("waSeasonSelect").value = currentSeason === "HISTORICO" ? "FC27" : currentSeason;
-            updateWaCupOptions();
+            ensureTrackerStructure();
+            renderWhatsAppModalState();
             document.getElementById("whatsappModal").classList.remove("hidden");
         }
 
@@ -1124,106 +1242,352 @@
             document.getElementById("whatsappModal").classList.add("hidden");
         }
 
-        function updateWaCupOptions() {
-            const sKey = document.getElementById("waSeasonSelect").value;
-            const select = document.getElementById("waCupSelect");
-            const enabledCups = TOURNAMENTS_CATALOG.filter(c => isCupEnabledInSeason(sKey, c.key));
-            select.innerHTML = enabledCups.map(c => `<option value="${c.key}">${c.dot} ${c.name}</option>`).join("");
+        function changeMiniSeasonNumber(delta) {
+            ensureTrackerStructure();
+            const nextNum = Math.max(1, APP_STATE.fc27Tracker.seasonNumber + delta);
+            if (nextNum === APP_STATE.fc27Tracker.seasonNumber) return;
+            APP_STATE.fc27Tracker.seasonNumber = nextNum;
+            APP_STATE.fc27Tracker.cupsPlayed = {};
+            refreshAllViews();
+            renderWhatsAppModalState();
+            schedulePushToCloud();
+            showToast(`🗓️ Activa: Temporada ${nextNum} - FC27`);
         }
 
-        function applyMatchResultAndGenerateReport() {
-            const sKey = document.getElementById("waSeasonSelect").value;
-            const cupKey = document.getElementById("waCupSelect").value;
-            const cupObj = TOURNAMENTS_CATALOG.find(c => c.key === cupKey);
-            const season = APP_STATE.seasons[sKey];
+        // Si el admin marca a un jugador como "Campeón", evita que otro jugador quede también como "Campeón" por accidente
+        function handleInstanceChange(changedIdx) {
+            const selVal = document.getElementById(`waInst_${changedIdx}`).value;
+            if (selVal === "Campeón") {
+                [0, 1, 2].forEach(i => {
+                    if (i !== changedIdx && document.getElementById(`waInst_${i}`).value === "Campeón") {
+                        document.getElementById(`waInst_${i}`).value = "Subcampeón";
+                    }
+                });
+            }
+        }
 
-            const pResults = {
-                "Jesús": document.getElementById("waInst_Jesús").value,
-                "Sebastián": document.getElementById("waInst_Sebastián").value,
-                "David": document.getElementById("waInst_David").value
-            };
+        function renderWhatsAppModalState(preserveSelectedCup = false) {
+            const rules = getMiniSeasonRules();
+            const played = APP_STATE.fc27Tracker.cupsPlayed;
 
-            // Detectar si hubo campeón en esta instancia y actualizar automáticamente el marcador general
-            let champName = null;
-            ORDERED_PLAYERS.forEach(p => {
-                if (pResults[p] === "Campeón") champName = p;
+            document.getElementById("waModalSeasonBadge").textContent = `TEMPORADA ${rules.tNum} - FC27`;
+            document.getElementById("waModalSeasonRuleSub").textContent = rules.isEven
+                ? `🔥 Temporada Par (${rules.tNum}): Incluye Mundial y Eurocopa + Clubes`
+                : `⚽ Temporada Impar (${rules.tNum}): 7 Copas de Clubes (+ Intercontinental si hay campeón en Champions/Libertadores)`;
+
+            document.getElementById("waProgressCounterBadge").textContent = `${rules.playedRequiredCount} / ${rules.totalRequiredCount} Jugadas`;
+
+            // Construir píldoras visuales de estado de cada copa en la temporada actual
+            const visibleInModal = TOURNAMENTS_CATALOG.filter(c => {
+                if (c.category === "seleccion") return rules.isEven;
+                return true;
             });
 
-            if (champName) {
-                if (!season.scores[cupKey]) season.scores[cupKey] = { "Jesús": 0, "Sebastián": 0, "David": 0 };
-                // Sumar 1 punto al campeón si no lo tenía ya registrado en esta copa
-                ORDERED_PLAYERS.forEach(p => {
-                    season.scores[cupKey][p] = (p === champName) ? 1 : 0;
-                });
-                if (season.status === "PRÓXIMAMENTE") {
-                    season.status = "EN CURSO";
-                    season.ballonDorMode = "EN DISPUTA";
+            document.getElementById("waCupsStatusPills").innerHTML = visibleInModal.map(c => {
+                const entry = played[c.key];
+                let statusText = "⏳ Pendiente";
+                let pillClass = "bg-black/50 border-white/10 text-slate-300";
+
+                if (c.key === "intercontinental" && !rules.interUnlocked) {
+                    if (rules.interCancelled) {
+                        statusText = "🚫 No se juega";
+                        pillClass = "bg-red-950/40 border-red-500/30 text-red-300 opacity-75";
+                    } else {
+                        statusText = "🔒 Espera UCL/LIB";
+                        pillClass = "bg-black/40 border-white/10 text-slate-400";
+                    }
+                } else if (entry && entry.played) {
+                    if (entry.winner && entry.winner !== "Ninguno") {
+                        statusText = `👑 ${entry.winner}`;
+                        pillClass = "bg-uclNeon/15 border-uclNeon/50 text-uclNeon font-extrabold";
+                    } else {
+                        statusText = "❌ Ninguno";
+                        pillClass = "bg-amber-500/15 border-amber-400/40 text-amber-300 font-bold";
+                    }
                 }
-                invalidateSummaryCache();
-                refreshAllViews();
-                schedulePushToCloud();
+
+                return `<button type="button" onclick="selectCupInModal('${c.key}')" class="px-2 py-1.5 rounded-xl border text-left transition flex items-center justify-between gap-1 ${pillClass}">
+                    <span class="text-[10px] font-bold truncate">${c.dot} ${c.name}</span>
+                    <span class="text-[9px] shrink-0">${statusText}</span>
+                </button>`;
+            }).join("");
+
+            // Llenar el selector desplegable de copas disponibles en esta Temporada N
+            const selectEl = document.getElementById("waCupSelect");
+            const prevValue = selectEl.value;
+            const selectableCups = visibleInModal.filter(c => {
+                if (c.key === "intercontinental" && rules.interCancelled) return false;
+                return true;
+            });
+
+            selectEl.innerHTML = selectableCups.map(c => {
+                const entry = played[c.key];
+                const tag = (entry && entry.played)
+                    ? ` (✅ ${entry.winner === 'Ninguno' ? 'Sin campeón' : entry.winner})`
+                    : (c.key === "intercontinental" && !rules.interUnlocked ? " (🔒 Requiere campeón UCL/LIB)" : "");
+                return `<option value="${c.key}">${c.dot} ${c.name}${tag}</option>`;
+            }).join("");
+
+            if (preserveSelectedCup && selectableCups.some(c => c.key === prevValue)) {
+                selectEl.value = prevValue;
+            } else {
+                // Selecciona automáticamente la primera copa pendiente por jugar
+                const firstUnplayed = selectableCups.find(c => {
+                    if (c.key === "intercontinental" && !rules.interUnlocked) return false;
+                    return !played[c.key] || !played[c.key].played;
+                });
+                if (firstUnplayed) selectEl.value = firstUnplayed.key;
             }
 
-            // Armar texto listo para WhatsApp
-            let text = `⚽ *REPORTE OFICIAL • ${season.title}*\n`;
-            text += `${cupObj.dot} *Torneo:* ${cupObj.name}\n\n`;
+            loadSavedCupResultsIntoSelectors();
 
-            ORDERED_PLAYERS.forEach(p => {
-                const inst = pResults[p];
-                const emoji = inst === "Campeón" ? "👑 *¡CAMPEÓN!* 🏆 (+1 título)" : (inst === "Subcampeón" ? "🥈 Subcampeón" : `🛑 Eliminado en ${inst}`);
-                text += `• *${p}:* ${emoji}\n`;
-            });
-
-            const { totals } = computeSeasonSummary(sKey);
-            text += `\n📊 *Acumulado ${cupObj.name} (${sKey}):* Jesús (${totals["Jesús"]}) • Sebastián (${totals["Sebastián"]}) • David (${totals["David"]})`;
-
-            document.getElementById("whatsappOutputBox").value = text;
-            showToast("📲 ¡Reporte generado!");
+            // Mostrar u ocultar el banner de Temporada Completada
+            const banner = document.getElementById("waSeasonCompleteBanner");
+            if (rules.isComplete) {
+                document.getElementById("waNextSeasonBtnLabel").textContent = `Temporada ${rules.tNum + 1} - FC27`;
+                banner.classList.remove("hidden");
+            } else {
+                banner.classList.add("hidden");
+            }
         }
 
-        function generateSeasonSummaryReport() {
-            const sKey = document.getElementById("waSeasonSelect").value;
-            const season = APP_STATE.seasons[sKey];
-            const { totals } = computeSeasonSummary(sKey);
+        function selectCupInModal(cupKey) {
+            const selectEl = document.getElementById("waCupSelect");
+            if ([...selectEl.options].some(o => o.value === cupKey)) {
+                selectEl.value = cupKey;
+                loadSavedCupResultsIntoSelectors();
+            }
+        }
 
-            let text = `🏆 *RESUMEN FINAL • ${season.title}* 🏆\n\n`;
-            text += `🕹️ *A NIVEL DE CLUBES:*\n`;
-            
-            const clubList = TOURNAMENTS_CATALOG.filter(c => c.category === "clubes" && isCupEnabledInSeason(sKey, c.key));
-            clubList.forEach(c => {
-                const sc = season.scores[c.key] || {};
-                let winner = "❌ Ninguno";
-                ORDERED_PLAYERS.forEach(p => { if (Number(sc[p] || 0) > 0) winner = `👑 ${p}`; });
-                text += `${c.dot} *${c.name}:* ${winner}\n`;
-            });
-
-            text += `\n🥅 *A NIVEL DE SELECCIÓN:*\n`;
-            const selList = TOURNAMENTS_CATALOG.filter(c => c.category === "seleccion" && isCupEnabledInSeason(sKey, c.key));
-            if (selList.length > 0) {
-                selList.forEach(c => {
-                    const sc = season.scores[c.key] || {};
-                    let winner = "❌ Ninguno";
-                    ORDERED_PLAYERS.forEach(p => { if (Number(sc[p] || 0) > 0) winner = `👑 ${p}`; });
-                    text += `${c.dot} *${c.name}:* ${winner}\n`;
+        function loadSavedCupResultsIntoSelectors() {
+            const cupKey = document.getElementById("waCupSelect").value;
+            const entry = APP_STATE.fc27Tracker.cupsPlayed[cupKey];
+            if (entry && entry.results) {
+                ORDERED_PLAYERS.forEach((p, idx) => {
+                    const savedVal = entry.results[p];
+                    if (savedVal) document.getElementById(`waInst_${idx}`).value = savedVal;
                 });
             } else {
-                text += `⏳ No se disputaron selecciones en esta temporada.\n`;
+                // Valores por defecto rápidos
+                document.getElementById("waInst_0").value = "Campeón";
+                document.getElementById("waInst_1").value = "Semis";
+                document.getElementById("waInst_2").value = "8vos";
+            }
+        }
+
+        function formatInstanceTextForWhatsApp(inst) {
+            if (inst === "Campeón") return "Campeón 🏆";
+            if (inst === "Subcampeón") return "Subcampeón 🥈";
+            return `Eliminado en ${inst}`;
+        }
+
+        // BOTÓN VERDE: Registra la copa en la Temporada N, suma +1 en FC27 y genera el reporte al instante
+        function registerCupAndBuildWhatsApp() {
+            ensureTrackerStructure();
+            const rulesBefore = getMiniSeasonRules();
+            const tNum = rulesBefore.tNum;
+            const cupKey = document.getElementById("waCupSelect").value;
+            const cupObj = TOURNAMENTS_CATALOG.find(c => c.key === cupKey);
+            if (!cupObj) return;
+
+            if (cupKey === "intercontinental" && !rulesBefore.interUnlocked) {
+                showToast("⚠️ Para jugar la Intercontinental debe haber campeón en Champions o Libertadores");
+                return;
             }
 
-            text += `\n📈 *Balance Final (${sKey}):* Jesús (${totals["Jesús"]}) • Sebastián (${totals["Sebastián"]}) • David (${totals["David"]})`;
+            const results = {};
+            let winnerName = "Ninguno";
 
-            document.getElementById("whatsappOutputBox").value = text;
-            showToast("📋 Resumen de temporada copiado");
+            ORDERED_PLAYERS.forEach((p, idx) => {
+                const val = document.getElementById(`waInst_${idx}`).value;
+                results[p] = val;
+                if (val === "Campeón") winnerName = p;
+            });
+
+            // Ajustar el marcador acumulado de FC27 sin duplicar si se edita una copa ya jugada en esta temporada
+            const prevEntry = APP_STATE.fc27Tracker.cupsPlayed[cupKey];
+            if (!APP_STATE.seasons.FC27.scores[cupKey]) {
+                APP_STATE.seasons.FC27.scores[cupKey] = { "Jesús": 0, "Sebastián": 0, "David": 0 };
+            }
+
+            if (prevEntry && prevEntry.played && prevEntry.winner && prevEntry.winner !== "Ninguno") {
+                const prevW = prevEntry.winner;
+                APP_STATE.seasons.FC27.scores[cupKey][prevW] = Math.max(0, Number(APP_STATE.seasons.FC27.scores[cupKey][prevW] || 0) - 1);
+            }
+
+            if (winnerName !== "Ninguno") {
+                APP_STATE.seasons.FC27.scores[cupKey][winnerName] = Number(APP_STATE.seasons.FC27.scores[cupKey][winnerName] || 0) + 1;
+            }
+
+            // Guardar la copa dentro de la Temporada N - FC27
+            APP_STATE.fc27Tracker.cupsPlayed[cupKey] = {
+                played: true,
+                winner: winnerName,
+                results: results
+            };
+
+            invalidateSummaryCache();
+            refreshAllViews();
+            schedulePushToCloud();
+
+            // Construir el reporte individual de la copa jugada
+            let cupReport = `🏆 *RESUMEN DE LA ${cupObj.name.toUpperCase()}*\n`;
+            cupReport += `⚽ *Temporada ${tNum} - FC27*\n\n`;
+
+            ORDERED_PLAYERS.forEach(p => {
+                const inst = results[p];
+                const icon = inst === "Campeón" ? "👑" : (inst === "Subcampeón" ? "🥈" : "🛑");
+                cupReport += `${icon} *${p}:* ${formatInstanceTextForWhatsApp(inst)}\n`;
+            });
+
+            if (winnerName === "Ninguno") {
+                cupReport += `\n❌ *Campeón:* Ninguno (Copa desierta)`;
+            }
+
+            // Verificar si con esta copa ya se completaron todas las copas de la Temporada N - FC27
+            const rulesAfter = getMiniSeasonRules();
+            renderWhatsAppModalState(false);
+
+            if (rulesAfter.isComplete) {
+                const fullSeasonSummary = buildMiniSeasonSummaryString(tNum);
+                const combinedText = `${cupReport}\n\n━━━━━━━━━━━━━━━━━━━━\n\n${fullSeasonSummary}`;
+                document.getElementById("waOutputLabel").textContent = `🎉 ¡TEMPORADA ${tNum} COMPLETA! REPORTE + RESUMEN LISTO:`;
+                document.getElementById("whatsappOutputBox").value = combinedText;
+                copyTextSilently(combinedText);
+                showToast(`🎉 ¡Temporada ${tNum} completada! Resumen copiado`);
+            } else {
+                document.getElementById("waOutputLabel").textContent = `📲 REPORTE DE ${cupObj.name.toUpperCase()} (COPIADO):`;
+                document.getElementById("whatsappOutputBox").value = cupReport;
+                copyTextSilently(cupReport);
+                showToast(`✅ ${cupObj.name} registrada y copiada`);
+            }
+        }
+
+        function buildMiniSeasonSummaryString(tNum) {
+            const rules = getMiniSeasonRules();
+            const played = APP_STATE.fc27Tracker.cupsPlayed;
+            const winCounts = { "Jesús": 0, "Sebastián": 0, "David": 0 };
+
+            let text = `🏆 *RESUMEN DE LA TEMPORADA ${tNum} - FC27* 🏆\n\n`;
+            text += `🕹️ *A NIVEL DE CLUBES:*\n`;
+
+            BASE_7_CLUB_CUPS.forEach(k => {
+                const c = TOURNAMENTS_CATALOG.find(item => item.key === k);
+                const entry = played[k];
+                let wText = "⏳ Pendiente";
+                if (entry && entry.played) {
+                    if (entry.winner && entry.winner !== "Ninguno") {
+                        wText = `👑 ${entry.winner}`;
+                        winCounts[entry.winner]++;
+                    } else {
+                        wText = "❌ Ninguno";
+                    }
+                }
+                text += `${c.dot} *${c.name}:* ${wText}\n`;
+            });
+
+            // 8va Copa: Copa Intercontinental (según regla de Champions / Libertadores)
+            const interEntry = played["intercontinental"];
+            if (rules.interCancelled) {
+                text += `⚪ *Copa Intercontinental:* 🚫 No se jugó (Sin campeón en UCL/LIB)\n`;
+            } else if (interEntry && interEntry.played) {
+                if (interEntry.winner && interEntry.winner !== "Ninguno") {
+                    text += `⚪ *Copa Intercontinental:* 👑 ${interEntry.winner}\n`;
+                    winCounts[interEntry.winner]++;
+                } else {
+                    text += `⚪ *Copa Intercontinental:* ❌ Ninguno\n`;
+                }
+            } else if (rules.interUnlocked) {
+                text += `⚪ *Copa Intercontinental:* ⏳ Pendiente\n`;
+            }
+
+            // Selecciones Nacionales (Solo en temporadas pares: 2, 4, 6, 8...)
+            if (rules.isEven) {
+                text += `\n🥅 *A NIVEL DE SELECCIÓN:*\n`;
+                ["mundial", "eurocopa"].forEach(k => {
+                    const c = TOURNAMENTS_CATALOG.find(item => item.key === k);
+                    const entry = played[k];
+                    let wText = "⏳ Pendiente";
+                    if (entry && entry.played) {
+                        if (entry.winner && entry.winner !== "Ninguno") {
+                            wText = `👑 ${entry.winner}`;
+                            winCounts[entry.winner]++;
+                        } else {
+                            wText = "❌ Ninguno";
+                        }
+                    }
+                    text += `${c.dot} *${c.name}:* ${wText}\n`;
+                });
+            }
+
+            text += `\n📊 *Títulos en Temporada ${tNum}:* Jesús (${winCounts["Jesús"]}) • Sebastián (${winCounts["Sebastián"]}) • David (${winCounts["David"]})`;
+            return text;
+        }
+
+        function generateMiniSeasonSummaryText(copyNow = false) {
+            ensureTrackerStructure();
+            const tNum = APP_STATE.fc27Tracker.seasonNumber;
+            const summaryText = buildMiniSeasonSummaryString(tNum);
+            document.getElementById("waOutputLabel").textContent = `📋 RESUMEN DE LA TEMPORADA ${tNum} - FC27:`;
+            document.getElementById("whatsappOutputBox").value = summaryText;
+            if (copyNow) {
+                copyTextSilently(summaryText);
+                showToast(`📋 Resumen de Temporada ${tNum} copiado`);
+            }
+        }
+
+        // Copia el resumen final de la Temporada N y avanza el contador a la Temporada N + 1
+        function finishAndAdvanceMiniSeason() {
+            ensureTrackerStructure();
+            const finishedNum = APP_STATE.fc27Tracker.seasonNumber;
+            const summaryText = buildMiniSeasonSummaryString(finishedNum);
+            copyTextSilently(summaryText);
+
+            APP_STATE.fc27Tracker.seasonNumber = finishedNum + 1;
+            APP_STATE.fc27Tracker.cupsPlayed = {};
+
+            refreshAllViews();
+            renderWhatsAppModalState(false);
+            schedulePushToCloud();
+
+            document.getElementById("waOutputLabel").textContent = `✅ RESUMEN TEMP. ${finishedNum} COPIADO • AHORA EN TEMPORADA ${finishedNum + 1}:`;
+            document.getElementById("whatsappOutputBox").value = summaryText;
+            showToast(`🚀 ¡Iniciada la Temporada ${finishedNum + 1} - FC27!`);
+        }
+
+        function promptResetCurrentMiniSeason() {
+            const tNum = APP_STATE.fc27Tracker.seasonNumber;
+            if (confirm(`¿Deseas limpiar el registro de copas de la Temporada ${tNum} - FC27 para volver a empezarla?`)) {
+                APP_STATE.fc27Tracker.cupsPlayed = {};
+                renderWhatsAppModalState(false);
+                schedulePushToCloud();
+                document.getElementById("whatsappOutputBox").value = "";
+                showToast(`🔄 Temporada ${tNum} reiniciada`);
+            }
+        }
+
+        function copyTextSilently(str) {
+            try {
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(str);
+                }
+            } catch (e) {}
         }
 
         function copyWhatsAppText() {
             const box = document.getElementById("whatsappOutputBox");
+            if (!box.value.trim()) {
+                generateMiniSeasonSummaryText(true);
+                return;
+            }
             box.select();
-            navigator.clipboard.writeText(box.value);
-            showToast("📋 ¡Texto copiado al portapapeles!");
+            copyTextSilently(box.value);
+            showToast("📋 ¡Texto copiado para WhatsApp!");
         }
 
-        // --- H. RÉCORDS HISTÓRICOS Y VISTA GENERAL ---
+        // ==========================================
+        // RÉCORDS HISTÓRICOS Y VISTA GENERAL
+        // ==========================================
         function computeSingleCupRecords(cupKey) {
             let bestVal = 0;
             let players = [];
