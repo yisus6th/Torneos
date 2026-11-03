@@ -61,7 +61,6 @@
             overflow-x: hidden; -webkit-tap-highlight-color: transparent; -webkit-font-smoothing: antialiased;
         }
 
-        /* Fondo de estadio con malla hexagonal nivel consola */
         .bg-ucl-stadium::before {
             content: ""; position: fixed; inset: 0; z-index: -2; pointer-events: none; transform: translateZ(0);
             background-color: #020817;
@@ -76,7 +75,6 @@
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='49' viewBox='0 0 28 49'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%2300e5ff' fill-opacity='0.45'%3E%3Cpath d='M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5zM3 17.9v12.7l10.99 6.34 11-6.35V17.9l-11-6.34L3 17.9zM0 15l12.98-7.5V0h-2v6.35L0 12.69v2.3zm0 18.5L12.98 41v8h-2v-6.85L0 35.81v-2.3zM15 0v7.5L27.99 15H28v-2.31h-.01L17 6.35V0h-2zm0 49v-8l12.99-7.5H28v2.31h-.01L17 42.15V49h-2z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
         }
 
-        /* Tarjetas con bisel deportivo e iluminación ambiental dinámica */
         .ucl-card {
             background: linear-gradient(160deg, rgba(12, 30, 74, 0.93) 0%, rgba(4, 11, 29, 0.98) 100%);
             border: 1px solid rgba(56, 189, 248, 0.26);
@@ -84,7 +82,6 @@
             clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
         }
 
-        /* Iluminación Neón Dinámica: Cian (En Disputa) vs Dorado Intenso (Campeón Oficial) */
         .neon-ambient-cyan {
             border: 1.5px solid rgba(0, 229, 255, 0.65) !important;
             box-shadow: 0 0 26px -4px rgba(0, 229, 255, 0.32), inset 0 0 18px rgba(0, 229, 255, 0.10) !important;
@@ -101,7 +98,6 @@
             clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
         }
 
-        /* Efecto Holográfico 3D interactivo para Balón de Oro y las 10 Copas */
         .holo-3d-card {
             --rx: 0deg;
             --ry: 0deg;
@@ -143,7 +139,7 @@
 <body class="bg-ucl-stadium hex-console-mesh min-h-screen flex flex-col pb-20 md:pb-8 selection:bg-uclCyan selection:text-uclNight">
 
     <!-- ==========================================
-         1. BARRA SUPERIOR CON BOTÓN PÚBLICO DE RULETA Y ADMIN
+         1. BARRA SUPERIOR CON RULETA PÚBLICA, SONIDO Y ADMIN
     =========================================== -->
     <header class="sticky top-0 z-40 bg-[#020817]/95 border-b border-sky-400/25">
         <div class="max-w-6xl mx-auto px-3 h-12 sm:h-14 flex items-center justify-between gap-2">
@@ -162,14 +158,13 @@
                 </div>
             </div>
 
-            <!-- CONTROLES PÚBLICOS (RULETA DE TURNOS + SONIDO) + TUERCA ADMIN -->
             <div class="flex items-center gap-1.5 shrink-0">
                 <button onclick="openTurnRouletteModal()" title="Sortear Orden de Elección de Equipos" class="px-2.5 h-8 sm:h-9 rounded-xl bg-gradient-to-r from-uclCyan/20 to-blue-600/30 hover:from-uclCyan/30 hover:to-blue-600/40 border border-uclCyan/60 text-uclCyan font-oswald font-bold text-xs uppercase tracking-wider flex items-center gap-1.5 active:scale-95 transition shadow-[0_0_14px_rgba(0,229,255,0.25)]">
                     <i class="fa-solid fa-dice text-uclGold"></i>
                     <span>Turnos</span>
                 </button>
 
-                <button id="soundToggleBtn" onclick="toggleSoundEffects()" title="Activar/Silenciar Sonidos de Sorteo y Gala" class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl border border-white/15 bg-white/5 hover:bg-white/10 active:scale-90 text-uclCyan flex items-center justify-center transition">
+                <button id="soundToggleBtn" onclick="toggleSoundEffects()" title="Activar/Silenciar Himnos y Sonidos" class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl border border-white/15 bg-white/5 hover:bg-white/10 active:scale-90 text-uclCyan flex items-center justify-center transition">
                     <i id="soundToggleIcon" class="fa-solid fa-volume-high text-xs"></i>
                 </button>
 
@@ -227,7 +222,7 @@
         <div id="seasonViewContainer" class="space-y-4 sm:space-y-5">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-3.5 sm:gap-4 items-stretch">
 
-                <!-- TARJETA DEL BALÓN DE ORO CON ILUMINACIÓN AMBIENTAL DINÁMICA Y HOLOGRÁFICO 3D -->
+                <!-- TARJETA DEL BALÓN DE ORO -->
                 <div id="ballonDorCardWrapper" class="lg:col-span-5 ucl-card-gold rounded-2xl p-3.5 sm:p-4 flex flex-col justify-between gap-3 relative overflow-hidden order-1 lg:order-2 transition-all duration-300">
                     <div class="relative z-10 flex flex-col items-center text-center gap-1">
                         <div class="w-full flex items-center justify-between gap-2">
@@ -243,14 +238,13 @@
                         </div>
                     </div>
 
-                    <!-- Imagen del Balón de Oro con Efecto Holográfico 3D -->
                     <div class="holo-3d-card relative z-10 w-full max-w-[235px] sm:max-w-[260px] mx-auto cup-card-aspect rounded-2xl overflow-hidden border-2 border-uclGold/85 bg-[#03091a] group flex items-center justify-center cursor-pointer" onclick="openLightboxBallonDor()">
                         <div class="absolute inset-[3.5%] rounded-xl overflow-hidden border border-uclGold/35">
                             <img id="ballonDorImageDisplay" src="balon-fc27.jpg" data-step="0" loading="eager" fetchpriority="high" decoding="sync" alt="Balón de Oro" class="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-105" onerror="handleSmartImageError(this, 'balon-fc27')">
                             <div class="absolute inset-x-0 bottom-0 h-14 bg-gradient-to-t from-black/90 via-black/40 to-transparent pointer-events-none"></div>
                         </div>
                         <button type="button" class="absolute top-2.5 right-2.5 z-30 w-7 h-7 rounded-lg bg-black/80 border border-uclGold/60 text-xs text-uclGold flex items-center justify-center">
-                            <i class="fa-solid fa-chart-simple"></i>
+                            <i class="fa-solid fa-music"></i>
                         </button>
                         <div class="absolute bottom-2.5 inset-x-3 z-30 flex items-center justify-center pointer-events-none">
                             <span class="px-2.5 py-0.5 rounded-full bg-black/85 border border-uclGold/50 text-[9px] font-extrabold uppercase tracking-wider text-uclGold">
@@ -269,7 +263,7 @@
                     </div>
                 </div>
 
-                <!-- TABLA GENERAL CON NEÓN AMBIENTAL DINÁMICO -->
+                <!-- TABLA GENERAL -->
                 <div id="seasonTableCardWrapper" class="lg:col-span-7 ucl-card rounded-2xl p-3 sm:p-4 flex flex-col justify-between gap-3 relative overflow-hidden order-2 lg:order-1 transition-all duration-300">
                     <div class="flex items-center justify-between gap-2 border-b border-sky-400/15 pb-2">
                         <div>
@@ -292,23 +286,6 @@
                 </div>
             </div>
 
-            <!-- BLOQUE EXCLUSIVO FC27: DATOS CURIOSOS DE FINALES (SOLO TEMPORADA ACTUAL) -->
-            <div id="finalsFunFactsWrapper" class="ucl-card neon-ambient-cyan rounded-2xl p-3 sm:p-4 hidden">
-                <div class="flex items-center justify-between gap-2 mb-2.5 border-b border-sky-400/20 pb-2">
-                    <div class="flex items-center gap-2">
-                        <div class="w-7 h-7 rounded-lg bg-uclCyan/20 border border-uclCyan/40 flex items-center justify-center text-uclCyan text-xs">
-                            <i class="fa-solid fa-scale-balanced"></i>
-                        </div>
-                        <div>
-                            <span class="text-[9px] font-extrabold uppercase tracking-widest text-uclCyan block leading-none">Estadísticas de Finales • Solo Temporada Activa</span>
-                            <h3 id="finalsFunFactsTitle" class="font-oswald text-sm sm:text-base font-bold text-white uppercase tracking-wide">⚖️ DATOS CURIOSOS Y EFECTIVIDAD EN FINALES</h3>
-                        </div>
-                    </div>
-                    <span id="finalsFunFactsSubBadge" class="text-[9px] font-extrabold px-2 py-0.5 rounded-full bg-uclNeon/15 text-uclNeon border border-uclNeon/40">En Vivo</span>
-                </div>
-                <div id="finalsFunFactsGrid" class="grid grid-cols-1 sm:grid-cols-3 gap-2.5"></div>
-            </div>
-
             <!-- COPAS DE CLUBES -->
             <div class="space-y-2.5">
                 <div class="flex items-center justify-between gap-2 border-b border-sky-400/20 pb-2">
@@ -317,7 +294,7 @@
                             <i class="fa-solid fa-shield-halved"></i>
                         </div>
                         <div>
-                            <span class="text-[9px] font-extrabold uppercase tracking-widest text-uclCyan block leading-none">Competiciones de Clubes</span>
+                            <span class="text-[9px] font-extrabold uppercase tracking-widest text-uclCyan block leading-none">Competiciones de Clubes • Toca una Copa para escuchar su Himno</span>
                             <h2 class="font-oswald text-base sm:text-xl font-bold text-white uppercase tracking-wide">🕹️ A NIVEL DE CLUBES 👾</h2>
                         </div>
                     </div>
@@ -334,7 +311,7 @@
                             <i class="fa-solid fa-earth-americas"></i>
                         </div>
                         <div>
-                            <span class="text-[9px] font-extrabold uppercase tracking-widest text-uclGold block leading-none">Selecciones Nacionales</span>
+                            <span class="text-[9px] font-extrabold uppercase tracking-widest text-uclGold block leading-none">Selecciones Nacionales • Toca una Copa para escuchar su Himno</span>
                             <h2 class="font-oswald text-base sm:text-xl font-bold text-white uppercase tracking-wide">🥅 A NIVEL DE SELECCIÓN 📢</h2>
                         </div>
                     </div>
@@ -344,7 +321,9 @@
             </div>
         </div>
 
-        <!-- VISTA HISTÓRICA GENERAL -->
+        <!-- ==========================================
+             VISTA HISTÓRICA GENERAL (RANKING GENERAL + RÉCORDS + DATOS CURIOSOS DE FINALES)
+        =========================================== -->
         <div id="historicalViewContainer" class="space-y-5 hidden">
             <div class="ucl-card neon-ambient-gold rounded-2xl p-3.5 sm:p-5">
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4 border-b border-sky-400/15 pb-3">
@@ -379,6 +358,23 @@
                 </div>
             </div>
 
+            <!-- DATOS CURIOSOS DE FINALES (UBICADO EN RANKING GENERAL, CONTABILIZA TEMPORADA ACTIVA) -->
+            <div id="finalsFunFactsWrapper" class="ucl-card neon-ambient-cyan rounded-2xl p-3.5 sm:p-4">
+                <div class="flex items-center justify-between gap-2 mb-2.5 border-b border-sky-400/20 pb-2">
+                    <div class="flex items-center gap-2">
+                        <div class="w-8 h-8 rounded-xl bg-uclCyan/20 border border-uclCyan/40 flex items-center justify-center text-uclCyan text-sm">
+                            <i class="fa-solid fa-scale-balanced"></i>
+                        </div>
+                        <div>
+                            <span class="text-[9px] font-extrabold uppercase tracking-widest text-uclCyan block leading-none">Estadísticas de Finales • Solo Temporada Activa</span>
+                            <h3 id="finalsFunFactsTitle" class="font-oswald text-base sm:text-xl font-bold text-white uppercase tracking-wide">⚖️ DATOS CURIOSOS Y EFECTIVIDAD EN FINALES</h3>
+                        </div>
+                    </div>
+                    <span id="finalsFunFactsSubBadge" class="text-[9px] font-extrabold px-2.5 py-0.5 rounded-full bg-uclNeon/15 text-uclNeon border border-uclNeon/40">En Vivo</span>
+                </div>
+                <div id="finalsFunFactsGrid" class="grid grid-cols-1 sm:grid-cols-3 gap-2.5"></div>
+            </div>
+
             <!-- RÉCORDS EN AÑO CALENDARIO -->
             <div class="space-y-2.5">
                 <div class="flex items-center justify-between gap-2 border-b border-uclGold/30 pb-2">
@@ -398,7 +394,7 @@
             <!-- REYES HISTÓRICOS DE CADA COPA -->
             <div class="space-y-2.5">
                 <div class="border-b border-sky-400/20 pb-2">
-                    <span class="text-[9px] font-extrabold uppercase tracking-widest text-uclCyan block">Acumulado por Competición</span>
+                    <span class="text-[9px] font-extrabold uppercase tracking-widest text-uclCyan block">Acumulado por Competición • Toca una Copa para escuchar su Himno</span>
                     <h3 class="font-oswald text-base sm:text-xl font-bold text-white uppercase tracking-wide">👑 REYES HISTÓRICOS DE CADA COPA</h3>
                 </div>
                 <div id="historicalPerCupGrid" class="flex flex-wrap justify-center gap-2.5 sm:gap-3"></div>
@@ -429,7 +425,6 @@
                 <button onclick="closeTurnRouletteModal()" class="w-8 h-8 rounded-xl bg-white/10 text-slate-300 flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button>
             </div>
 
-            <!-- PANTALLA CENTRAL DE TÓMBOLA -->
             <div class="p-3.5 rounded-2xl bg-[#020817] border-2 border-uclCyan/50 shadow-inner relative overflow-hidden">
                 <span id="rouletteStageSubtitle" class="text-[10px] font-extrabold uppercase tracking-widest text-uclCyan block mb-0.5">
                     PASO 1: SORTEAR QUIÉN ELIGE PRIMERO
@@ -439,7 +434,6 @@
                 </div>
             </div>
 
-            <!-- Casillas de 1°, 2° y 3° Turno -->
             <div class="grid grid-cols-3 gap-2">
                 <div id="pickSlot_0" class="p-2.5 rounded-2xl bg-[#020817]/90 border border-white/15 flex flex-col items-center justify-center gap-1 transition-all duration-300">
                     <span class="px-2 py-0.5 rounded-full bg-uclGold/20 text-uclGold text-[9px] font-extrabold uppercase">🥇 1.° PICK</span>
@@ -460,7 +454,6 @@
                 </div>
             </div>
 
-            <!-- Botones de Acción de la Ruleta -->
             <div class="flex flex-col sm:flex-row gap-2 pt-1">
                 <button id="spinRouletteBtn" onclick="spinTurnRouletteStep()" class="flex-1 py-2.5 px-4 rounded-xl bg-gradient-to-r from-uclGold via-amber-400 to-yellow-300 text-uclNight font-oswald font-bold text-sm uppercase tracking-wider shadow-lg active:scale-95 transition">
                     🎲 Girar para el 1.° Pick
@@ -658,12 +651,19 @@
         </div>
     </div>
 
-    <!-- Visor Lightbox -->
+    <!-- Visor Lightbox con Indicador de Himno en Vivo -->
     <div id="trophyLightboxModal" onclick="closeTrophyLightbox()" class="fixed inset-0 z-50 bg-black/95 flex flex-col items-center justify-center p-3 sm:p-5 overflow-y-auto hidden">
         <div class="max-w-md w-full flex flex-col items-center my-auto" onclick="event.stopPropagation()">
             <img id="lightboxImg" src="" decoding="sync" alt="Trofeo" onclick="closeTrophyLightbox()" class="max-h-[48vh] w-auto object-contain rounded-3xl border-2 border-uclGold/60 p-2 bg-[#040d21]">
             <h4 id="lightboxTitle" class="font-oswald text-xl sm:text-2xl font-bold text-uclGold mt-2.5 uppercase text-center"></h4>
             <p id="lightboxSubtitle" class="text-[11px] text-sky-200/80 mt-0.5 text-center"></p>
+
+            <!-- Barra de Reproducción del Himno de la Copa -->
+            <div id="lightboxAnthemBar" class="mt-2 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-uclCyan/15 border border-uclCyan/40 text-[10px] font-extrabold text-uclCyan">
+                <i class="fa-solid fa-music animate-bounce"></i>
+                <span id="lightboxAnthemLabel">Reproduciendo Himno Oficial...</span>
+                <button type="button" onclick="stopCupAnthem()" class="ml-1 px-1.5 py-0.5 rounded bg-black/60 text-slate-300 hover:text-white text-[9px]">Silenciar</button>
+            </div>
 
             <div id="lightboxPointsRankingBox" class="w-full mt-3 ucl-card-gold rounded-2xl p-3 border border-uclGold/50 hidden">
                 <div class="flex items-center justify-between mb-2 pb-1.5 border-b border-white/15">
@@ -692,12 +692,59 @@
     </footer>
 
     <!-- ==========================================
-         5. MOTOR JAVASCRIPT COMPLETO
+         5. MOTOR JAVASCRIPT COMPLETO + REPRODUCTOR DE HIMNOS POR COPA
     =========================================== -->
     <script>
-        // --- A. SINTETIZADOR DE SONIDOS DE SORTEO Y GALA (0 KB - WEB AUDIO API) ---
+        // --- A. SINTETIZADOR Y REPRODUCTOR DE HIMNOS DE COPAS (MP3 + 0 KB SYNTH FALLBACK) ---
         let soundEnabled = true;
         let audioCtx = null;
+        let currentAnthemAudio = null;
+        let currentSynthTimers = [];
+
+        // Melodías personalizadas (frecuencia en Hz y duración en seg) para cada Copa si no hay archivo .mp3
+        const CUP_SYNTH_ANTHEMS = {
+            champions: [
+                { f: 523.25, d: 0.42 }, { f: 587.33, d: 0.42 }, { f: 659.25, d: 0.65 },
+                { f: 783.99, d: 0.45 }, { f: 698.46, d: 0.35 }, { f: 659.25, d: 0.35 }, { f: 783.99, d: 0.85 }
+            ],
+            libertadores: [
+                { f: 392.00, d: 0.25 }, { f: 523.25, d: 0.25 }, { f: 659.25, d: 0.35 },
+                { f: 783.99, d: 0.45 }, { f: 659.25, d: 0.25 }, { f: 783.99, d: 0.80 }
+            ],
+            mundial: [
+                { f: 523.25, d: 0.28 }, { f: 659.25, d: 0.28 }, { f: 783.99, d: 0.28 },
+                { f: 1046.50, d: 0.55 }, { f: 880.00, d: 0.30 }, { f: 1046.50, d: 0.85 }
+            ],
+            eurocopa: [
+                { f: 440.00, d: 0.28 }, { f: 554.37, d: 0.28 }, { f: 659.25, d: 0.35 },
+                { f: 880.00, d: 0.50 }, { f: 783.99, d: 0.30 }, { f: 880.00, d: 0.75 }
+            ],
+            intercontinental: [
+                { f: 493.88, d: 0.30 }, { f: 587.33, d: 0.30 }, { f: 783.99, d: 0.45 },
+                { f: 987.77, d: 0.75 }
+            ],
+            copadelrey: [
+                { f: 440.00, d: 0.22 }, { f: 523.25, d: 0.22 }, { f: 659.25, d: 0.28 },
+                { f: 698.46, d: 0.30 }, { f: 659.25, d: 0.65 }
+            ],
+            facup: [
+                { f: 392.00, d: 0.30 }, { f: 493.88, d: 0.30 }, { f: 587.33, d: 0.35 }, { f: 783.99, d: 0.70 }
+            ],
+            copaitaliana: [
+                { f: 523.25, d: 0.22 }, { f: 659.25, d: 0.22 }, { f: 587.33, d: 0.22 },
+                { f: 698.46, d: 0.25 }, { f: 783.99, d: 0.70 }
+            ],
+            dfbpokal: [
+                { f: 349.23, d: 0.28 }, { f: 440.00, d: 0.28 }, { f: 523.25, d: 0.35 }, { f: 698.46, d: 0.70 }
+            ],
+            copafrancesa: [
+                { f: 392.00, d: 0.24 }, { f: 523.25, d: 0.24 }, { f: 659.25, d: 0.32 }, { f: 783.99, d: 0.68 }
+            ],
+            balon: [
+                { f: 523.25, d: 0.30 }, { f: 659.25, d: 0.30 }, { f: 783.99, d: 0.35 },
+                { f: 987.77, d: 0.35 }, { f: 1046.50, d: 0.90 }
+            ]
+        };
 
         function getAudioContext() {
             if (!audioCtx) {
@@ -708,6 +755,98 @@
             return audioCtx;
         }
 
+        function stopCupAnthem() {
+            if (currentAnthemAudio) {
+                try {
+                    currentAnthemAudio.pause();
+                    currentAnthemAudio.currentTime = 0;
+                } catch (e) {}
+                currentAnthemAudio = null;
+            }
+            currentSynthTimers.forEach(t => clearTimeout(t));
+            currentSynthTimers = [];
+            const bar = document.getElementById("lightboxAnthemBar");
+            if (bar) bar.classList.add("hidden");
+        }
+
+        function playSynthesizedCupAnthem(cupKey) {
+            if (!soundEnabled) return;
+            try {
+                const ctx = getAudioContext();
+                if (!ctx) return;
+                const baseKey = cupKey.startsWith("balon") ? "balon" : cupKey;
+                const melody = CUP_SYNTH_ANTHEMS[baseKey] || CUP_SYNTH_ANTHEMS.champions;
+                let offsetMs = 0;
+
+                melody.forEach(note => {
+                    const timer = setTimeout(() => {
+                        if (!soundEnabled) return;
+                        const osc = ctx.createOscillator();
+                        const osc2 = ctx.createOscillator();
+                        const gain = ctx.createGain();
+                        osc.type = "triangle";
+                        osc2.type = "sine";
+                        osc.frequency.setValueAtTime(note.f, ctx.currentTime);
+                        osc2.frequency.setValueAtTime(note.f * 0.5, ctx.currentTime); // Sub-octava de estadio
+                        gain.gain.setValueAtTime(0.11, ctx.currentTime);
+                        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + note.d);
+                        osc.connect(gain);
+                        osc2.connect(gain);
+                        gain.connect(ctx.destination);
+                        osc.start();
+                        osc2.start();
+                        osc.stop(ctx.currentTime + note.d);
+                        osc2.stop(ctx.currentTime + note.d);
+                    }, offsetMs);
+                    currentSynthTimers.push(timer);
+                    offsetMs += (note.d * 1000) * 0.88;
+                });
+            } catch (e) {}
+        }
+
+        // Intenta reproducir el archivo .mp3 subido al repositorio; si no existe, toca el himno sintetizado
+        function playCupAnthem(cupKey, cupTitle = "") {
+            stopCupAnthem();
+            const bar = document.getElementById("lightboxAnthemBar");
+            const label = document.getElementById("lightboxAnthemLabel");
+            if (!soundEnabled) {
+                if (bar) bar.classList.add("hidden");
+                return;
+            }
+            if (bar) {
+                bar.classList.remove("hidden");
+                label.textContent = `Himno: ${cupTitle || cupKey.toUpperCase()}`;
+            }
+
+            const cleanKey = cupKey.startsWith("balon") ? "balon" : cupKey;
+            const candidatePaths = [
+                `${cleanKey}.mp3`,
+                `himno-${cleanKey}.mp3`,
+                `audio/${cleanKey}.mp3`,
+                `img/${cleanKey}.mp3`
+            ];
+
+            let pathIdx = 0;
+            const audio = new Audio();
+            currentAnthemAudio = audio;
+
+            const tryNextAudioPath = () => {
+                if (currentAnthemAudio !== audio) return;
+                if (pathIdx < candidatePaths.length) {
+                    audio.src = candidatePaths[pathIdx++];
+                    audio.play().catch(() => {
+                        tryNextAudioPath();
+                    });
+                } else {
+                    // Si no hay archivo .mp3 en GitHub, reproduce la melodía integrada 0 KB
+                    playSynthesizedCupAnthem(cleanKey);
+                }
+            };
+
+            audio.onerror = tryNextAudioPath;
+            tryNextAudioPath();
+        }
+
         function toggleSoundEffects() {
             soundEnabled = !soundEnabled;
             const icon = document.getElementById("soundToggleIcon");
@@ -716,8 +855,9 @@
                 icon.className = "fa-solid fa-volume-high text-xs";
                 btn.className = "w-8 h-8 sm:w-9 sm:h-9 rounded-xl border border-white/15 bg-white/5 text-uclCyan flex items-center justify-center transition";
                 playRouletteTick(660);
-                showToast("🔊 Sonidos de Gala Activados");
+                showToast("🔊 Himnos y Sonidos Activados");
             } else {
+                stopCupAnthem();
                 icon.className = "fa-solid fa-volume-xmark text-xs";
                 btn.className = "w-8 h-8 sm:w-9 sm:h-9 rounded-xl border border-white/10 bg-white/5 text-slate-500 flex items-center justify-center transition";
                 showToast("🔇 Sonidos Silenciados");
@@ -1137,7 +1277,7 @@
         // ==========================================
         // RULETA CLÁSICA PASO A PASO (1.° PICK -> LUEGO 2.° Y 3.° PICK)
         // ==========================================
-        let rouletteStep = 0; // 0 = falta 1°, 1 = falta 2° y 3°, 2 = completo
+        let rouletteStep = 0;
         let rouletteRemaining = [...ORDERED_PLAYERS];
         let currentRouletteOrder = [];
         let isSpinningRoulette = false;
@@ -1196,7 +1336,6 @@
             spinBtn.disabled = true;
             spinBtn.classList.add("opacity-60");
 
-            // Candidatos disponibles en este giro
             const candidates = [...rouletteRemaining];
             const chosenIdx = Math.floor(Math.random() * candidates.length);
             const winner = candidates[chosenIdx];
@@ -1212,23 +1351,19 @@
                 banner.textContent = currentShown;
                 banner.className = "font-display text-4xl sm:text-5xl tracking-wider text-uclCyan uppercase leading-none py-1";
 
-                // Mostrar también el giro en la casilla que se está jugando
                 const targetSlotName = document.getElementById(`pickName_${rouletteStep}`);
                 targetSlotName.textContent = currentShown;
                 targetSlotName.className = "font-oswald text-base sm:text-lg font-bold text-uclCyan uppercase tracking-wide mt-0.5";
 
                 if (tick < totalTicks) {
-                    // Desaceleración progresiva estilo ruleta real
                     const delay = 55 + Math.pow(tick, 1.55) * 2.2;
                     setTimeout(runTick, delay);
                 } else {
-                    // Se detiene en el ganador elegido
                     isSpinningRoulette = false;
                     currentRouletteOrder.push(winner);
                     rouletteRemaining = rouletteRemaining.filter(p => p !== winner);
 
                     if (rouletteStep === 0) {
-                        // Fijar 1.° Pick
                         playSinglePickLockSound();
                         banner.textContent = `🥇 ${winner}`;
                         banner.className = "font-display text-4xl sm:text-5xl tracking-wider gold-text-shine uppercase leading-none py-1";
@@ -1247,7 +1382,6 @@
                         document.getElementById("resetRouletteBtn").classList.remove("hidden");
                         showToast(`🥇 1.° Pick: ${winner}`);
                     } else if (rouletteStep === 1) {
-                        // Fijar 2.° Pick y asignar automáticamente al último como 3.° Pick
                         const thirdPlayer = rouletteRemaining[0];
                         currentRouletteOrder.push(thirdPlayer);
                         rouletteRemaining = [];
@@ -1294,17 +1428,10 @@
         }
 
         // ==========================================
-        // DATOS CURIOSOS DE FINALES (SOLO TEMPORADA ACTIVA)
+        // DATOS CURIOSOS DE FINALES (EN RANKING GENERAL, CONTABILIZA TEMPORADA ACTIVA)
         // ==========================================
-        function renderFinalsFunFacts(seasonId) {
-            const wrapper = document.getElementById("finalsFunFactsWrapper");
-            if (seasonId !== "FC27") {
-                wrapper.classList.add("hidden");
-                return;
-            }
-            wrapper.classList.remove("hidden");
+        function renderFinalsFunFacts() {
             ensureTrackerStructure();
-
             const tNum = APP_STATE.fc27Tracker.seasonNumber;
             const played = APP_STATE.fc27Tracker.cupsPlayed || {};
 
@@ -1333,7 +1460,7 @@
             });
 
             document.getElementById("finalsFunFactsTitle").textContent = `⚖️ DATOS CURIOSOS DE FINALES • TEMPORADA ${tNum} (FC27)`;
-            document.getElementById("finalsFunFactsSubBadge").textContent = `${registeredCupsCount} copas registradas`;
+            document.getElementById("finalsFunFactsSubBadge").textContent = `${registeredCupsCount} copas en Temp. ${tNum}`;
 
             const maxFinals = Math.max(...ORDERED_PLAYERS.map(p => stats[p].finals));
             const mostFinalsPlayers = maxFinals > 0
@@ -1342,7 +1469,7 @@
 
             let bestEff = -1;
             let bestEffLabel = "Por definir";
-            let bestEffSub = "Se calcula al jugar la 1.ª final";
+            let bestEffSub = "Se calcula al registrar la 1.ª final";
             ORDERED_PLAYERS.forEach(p => {
                 if (stats[p].finals > 0) {
                     const eff = Math.round((stats[p].won / stats[p].finals) * 100);
@@ -1671,8 +1798,6 @@
             document.getElementById("ballonDorWinnerName").textContent = isDisputa ? `1° ${ballonEvaluation[0].player.toUpperCase()}` : `👑 ${winnerName.toUpperCase()}`;
             document.getElementById("ballonDorWinnerDesc").textContent = season.ballonDorCustomText || "";
 
-            renderFinalsFunFacts(seasonId);
-
             const visibleClubs = TOURNAMENTS_CATALOG.filter(c => c.category === "clubes" && isCupEnabledInSeason(seasonId, c.key));
             document.getElementById("clubCupsCountBadge").textContent = `${visibleClubs.length} Torneos`;
             const wClass = visibleClubs.length === 6
@@ -1684,6 +1809,7 @@
             document.getElementById("nationalTrophiesGrid").innerHTML = nationalCups.map(c => buildCupCardHTML(seasonId, c, wClass)).join("");
         }
 
+        // Al presionar la tarjeta de cada copa (salvo los botones + / - de Admin) se abre el visor y suena su Himno
         function buildCupCardHTML(seasonId, cup, sizeClasses) {
             const cupScores = APP_STATE.seasons[seasonId].scores[cup.key] || { "Jesús": 0, "Sebastián": 0, "David": 0 };
             const ordered = [...ORDERED_PLAYERS].sort((a, b) => (cupScores[b] || 0) - (cupScores[a] || 0));
@@ -1695,14 +1821,14 @@
                 : (gap12 === 0 ? `<span class="px-2 py-0.5 rounded-full text-[8px] font-extrabold bg-black/85 text-uclCyan border border-uclCyan/50">⚡ Empate</span>`
                 : `<span class="px-2 py-0.5 rounded-full text-[8px] font-extrabold bg-black/90 text-uclGold border border-uclGold/60">👑 ${ordered[0]}</span>`);
 
-            return `<div class="holo-3d-card ${sizeClasses} cup-card-aspect ucl-card rounded-2xl p-2.5 flex flex-col justify-between relative overflow-hidden border ${cup.borderGlow} group shrink-0">
+            return `<div onclick="openTrophyLightbox('${cup.name}', '${cup.key}', '${cup.subtitle}')" class="holo-3d-card ${sizeClasses} cup-card-aspect ucl-card rounded-2xl p-2.5 flex flex-col justify-between relative overflow-hidden border ${cup.borderGlow} group shrink-0 cursor-pointer">
                 <div class="absolute inset-[5%] z-0 rounded-xl overflow-hidden pointer-events-none border border-white/15 bg-[#03091c]">
                     <img src="${getPhotoSrc(cup.key)}" data-step="0" loading="eager" decoding="sync" alt="${cup.name}" class="w-full h-full object-cover object-center opacity-95" onload="RESOLVED_IMAGE_URLS['${cup.key}']=this.src" onerror="handleSmartImageError(this, '${cup.key}')">
                     <div class="absolute inset-0 bg-gradient-to-t from-[#020817]/95 via-[#020817]/45 to-transparent"></div>
                 </div>
                 <div class="relative z-30 flex items-center justify-between px-1 pt-0.5">
                     ${kingBadge}
-                    <button onclick="openTrophyLightbox('${cup.name}', '${cup.key}', '${cup.subtitle}')" class="w-5 h-5 rounded-md bg-black/85 border border-white/25 text-[9px] text-white flex items-center justify-center"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
+                    <button type="button" onclick="event.stopPropagation(); openTrophyLightbox('${cup.name}', '${cup.key}', '${cup.subtitle}')" title="Escuchar Himno y Ampliar" class="w-6 h-6 rounded-md bg-black/85 border border-uclCyan/40 text-[9px] text-uclCyan flex items-center justify-center"><i class="fa-solid fa-music"></i></button>
                 </div>
                 <div class="relative z-30 mt-auto px-1 pb-0.5">
                     <h3 class="font-oswald text-xs sm:text-[15px] font-bold text-white uppercase leading-tight mb-1 drop-shadow">${cup.dot} ${cup.name}</h3>
@@ -1711,9 +1837,9 @@
                             const val = Number(cupScores[player] || 0);
                             const isLeader = maxVal > 0 && val === maxVal;
                             const barPct = maxVal > 0 ? Math.round((val / maxVal) * 100) : 0;
-                            const adminBtns = isAdminUnlocked ? `<div class="flex items-center gap-1 ml-1">
-                                <button onclick="adjustCupScore('${seasonId}', '${cup.key}', '${player}', -1)" class="w-5 h-5 rounded bg-white/15 text-white font-bold text-[10px]">-</button>
-                                <button onclick="adjustCupScore('${seasonId}', '${cup.key}', '${player}', 1)" class="w-5 h-5 rounded bg-uclNeon text-uclNight font-extrabold text-[10px]">+</button>
+                            const adminBtns = isAdminUnlocked ? `<div class="flex items-center gap-1 ml-1" onclick="event.stopPropagation()">
+                                <button type="button" onclick="adjustCupScore('${seasonId}', '${cup.key}', '${player}', -1)" class="w-5 h-5 rounded bg-white/15 text-white font-bold text-[10px]">-</button>
+                                <button type="button" onclick="adjustCupScore('${seasonId}', '${cup.key}', '${player}', 1)" class="w-5 h-5 rounded bg-uclNeon text-uclNight font-extrabold text-[10px]">+</button>
                             </div>` : "";
                             return `<div class="px-2 py-0.5 sm:py-1 rounded-lg ${isLeader ? 'bg-blue-950/90 border border-sky-400/45' : 'bg-black/85 border border-white/10'}">
                                 <div class="flex items-center justify-between">
@@ -2300,6 +2426,8 @@
                     <td class="py-2.5 px-2.5 text-right font-oswald text-lg font-bold text-uclGold">${d.total}</td>
                 </tr>`).join("");
 
+            // Renderizar Datos Curiosos de Finales y Récords dentro de Ranking General
+            renderFinalsFunFacts();
             renderHistoricalRecordsSection(sums, ballonCount, ballonYears);
 
             document.getElementById("historicalPerCupGrid").innerHTML = TOURNAMENTS_CATALOG.map(cup => {
@@ -2316,7 +2444,7 @@
                         <img src="${getPhotoSrc(cup.key)}" data-step="0" loading="eager" decoding="sync" alt="${cup.name}" class="w-full h-full object-cover" onerror="handleSmartImageError(this, '${cup.key}')">
                         <div class="absolute inset-0 bg-gradient-to-t from-[#020817]/95 via-[#020817]/50 to-transparent"></div>
                     </div>
-                    <div class="relative z-30 flex justify-end"><span class="text-[8px] font-extrabold px-2 py-0.5 rounded-full bg-black/85 text-uclGold border border-uclGold/50">${badge}</span></div>
+                    <div class="relative z-30 flex items-center justify-between"><span class="w-5 h-5 rounded-md bg-black/80 border border-uclCyan/40 text-[8px] text-uclCyan flex items-center justify-center"><i class="fa-solid fa-music"></i></span><span class="text-[8px] font-extrabold px-2 py-0.5 rounded-full bg-black/85 text-uclGold border border-uclGold/50">${badge}</span></div>
                     <div class="relative z-30 mt-auto"><h4 class="font-oswald text-xs sm:text-sm font-bold text-white uppercase mb-1">${cup.dot} ${cup.name}</h4>
                         <div class="text-[10px] text-slate-200 space-y-0.5 bg-black/85 p-1.5 rounded-lg border border-white/10">
                             ${ord.map((p, idx) => `<div class="flex justify-between"><span class="${idx === 0 && cupTotals[p] > 0 ? 'text-uclGold font-bold' : ''}">${p}</span><span class="font-bold">${cupTotals[p]}</span></div>`).join("")}
@@ -2438,6 +2566,7 @@
             if (p && p.trim()) { APP_STATE.adminPin = p.trim(); pushStateToCloud(); }
         }
 
+        // VISOR LIGHTBOX: Al abrir cualquier Copa o el Balón de Oro, dispara su Himno automáticamente
         function openTrophyLightbox(title, cupKey, subtitle) {
             const img = document.getElementById("lightboxImg");
             img.setAttribute("data-step", "0");
@@ -2447,6 +2576,7 @@
             document.getElementById("lightboxSubtitle").textContent = subtitle || "";
             document.getElementById("lightboxPointsRankingBox").classList.add("hidden");
             document.getElementById("trophyLightboxModal").classList.remove("hidden");
+            playCupAnthem(cupKey, title);
         }
 
         function openLightboxBallonDor() {
@@ -2479,9 +2609,11 @@
 
             document.getElementById("lightboxPointsRankingBox").classList.remove("hidden");
             document.getElementById("trophyLightboxModal").classList.remove("hidden");
+            playCupAnthem("balon", `Gala Balón de Oro ${s.year}`);
         }
 
         function closeTrophyLightbox() {
+            stopCupAnthem();
             document.getElementById("trophyLightboxModal").classList.add("hidden");
         }
 
