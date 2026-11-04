@@ -322,7 +322,7 @@
         </div>
 
         <!-- ==========================================
-             VISTA HISTÓRICA GENERAL (RANKING GENERAL + RÉCORDS + DATOS CURIOSOS DE FINALES)
+             VISTA HISTÓRICA GENERAL (RANKING GENERAL + DATOS CURIOSOS DE FINALES + RÉCORDS)
         =========================================== -->
         <div id="historicalViewContainer" class="space-y-5 hidden">
             <div class="ucl-card neon-ambient-gold rounded-2xl p-3.5 sm:p-5">
@@ -358,7 +358,7 @@
                 </div>
             </div>
 
-            <!-- DATOS CURIOSOS DE FINALES (UBICADO EN RANKING GENERAL, CONTABILIZA TEMPORADA ACTIVA) -->
+            <!-- DATOS CURIOSOS DE FINALES (EN RANKING GENERAL, CONTABILIZA TEMPORADA ACTIVA) -->
             <div id="finalsFunFactsWrapper" class="ucl-card neon-ambient-cyan rounded-2xl p-3.5 sm:p-4">
                 <div class="flex items-center justify-between gap-2 mb-2.5 border-b border-sky-400/20 pb-2">
                     <div class="flex items-center gap-2">
@@ -692,16 +692,16 @@
     </footer>
 
     <!-- ==========================================
-         5. MOTOR JAVASCRIPT COMPLETO + REPRODUCTOR DE HIMNOS POR COPA
+         5. MOTOR JAVASCRIPT COMPLETO + CARPETA AUDIO PRIORITARIA
     =========================================== -->
     <script>
-        // --- A. SINTETIZADOR Y REPRODUCTOR DE HIMNOS DE COPAS (MP3 + 0 KB SYNTH FALLBACK) ---
+        // --- A. REPRODUCTOR DE HIMNOS CON PRIORIDAD EN CARPETA "audio/" Y RESPALDO 0 KB ---
         let soundEnabled = true;
         let audioCtx = null;
         let currentAnthemAudio = null;
         let currentSynthTimers = [];
+        const RESOLVED_AUDIO_URLS = {};
 
-        // Melodías personalizadas (frecuencia en Hz y duración en seg) para cada Copa si no hay archivo .mp3
         const CUP_SYNTH_ANTHEMS = {
             champions: [
                 { f: 523.25, d: 0.42 }, { f: 587.33, d: 0.42 }, { f: 659.25, d: 0.65 },
@@ -787,7 +787,7 @@
                         osc.type = "triangle";
                         osc2.type = "sine";
                         osc.frequency.setValueAtTime(note.f, ctx.currentTime);
-                        osc2.frequency.setValueAtTime(note.f * 0.5, ctx.currentTime); // Sub-octava de estadio
+                        osc2.frequency.setValueAtTime(note.f * 0.5, ctx.currentTime);
                         gain.gain.setValueAtTime(0.11, ctx.currentTime);
                         gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + note.d);
                         osc.connect(gain);
@@ -804,7 +804,7 @@
             } catch (e) {}
         }
 
-        // Intenta reproducir el archivo .mp3 subido al repositorio; si no existe, toca el himno sintetizado
+        // Prioridad 1: carpeta "audio/<nombre>.mp3" con memoria caché de ruta válida
         function playCupAnthem(cupKey, cupTitle = "") {
             stopCupAnthem();
             const bar = document.getElementById("lightboxAnthemBar");
@@ -819,12 +819,14 @@
             }
 
             const cleanKey = cupKey.startsWith("balon") ? "balon" : cupKey;
-            const candidatePaths = [
-                `${cleanKey}.mp3`,
-                `himno-${cleanKey}.mp3`,
-                `audio/${cleanKey}.mp3`,
-                `img/${cleanKey}.mp3`
-            ];
+            const candidatePaths = RESOLVED_AUDIO_URLS[cleanKey]
+                ? [RESOLVED_AUDIO_URLS[cleanKey]]
+                : [
+                    `audio/${cleanKey}.mp3`,
+                    `audios/${cleanKey}.mp3`,
+                    `${cleanKey}.mp3`,
+                    `img/${cleanKey}.mp3`
+                ];
 
             let pathIdx = 0;
             const audio = new Audio();
@@ -833,12 +835,14 @@
             const tryNextAudioPath = () => {
                 if (currentAnthemAudio !== audio) return;
                 if (pathIdx < candidatePaths.length) {
-                    audio.src = candidatePaths[pathIdx++];
-                    audio.play().catch(() => {
+                    const chosenPath = candidatePaths[pathIdx++];
+                    audio.src = chosenPath;
+                    audio.play().then(() => {
+                        RESOLVED_AUDIO_URLS[cleanKey] = chosenPath;
+                    }).catch(() => {
                         tryNextAudioPath();
                     });
                 } else {
-                    // Si no hay archivo .mp3 en GitHub, reproduce la melodía integrada 0 KB
                     playSynthesizedCupAnthem(cleanKey);
                 }
             };
@@ -1809,7 +1813,6 @@
             document.getElementById("nationalTrophiesGrid").innerHTML = nationalCups.map(c => buildCupCardHTML(seasonId, c, wClass)).join("");
         }
 
-        // Al presionar la tarjeta de cada copa (salvo los botones + / - de Admin) se abre el visor y suena su Himno
         function buildCupCardHTML(seasonId, cup, sizeClasses) {
             const cupScores = APP_STATE.seasons[seasonId].scores[cup.key] || { "Jesús": 0, "Sebastián": 0, "David": 0 };
             const ordered = [...ORDERED_PLAYERS].sort((a, b) => (cupScores[b] || 0) - (cupScores[a] || 0));
@@ -2426,7 +2429,6 @@
                     <td class="py-2.5 px-2.5 text-right font-oswald text-lg font-bold text-uclGold">${d.total}</td>
                 </tr>`).join("");
 
-            // Renderizar Datos Curiosos de Finales y Récords dentro de Ranking General
             renderFinalsFunFacts();
             renderHistoricalRecordsSection(sums, ballonCount, ballonYears);
 
@@ -2566,7 +2568,6 @@
             if (p && p.trim()) { APP_STATE.adminPin = p.trim(); pushStateToCloud(); }
         }
 
-        // VISOR LIGHTBOX: Al abrir cualquier Copa o el Balón de Oro, dispara su Himno automáticamente
         function openTrophyLightbox(title, cupKey, subtitle) {
             const img = document.getElementById("lightboxImg");
             img.setAttribute("data-step", "0");
