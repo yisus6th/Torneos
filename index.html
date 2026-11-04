@@ -286,7 +286,7 @@
                 </div>
             </div>
 
-            <!-- NUEVO PANEL: BOTA DE ORO FC27 (RANKING DE PICHICHIS POR COPA) -->
+            <!-- PANEL BOTA DE ORO FC27 (TOCA UN JUGADOR PARA VER SUS PICHICHIS POR COPA) -->
             <div id="goldenBootSectionWrapper" class="ucl-card neon-ambient-gold rounded-2xl p-3.5 sm:p-4 hidden">
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2.5 mb-3 border-b border-uclGold/30">
                     <div class="flex items-center gap-2.5">
@@ -294,8 +294,8 @@
                             👟
                         </div>
                         <div>
-                            <div class="flex items-center gap-1.5">
-                                <span class="text-[9px] font-extrabold uppercase tracking-widest text-uclGold">Trofeo Goleador • Pichichis de cada Copa</span>
+                            <div class="flex items-center gap-1.5 flex-wrap">
+                                <span class="text-[9px] font-extrabold uppercase tracking-widest text-uclGold">Trofeo Goleador • Toca un jugador para ver su desglose por Copa</span>
                                 <span id="goldenBootStatusPill" class="px-2 py-0.5 rounded-full bg-uclGold text-uclNight text-[8px] font-extrabold uppercase">EN DISPUTA</span>
                             </div>
                             <h3 class="font-oswald text-base sm:text-xl font-bold text-white uppercase tracking-wide">👟 CARRERA POR LA BOTA DE ORO FC27</h3>
@@ -429,6 +429,40 @@
     <nav class="md:hidden fixed bottom-0 inset-x-0 z-40 ios-bottom-nav px-2 pt-1">
         <div class="grid grid-cols-5 gap-1 max-w-md mx-auto" id="mobileBottomNav"></div>
     </nav>
+
+    <!-- ==========================================
+         NUEVO MODAL: DESGLOSE DE PICHICHIS POR COPA (AL TOCAR UN JUGADOR EN BOTA DE ORO)
+    =========================================== -->
+    <div id="pichichiBreakdownModal" onclick="closePichichiBreakdownModal()" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden flex items-center justify-center p-3 sm:p-5">
+        <div class="ucl-card neon-ambient-gold max-w-lg w-full rounded-3xl p-4 sm:p-5 flex flex-col max-h-[90vh]" onclick="event.stopPropagation()">
+            <div class="flex items-center justify-between border-b border-uclGold/30 pb-3">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-9 h-9 rounded-xl bg-uclGold/20 border border-uclGold/60 flex items-center justify-center text-lg">
+                        👟
+                    </div>
+                    <div>
+                        <span class="text-[9px] font-extrabold uppercase tracking-widest text-uclGold block leading-none">Desglose de Goleador por Competición • FC27</span>
+                        <h3 id="pichichiModalPlayerTitle" class="font-oswald text-lg sm:text-xl font-bold text-white uppercase tracking-wide">PICHICHIS DE JESÚS</h3>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span id="pichichiModalTotalBadge" class="px-2.5 py-1 rounded-xl bg-uclGold text-uclNight font-oswald font-bold text-xs uppercase">0 Total</span>
+                    <button onclick="closePichichiBreakdownModal()" class="w-8 h-8 rounded-xl bg-white/10 text-slate-300 flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+            </div>
+
+            <!-- Selector rápido para cambiar entre Jesús, Sebastián y David dentro del mismo modal -->
+            <div id="pichichiModalPlayerTabs" class="grid grid-cols-3 gap-1.5 my-3"></div>
+
+            <!-- Lista de las 10 Copas con sus Pichichis -->
+            <div id="pichichiModalCupsList" class="space-y-2 overflow-y-auto pr-1 flex-1"></div>
+
+            <div class="pt-3 mt-2 border-t border-white/10 flex items-center justify-between">
+                <span class="text-[10px] text-sky-200/80">⚽ Se suma automáticamente al elegir el Pichichi de cada copa.</span>
+                <button onclick="closePichichiBreakdownModal()" class="px-4 py-1.5 rounded-xl bg-white/10 hover:bg-white/15 text-slate-200 font-bold text-xs">Cerrar</button>
+            </div>
+        </div>
+    </div>
 
     <!-- ==========================================
          MODAL PÚBLICO: RULETA PASO A PASO (1° PICK -> 2° PICK + 3° AUTOMÁTICO)
@@ -585,11 +619,11 @@
                         </div>
                     </div>
 
-                    <!-- NUEVO SELECTOR: PICHICHI / GOLEADOR DE LA COPA PARA LA BOTA DE ORO -->
+                    <!-- SELECTOR: PICHICHI / GOLEADOR DE LA COPA PARA LA BOTA DE ORO -->
                     <div class="p-2.5 rounded-xl bg-amber-500/10 border border-uclGold/40 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                         <div>
                             <span class="text-[10px] font-extrabold uppercase tracking-wider text-uclGold block">3. 👟 Pichichi / Goleador de esta Copa (Bota de Oro):</span>
-                            <span class="text-[9px] text-amber-200/80">Suma +1 Pichichi al goleador del torneo para la Bota de Oro FC27</span>
+                            <span class="text-[9px] text-amber-200/80">Suma +1 Pichichi en esta copa específica para la Bota de Oro FC27</span>
                         </div>
                         <select id="waScorerSelect" class="px-3 py-1.5 rounded-xl bg-[#020817] border border-uclGold/60 text-xs text-uclGold font-extrabold focus:outline-none">
                             <option value="Jesús">👟 Jesús (+1 Pichichi)</option>
@@ -729,7 +763,7 @@
     </footer>
 
     <!-- ==========================================
-         5. MOTOR JAVASCRIPT COMPLETO + HIMNOS MP3 + BOTA DE ORO (PICHICHIS)
+         5. MOTOR JAVASCRIPT COMPLETO + PICHICHIS POR COPA
     =========================================== -->
     <script>
         // --- A. REPRODUCTOR DE HIMNOS CON PRIORIDAD EN CARPETA "audio/" ---
@@ -1029,7 +1063,7 @@
         // --- C. PRE-CARGADOR DE FOTOS EN RAM ---
         const RESOLVED_IMAGE_URLS = {};
         const RAM_IMAGE_POOL = {};
-        const FAST_SCORES_CACHE_KEY = "EA_FC_FAST_SCORES_ONLY_V4";
+        const FAST_SCORES_CACHE_KEY = "EA_FC_FAST_SCORES_ONLY_V5";
 
         const ALL_PHOTO_KEYS = [
             "logo", "balon-fc27", "balon-fc26", "balon-fc25", "balon-fc24",
@@ -1098,6 +1132,9 @@
         ];
 
         const BASE_7_CLUB_CUPS = ["champions", "libertadores", "copadelrey", "facup", "copaitaliana", "dfbpokal", "copafrancesa"];
+        const DISPLAY_SEASON_ORDER = ["FC27", "FC26", "FC25", "FC24"];
+        const SEASON_KEYS = ["FC24", "FC25", "FC26", "FC27"];
+        const ORDERED_PLAYERS = ["Jesús", "Sebastián", "David"];
 
         let APP_STATE = {
             adminPin: "0571",
@@ -1109,7 +1146,8 @@
             fc27Tracker: {
                 seasonNumber: 1,
                 cupsPlayed: {},
-                pichichis: { "Jesús": 0, "Sebastián": 0, "David": 0 }
+                pichichis: { "Jesús": 0, "Sebastián": 0, "David": 0 },
+                pichichisByCup: {}
             },
             seasons: {
                 FC24: {
@@ -1180,13 +1218,21 @@
             }
         };
 
-        const DISPLAY_SEASON_ORDER = ["FC27", "FC26", "FC25", "FC24"];
-        const SEASON_KEYS = ["FC24", "FC25", "FC26", "FC27"];
-        const ORDERED_PLAYERS = ["Jesús", "Sebastián", "David"];
+        // Estructura y sincronización automática del total de Pichichis a partir de cada Copa
+        function syncTotalPichichisFromCups() {
+            const totals = { "Jesús": 0, "Sebastián": 0, "David": 0 };
+            TOURNAMENTS_CATALOG.forEach(c => {
+                const cupMap = APP_STATE.fc27Tracker.pichichisByCup[c.key] || {};
+                ORDERED_PLAYERS.forEach(p => {
+                    totals[p] += Number(cupMap[p] || 0);
+                });
+            });
+            APP_STATE.fc27Tracker.pichichis = totals;
+        }
 
         function ensureTrackerStructure() {
             if (!APP_STATE.fc27Tracker || typeof APP_STATE.fc27Tracker !== "object") {
-                APP_STATE.fc27Tracker = { seasonNumber: 1, cupsPlayed: {}, pichichis: { "Jesús": 0, "Sebastián": 0, "David": 0 } };
+                APP_STATE.fc27Tracker = { seasonNumber: 1, cupsPlayed: {}, pichichis: { "Jesús": 0, "Sebastián": 0, "David": 0 }, pichichisByCup: {} };
             }
             if (!APP_STATE.fc27Tracker.seasonNumber || APP_STATE.fc27Tracker.seasonNumber < 1) {
                 APP_STATE.fc27Tracker.seasonNumber = 1;
@@ -1197,11 +1243,36 @@
             if (!APP_STATE.fc27Tracker.pichichis || typeof APP_STATE.fc27Tracker.pichichis !== "object") {
                 APP_STATE.fc27Tracker.pichichis = { "Jesús": 0, "Sebastián": 0, "David": 0 };
             }
-            ORDERED_PLAYERS.forEach(p => {
-                if (typeof APP_STATE.fc27Tracker.pichichis[p] !== "number") {
-                    APP_STATE.fc27Tracker.pichichis[p] = Number(APP_STATE.fc27Tracker.pichichis[p] || 0);
+            if (!APP_STATE.fc27Tracker.pichichisByCup || typeof APP_STATE.fc27Tracker.pichichisByCup !== "object") {
+                APP_STATE.fc27Tracker.pichichisByCup = {};
+            }
+
+            TOURNAMENTS_CATALOG.forEach(c => {
+                if (!APP_STATE.fc27Tracker.pichichisByCup[c.key] || typeof APP_STATE.fc27Tracker.pichichisByCup[c.key] !== "object") {
+                    APP_STATE.fc27Tracker.pichichisByCup[c.key] = { "Jesús": 0, "Sebastián": 0, "David": 0 };
                 }
+                ORDERED_PLAYERS.forEach(p => {
+                    APP_STATE.fc27Tracker.pichichisByCup[c.key][p] = Number(APP_STATE.fc27Tracker.pichichisByCup[c.key][p] || 0);
+                });
             });
+
+            // Si había Pichichis guardados en cupsPlayed de la minitemporada activa y la matriz por copa aún estaba en 0, sincronizarlos
+            let sumByCup = 0;
+            TOURNAMENTS_CATALOG.forEach(c => {
+                ORDERED_PLAYERS.forEach(p => {
+                    sumByCup += APP_STATE.fc27Tracker.pichichisByCup[c.key][p];
+                });
+            });
+            if (sumByCup === 0) {
+                Object.keys(APP_STATE.fc27Tracker.cupsPlayed).forEach(cupKey => {
+                    const entry = APP_STATE.fc27Tracker.cupsPlayed[cupKey];
+                    if (entry && entry.played && entry.scorer && entry.scorer !== "Ninguno" && APP_STATE.fc27Tracker.pichichisByCup[cupKey]) {
+                        APP_STATE.fc27Tracker.pichichisByCup[cupKey][entry.scorer] = Number(APP_STATE.fc27Tracker.pichichisByCup[cupKey][entry.scorer] || 0) + 1;
+                    }
+                });
+            }
+
+            syncTotalPichichisFromCups();
         }
 
         function loadFastScoresCache() {
@@ -1229,6 +1300,7 @@
         let isAdminUnlocked = false;
         let SUMMARY_CACHE = {};
         let saveTimeout = null;
+        let activePichichiModalPlayer = "Jesús";
 
         function invalidateSummaryCache() {
             SUMMARY_CACHE = {};
@@ -1502,16 +1574,88 @@
         }
 
         // ==========================================
-        // PANEL BOTA DE ORO FC27 (RANKING DE PICHICHIS)
+        // PANEL BOTA DE ORO FC27 + MODAL DE DESGLOSE POR COPA
         // ==========================================
-        function adjustPichichiScore(player, delta) {
+        function openPichichiBreakdownModal(player) {
             ensureTrackerStructure();
-            const currentVal = Number(APP_STATE.fc27Tracker.pichichis[player] || 0);
-            APP_STATE.fc27Tracker.pichichis[player] = Math.max(0, currentVal + delta);
+            activePichichiModalPlayer = player || "Jesús";
+            playSinglePickLockSound();
+            renderPichichiBreakdownModalContent();
+            document.getElementById("pichichiBreakdownModal").classList.remove("hidden");
+        }
+
+        function closePichichiBreakdownModal() {
+            document.getElementById("pichichiBreakdownModal").classList.add("hidden");
+        }
+
+        function adjustCupPichichiScore(cupKey, player, delta) {
+            ensureTrackerStructure();
+            const currentVal = Number(APP_STATE.fc27Tracker.pichichisByCup[cupKey][player] || 0);
+            APP_STATE.fc27Tracker.pichichisByCup[cupKey][player] = Math.max(0, currentVal + delta);
+            syncTotalPichichisFromCups();
+
             if (delta > 0) playGalaFanfare();
             else playRouletteTick(400);
+
             refreshAllViews();
+            renderPichichiBreakdownModalContent();
             schedulePushToCloud();
+        }
+
+        function renderPichichiBreakdownModalContent() {
+            ensureTrackerStructure();
+            const player = activePichichiModalPlayer;
+            const totalPlayerPichichis = Number(APP_STATE.fc27Tracker.pichichis[player] || 0);
+
+            document.getElementById("pichichiModalPlayerTitle").textContent = `PICHICHIS DE ${player.toUpperCase()} POR COPA`;
+            document.getElementById("pichichiModalTotalBadge").textContent = `👟 ${totalPlayerPichichis} ${totalPlayerPichichis === 1 ? 'Pichichi' : 'Pichichis'}`;
+
+            // Pestañas rápidas para cambiar de jugador dentro del mismo modal
+            document.getElementById("pichichiModalPlayerTabs").innerHTML = ORDERED_PLAYERS.map(p => {
+                const pTot = Number(APP_STATE.fc27Tracker.pichichis[p] || 0);
+                const isSelected = p === player;
+                return `<button type="button" onclick="openPichichiBreakdownModal('${p}')" class="py-1.5 px-2.5 rounded-xl border text-xs font-oswald font-bold uppercase tracking-wide transition flex items-center justify-between ${isSelected ? 'bg-uclGold text-uclNight border-uclGold shadow' : 'bg-[#020817] text-slate-300 border-white/15 hover:border-uclGold/40'}">
+                    <span>⚽ ${p}</span>
+                    <span class="px-1.5 py-0.5 rounded-full text-[10px] ${isSelected ? 'bg-black/20 text-uclNight font-extrabold' : 'bg-white/10 text-uclGold'}">${pTot}</span>
+                </button>`;
+            }).join("");
+
+            // Ordenar las 10 copas mostrando primero donde el jugador tiene más Pichichis
+            const cupsWithCounts = TOURNAMENTS_CATALOG.map((cup, idx) => ({
+                ...cup,
+                idx,
+                count: Number((APP_STATE.fc27Tracker.pichichisByCup[cup.key] && APP_STATE.fc27Tracker.pichichisByCup[cup.key][player]) || 0)
+            })).sort((a, b) => (b.count - a.count) || (a.idx - b.idx));
+
+            const maxInSingleCup = Math.max(1, cupsWithCounts[0].count);
+
+            document.getElementById("pichichiModalCupsList").innerHTML = cupsWithCounts.map(cup => {
+                const hasPichichis = cup.count > 0;
+                const barW = hasPichichis ? Math.round((cup.count / maxInSingleCup) * 100) : 0;
+                const adminBtns = isAdminUnlocked ? `
+                    <div class="flex items-center gap-1 ml-2">
+                        <button type="button" onclick="adjustCupPichichiScore('${cup.key}', '${player}', -1)" class="w-6 h-6 rounded-lg bg-white/15 hover:bg-white/25 text-white font-bold text-xs flex items-center justify-center">-</button>
+                        <button type="button" onclick="adjustCupPichichiScore('${cup.key}', '${player}', 1)" class="w-6 h-6 rounded-lg bg-uclGold text-uclNight font-extrabold text-xs flex items-center justify-center">+</button>
+                    </div>` : "";
+
+                return `<div class="p-2.5 rounded-xl border ${hasPichichis ? 'bg-gradient-to-r from-amber-500/15 via-[#061538] to-[#03091c] border-uclGold/50' : 'bg-[#03091c]/90 border-white/10 opacity-80'} flex items-center justify-between gap-2.5">
+                    <div class="flex items-center gap-2.5 min-w-0 flex-1">
+                        <img src="${getPhotoSrc(cup.key)}" data-step="0" alt="${cup.name}" class="w-9 h-11 rounded-lg object-cover border border-white/20 shrink-0 bg-[#020817]" onerror="handleSmartImageError(this, '${cup.key}')">
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-center justify-between gap-2">
+                                <span class="font-oswald text-xs sm:text-sm font-bold text-white uppercase truncate">${cup.dot} ${cup.name}</span>
+                                <span class="font-display text-lg sm:text-xl ${hasPichichis ? 'text-uclGold' : 'text-slate-400'} shrink-0 leading-none">
+                                    ${cup.count} <span class="text-[10px] font-sans ${hasPichichis ? 'text-amber-200' : 'text-slate-500'}">${cup.count === 1 ? 'Pichichi' : 'Pichichis'}</span>
+                                </span>
+                            </div>
+                            <div class="w-full h-1.5 rounded-full bg-black/70 overflow-hidden mt-1">
+                                <div class="h-full rounded-full" style="width:${barW}%;background:${hasPichichis ? cup.barColor : '#334155'}"></div>
+                            </div>
+                        </div>
+                    </div>
+                    ${adminBtns}
+                </div>`;
+            }).join("");
         }
 
         function renderGoldenBootSection(seasonId) {
@@ -1546,25 +1690,33 @@
             document.getElementById("goldenBootCardsGrid").innerHTML = ordered.map((item, i) => {
                 const isLeader = maxP > 0 && item.count === maxP;
                 const barW = maxP > 0 ? Math.round((item.count / maxP) * 100) : 0;
-                const adminBtns = isAdminUnlocked ? `
-                    <div class="flex items-center gap-1 ml-2">
-                        <button type="button" onclick="adjustPichichiScore('${item.player}', -1)" class="w-5 h-5 rounded bg-white/15 text-white font-bold text-[10px]">-</button>
-                        <button type="button" onclick="adjustPichichiScore('${item.player}', 1)" class="w-5 h-5 rounded bg-uclGold text-uclNight font-extrabold text-[10px]">+</button>
-                    </div>` : "";
 
-                return `<div class="p-3 rounded-xl border ${isLeader ? 'bg-gradient-to-r from-amber-500/20 via-blue-950/70 to-transparent border-uclGold/70' : 'bg-[#030b1e] border-white/10'} flex flex-col justify-between gap-1.5">
+                // Mini resumen de las copas donde tiene Pichichis
+                const topCupsPreview = TOURNAMENTS_CATALOG
+                    .map(c => ({ name: c.name, dot: c.dot, val: Number(APP_STATE.fc27Tracker.pichichisByCup[c.key]?.[item.player] || 0) }))
+                    .filter(c => c.val > 0)
+                    .sort((a, b) => b.val - a.val)
+                    .slice(0, 2)
+                    .map(c => `${c.dot} ${c.name}: ${c.val}`)
+                    .join(" • ");
+
+                return `<div onclick="openPichichiBreakdownModal('${item.player}')" class="p-3 rounded-xl border ${isLeader ? 'bg-gradient-to-r from-amber-500/20 via-blue-950/70 to-transparent border-uclGold/75' : 'bg-[#030b1e] border-white/15 hover:border-uclGold/40'} flex flex-col justify-between gap-1.5 cursor-pointer transition active:scale-[0.98] group">
                     <div class="flex items-center justify-between">
                         <div class="flex items-center gap-2">
                             <span class="text-base">${rankIcons[i]}</span>
-                            <span class="font-oswald text-base font-bold text-white uppercase">${item.player}</span>
+                            <span class="font-oswald text-base font-bold text-white uppercase group-hover:text-uclGold transition">${item.player}</span>
                         </div>
-                        <div class="flex items-center">
+                        <div class="flex items-center gap-1.5">
                             <span class="font-display text-2xl ${isLeader ? 'text-uclGold' : 'text-slate-200'} leading-none">${item.count} <span class="text-[10px] font-sans text-sky-200/80">Pichichis</span></span>
-                            ${adminBtns}
+                            <i class="fa-solid fa-chevron-right text-[10px] text-uclGold/70"></i>
                         </div>
                     </div>
                     <div class="w-full h-1.5 rounded-full bg-black/60 overflow-hidden">
                         <div class="h-full rounded-full ${isLeader ? 'bg-gradient-to-r from-uclGold to-yellow-200' : 'bg-sky-400/60'}" style="width:${barW}%"></div>
+                    </div>
+                    <div class="flex items-center justify-between text-[9px] text-sky-200/80 pt-0.5">
+                        <span class="truncate">${topCupsPreview || 'Sin Pichichis registrados aún'}</span>
+                        <span class="text-uclGold font-bold shrink-0 ml-1">Ver por copa</span>
                     </div>
                 </div>`;
             }).join("");
@@ -1673,10 +1825,10 @@
                     <span class="text-[9px] text-slate-400 mt-1 block">Jesús: ${stats["Jesús"].sub} • Sebas: ${stats["Sebastián"].sub} • David: ${stats["David"].sub}</span>
                 </div>
 
-                <div class="p-3 rounded-xl bg-[#030b1e] border border-uclGold/50 flex flex-col justify-between">
+                <div onclick="openPichichiBreakdownModal('${topPichichiPlayers.split(' ')[0] === 'Por' ? 'Jesús' : topPichichiPlayers.split(' ')[0]}')" class="p-3 rounded-xl bg-[#030b1e] border border-uclGold/50 flex flex-col justify-between cursor-pointer hover:border-uclGold transition">
                     <div class="flex items-center justify-between">
                         <span class="text-[9px] font-extrabold uppercase tracking-wider text-uclGold">👟 LÍDER BOTA DE ORO (FC27)</span>
-                        <span class="text-xs">⚽</span>
+                        <span class="text-[9px] text-uclGold font-bold">Ver copas ▸</span>
                     </div>
                     <div class="flex items-baseline justify-between mt-1">
                         <span class="font-oswald text-base sm:text-lg font-bold text-white uppercase truncate">${topPichichiPlayers}</span>
@@ -1916,7 +2068,7 @@
                 const barW = seasonTotal > 0 ? Math.round((r.total / topScore) * 100) : 0;
                 const isFirst = idx === 0 && seasonTotal > 0;
                 const pichichiPill = seasonId === "FC27"
-                    ? ` • 👟 Pichichis: <strong class="text-uclGold">${APP_STATE.fc27Tracker.pichichis[r.player] || 0}</strong>`
+                    ? ` • <span onclick="openPichichiBreakdownModal('${r.player}')" class="cursor-pointer underline decoration-uclGold/60 hover:text-uclGold">👟 Pichichis: <strong class="text-uclGold">${APP_STATE.fc27Tracker.pichichis[r.player] || 0}</strong></span>`
                     : "";
                 return `<div class="rounded-xl p-3 border ${isFirst ? 'bg-gradient-to-r from-amber-500/20 via-blue-950/60 to-transparent border-uclGold/50' : 'bg-[#040d24] border-sky-400/15'}">
                     <div class="flex items-center justify-between gap-2 mb-1.5">
@@ -1962,7 +2114,6 @@
             document.getElementById("ballonDorWinnerName").textContent = isDisputa ? `1° ${ballonEvaluation[0].player.toUpperCase()}` : `👑 ${winnerName.toUpperCase()}`;
             document.getElementById("ballonDorWinnerDesc").textContent = season.ballonDorCustomText || "";
 
-            // Renderizar el Panel de Carrera por la Bota de Oro en FC27
             renderGoldenBootSection(seasonId);
 
             const visibleClubs = TOURNAMENTS_CATALOG.filter(c => c.category === "clubes" && isCupEnabledInSeason(seasonId, c.key));
@@ -2021,7 +2172,7 @@
         }
 
         // ==========================================
-        // MOTOR DE TEMPORADAS INTERNAS FC27, BOTA DE ORO Y WHATSAPP (EXCLUSIVO ADMIN)
+        // MOTOR DE TEMPORADAS INTERNAS FC27, BOTA DE ORO POR COPA Y WHATSAPP
         // ==========================================
         function getMiniSeasonRules() {
             ensureTrackerStructure();
@@ -2078,7 +2229,6 @@
             showToast(`🗓️ Activa: Temporada ${nextNum} - FC27`);
         }
 
-        // Cuando el admin elige a alguien como Campeón, también lo sugiere automáticamente como Pichichi de esa copa
         function handleInstanceChange(changedIdx) {
             const selVal = document.getElementById(`waInst_${changedIdx}`).value;
             if (selVal === "Campeón") {
@@ -2233,7 +2383,7 @@
                 APP_STATE.seasons.FC27.scores[cupKey] = { "Jesús": 0, "Sebastián": 0, "David": 0 };
             }
 
-            // Si esta copa ya se había registrado en esta minitemporada, descontar campeón y pichichi previos para no duplicar
+            // Si esta copa ya se había registrado en esta minitemporada, descontar campeón y pichichi previos en esa copa
             if (prevEntry && prevEntry.played) {
                 if (prevEntry.winner && prevEntry.winner !== "Ninguno") {
                     const prevW = prevEntry.winner;
@@ -2241,7 +2391,7 @@
                 }
                 if (prevEntry.scorer && prevEntry.scorer !== "Ninguno") {
                     const prevS = prevEntry.scorer;
-                    APP_STATE.fc27Tracker.pichichis[prevS] = Math.max(0, Number(APP_STATE.fc27Tracker.pichichis[prevS] || 0) - 1);
+                    APP_STATE.fc27Tracker.pichichisByCup[cupKey][prevS] = Math.max(0, Number(APP_STATE.fc27Tracker.pichichisByCup[cupKey][prevS] || 0) - 1);
                 }
             }
 
@@ -2249,8 +2399,10 @@
                 APP_STATE.seasons.FC27.scores[cupKey][winnerName] = Number(APP_STATE.seasons.FC27.scores[cupKey][winnerName] || 0) + 1;
             }
             if (scorerName !== "Ninguno") {
-                APP_STATE.fc27Tracker.pichichis[scorerName] = Number(APP_STATE.fc27Tracker.pichichis[scorerName] || 0) + 1;
+                APP_STATE.fc27Tracker.pichichisByCup[cupKey][scorerName] = Number(APP_STATE.fc27Tracker.pichichisByCup[cupKey][scorerName] || 0) + 1;
             }
+
+            syncTotalPichichisFromCups();
 
             APP_STATE.fc27Tracker.cupsPlayed[cupKey] = {
                 played: true,
@@ -2278,7 +2430,11 @@
                 cupReport += `\n❌ *Campeón:* Ninguno (Copa desierta)`;
             }
 
-            cupReport += `\n👟 *Pichichi (Goleador):* ${scorerName !== "Ninguno" ? `🎯 ${scorerName} (+1 Bota de Oro)` : "Sin definir"}`;
+            const cupSpecificScorerTotal = scorerName !== "Ninguno"
+                ? APP_STATE.fc27Tracker.pichichisByCup[cupKey][scorerName]
+                : 0;
+
+            cupReport += `\n👟 *Pichichi (${cupObj.name}):* ${scorerName !== "Ninguno" ? `🎯 ${scorerName} (${cupSpecificScorerTotal} en esta copa)` : "Sin definir"}`;
             cupReport += `\n📊 *Carrera Bota de Oro (FC27):* Jesús (${pichichis["Jesús"]}) • Sebastián (${pichichis["Sebastián"]}) • David (${pichichis["David"]})`;
 
             const rulesAfter = getMiniSeasonRules();
