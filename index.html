@@ -2339,7 +2339,6 @@
             refreshAllViews();
             schedulePushToCloud();
 
-            const pichichis = APP_STATE.fc27Tracker.pichichis;
             let cupReport = `🏆 *RESUMEN DE LA ${cupObj.name.toUpperCase()}*\n`;
             cupReport += `⚽ *Temporada ${tNum} - FC27*\n\n`;
 
@@ -2350,15 +2349,10 @@
             });
 
             if (winnerName === "Ninguno") {
-                cupReport += `\n❌ *Campeón:* Ninguno (Copa desierta)`;
+                cupReport += `\n❌ *Campeón:* Ninguno`;
             }
 
-            const cupSpecificScorerTotal = scorerName !== "Ninguno"
-                ? APP_STATE.fc27Tracker.pichichisByCup[cupKey][scorerName]
-                : 0;
-
-            cupReport += `\n👟 *Pichichi (${cupObj.shortName}):* ${scorerName !== "Ninguno" ? `🎯 ${scorerName} (${cupSpecificScorerTotal} en esta copa)` : "Sin definir"}`;
-            cupReport += `\n📊 *Bota de Oro (FC27):* Jesús (${pichichis["Jesús"]}) • Sebastián (${pichichis["Sebastián"]}) • David (${pichichis["David"]})`;
+            cupReport += `\n👟 *Pichichi (${cupObj.shortName}):* ${scorerName !== "Ninguno" ? `🎯 ⚽️${scorerName}` : "❌ Ninguno"}`;
 
             const rulesAfter = getMiniSeasonRules();
             renderWhatsAppModalState(false);
@@ -2375,61 +2369,47 @@
                 showToast(`✅ ${cupObj.shortName} registrada y copiada`);
             }
         }
-
         function buildMiniSeasonSummaryString(tNum) {
             const rules = getMiniSeasonRules();
             const played = APP_STATE.fc27Tracker.cupsPlayed;
-            const totalPichichis = APP_STATE.fc27Tracker.pichichis;
-            const winCounts = { "Jesús": 0, "Sebastián": 0, "David": 0 };
             const miniPichichis = { "Jesús": 0, "Sebastián": 0, "David": 0 };
 
-            let text = `🏆 *RESUMEN DE LA TEMPORADA ${tNum} - FC27* 🏆\n\n`;
-            text += `🕹️ *A NIVEL DE CLUBES:*\n`;
+            let text = `🏆 *RESUMEN TEMPORADA ${tNum} - FC27* 🏆\n`;
 
-            const formatCupSummaryLine = (c, entry) => {
-                if (!entry || !entry.played) return `${c.dot} *${c.name}:* ⏳ Pendiente\n`;
+            const formatCupSummaryLine = (dot, labelName, entry) => {
+                if (!entry || !entry.played) return `${dot} *${labelName}:* ⏳ Pendiente\n`;
                 let wText = "❌ Ninguno";
                 if (entry.winner && entry.winner !== "Ninguno") {
                     wText = `👑 ${entry.winner}`;
-                    winCounts[entry.winner]++;
                 }
-                let sText = "";
                 if (entry.scorer && entry.scorer !== "Ninguno") {
-                    sText = ` | 👟 ${entry.scorer}`;
                     miniPichichis[entry.scorer]++;
                 }
-                return `${c.dot} *${c.name}:* ${wText}${sText}\n`;
+                return `${dot} *${labelName}:* ${wText}\n`;
             };
 
             BASE_7_CLUB_CUPS.forEach(k => {
                 const c = TOURNAMENTS_CATALOG.find(item => item.key === k);
-                text += formatCupSummaryLine(c, played[k]);
+                text += formatCupSummaryLine(c.dot, c.shortName, played[k]);
             });
 
             const interEntry = played["intercontinental"];
-            const interCupObj = TOURNAMENTS_CATALOG.find(item => item.key === "intercontinental");
             if (rules.interCancelled) {
-                text += `⚪ *Copa Intercontinental:* 🚫 No se jugó (Sin campeón en UCL/LIB)\n`;
+                text += `⚪ *Intercontinental:* ❌ No se jugó\n`;
             } else if (interEntry && interEntry.played) {
-                text += formatCupSummaryLine(interCupObj, interEntry);
+                text += formatCupSummaryLine("⚪", "Intercontinental", interEntry);
             } else if (rules.interUnlocked) {
-                text += `⚪ *Copa Intercontinental:* ⏳ Pendiente\n`;
+                text += `⚪ *Intercontinental:* ⏳ Pendiente\n`;
             }
 
             if (rules.isEven) {
-                text += `\n🥅 *A NIVEL DE SELECCIÓN:*\n`;
-                ["mundial", "eurocopa"].forEach(k => {
-                    const c = TOURNAMENTS_CATALOG.find(item => item.key === k);
-                    text += formatCupSummaryLine(c, played[k]);
-                });
+                text += formatCupSummaryLine("🟠", "Copa del Mundo", played["mundial"]);
+                text += formatCupSummaryLine("🟤", "Eurocopa", played["eurocopa"]);
             }
 
-            text += `\n📊 *Títulos Temp. ${tNum}:* Jesús (${winCounts["Jesús"]}) • Sebastián (${winCounts["Sebastián"]}) • David (${winCounts["David"]})`;
-            text += `\n👟 *Pichichis Temp. ${tNum}:* Jesús (${miniPichichis["Jesús"]}) • Sebastián (${miniPichichis["Sebastián"]}) • David (${miniPichichis["David"]})`;
-            text += `\n🔥 *Total Bota de Oro FC27:* Jesús (${totalPichichis["Jesús"]}) • Sebastián (${totalPichichis["Sebastián"]}) • David (${totalPichichis["David"]})`;
+            text += `\n👟 *Pichichis:* Jesús (${miniPichichis["Jesús"]}) • Sebas (${miniPichichis["Sebastián"]}) • David (${miniPichichis["David"]})`;
             return text;
         }
-
         function generateMiniSeasonSummaryText(copyNow = false) {
             ensureTrackerStructure();
             const tNum = APP_STATE.fc27Tracker.seasonNumber;
@@ -2440,7 +2420,6 @@
                 showToast(`📋 Resumen Temp. ${tNum} copiado`);
             }
         }
-
         function finishAndAdvanceMiniSeason() {
             ensureTrackerStructure();
             const finishedNum = APP_STATE.fc27Tracker.seasonNumber;
