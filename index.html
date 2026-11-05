@@ -6,7 +6,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="EA Torneos FC">
-    <meta name="theme-color" content="#020817">
+    <meta name="theme-color" content="#08090c">
     <title>EA SPORTS TORNEOS FC | Salón de la Fama PS5</title>
 
     <!-- FAVICON Y LOGO DE PESTAÑA -->
@@ -36,11 +36,11 @@
             theme: {
                 extend: {
                     colors: {
-                        uclNight: '#020817',
-                        uclDeep: '#061330',
+                        uclNight: '#05070e',
+                        uclDeep: '#0a1124',
                         uclRoyal: '#0f296b',
                         uclCyan: '#00e5ff',
-                        uclNeon: '#00ff87',
+                        uclNeon: '#ccff00',
                         uclGold: '#ffd700'
                     },
                     fontFamily: {
@@ -53,74 +53,122 @@
         }
     </script>
 
-    <!-- ESTILOS VISUALES NIVEL CONSOLA: HEXÁGONOS, NEÓN DINÁMICO Y HOLOGRÁFICO 3D -->
+    <!-- MOTOR DE TEMAS (EA FC VOLT / GALA VIP / CHAMPIONS / AUTO-LÍDER) + FULL-BLEED + HOLO 3D -->
     <style>
-        :root { --safe-bottom: env(safe-area-inset-bottom, 12px); }
+        :root {
+            --safe-bottom: env(safe-area-inset-bottom, 12px);
+            --bg-base: #07080c;
+            --bg-glow-1: rgba(204, 255, 0, 0.16);
+            --bg-glow-2: rgba(0, 229, 255, 0.14);
+            --card-bg-1: rgba(18, 22, 31, 0.88);
+            --card-bg-2: rgba(9, 11, 16, 0.96);
+            --card-border: rgba(204, 255, 0, 0.28);
+            --accent-primary: #ccff00;
+            --accent-secondary: #00e5ff;
+        }
+
+        body.theme-ucl {
+            --bg-base: #020817;
+            --bg-glow-1: rgba(37, 99, 235, 0.42);
+            --bg-glow-2: rgba(0, 229, 255, 0.20);
+            --card-bg-1: rgba(12, 30, 74, 0.90);
+            --card-bg-2: rgba(4, 11, 29, 0.97);
+            --card-border: rgba(0, 229, 255, 0.30);
+            --accent-primary: #00e5ff;
+            --accent-secondary: #00ff87;
+        }
+
+        body.theme-gala {
+            --bg-base: #080604;
+            --bg-glow-1: rgba(255, 215, 0, 0.22);
+            --bg-glow-2: rgba(220, 38, 38, 0.15);
+            --card-bg-1: rgba(34, 25, 10, 0.92);
+            --card-bg-2: rgba(12, 9, 5, 0.98);
+            --card-border: rgba(255, 215, 0, 0.38);
+            --accent-primary: #ffd700;
+            --accent-secondary: #f59e0b;
+        }
+
         body {
-            background-color: #020817; color: #f8fafc; font-family: 'Inter', sans-serif;
-            overflow-x: hidden; -webkit-tap-highlight-color: transparent; -webkit-font-smoothing: antialiased;
+            background-color: var(--bg-base);
+            color: #f8fafc;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-font-smoothing: antialiased;
+            transition: background-color 0.35s ease;
         }
 
         .bg-ucl-stadium::before {
             content: ""; position: fixed; inset: 0; z-index: -2; pointer-events: none; transform: translateZ(0);
-            background-color: #020817;
+            background-color: var(--bg-base);
             background-image:
-                radial-gradient(ellipse 95% 55% at 50% -10%, rgba(37, 99, 235, 0.50) 0%, transparent 70%),
-                radial-gradient(circle at 85% 20%, rgba(0, 229, 255, 0.18) 0%, transparent 45%),
-                radial-gradient(circle at 15% 60%, rgba(59, 130, 246, 0.24) 0%, transparent 50%),
-                linear-gradient(180deg, #020817 0%, #061433 50%, #020817 100%);
-        }
-        .hex-console-mesh::after {
-            content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: 0.16;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='49' viewBox='0 0 28 49'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%2300e5ff' fill-opacity='0.45'%3E%3Cpath d='M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5zM3 17.9v12.7l10.99 6.34 11-6.35V17.9l-11-6.34L3 17.9zM0 15l12.98-7.5V0h-2v6.35L0 12.69v2.3zm0 18.5L12.98 41v8h-2v-6.85L0 35.81v-2.3zM15 0v7.5L27.99 15H28v-2.31h-.01L17 6.35V0h-2zm0 49v-8l12.99-7.5H28v2.31h-.01L17 42.15V49h-2z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+                radial-gradient(ellipse 90% 50% at 50% -10%, var(--bg-glow-1) 0%, transparent 70%),
+                radial-gradient(circle at 85% 20%, var(--bg-glow-2) 0%, transparent 45%),
+                linear-gradient(180deg, var(--bg-base) 0%, #0a1020 50%, var(--bg-base) 100%);
+            transition: background 0.4s ease;
         }
 
+        .hex-console-mesh::after {
+            content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: 0.13;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='49' viewBox='0 0 28 49'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.35'%3E%3Cpath d='M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5zM3 17.9v12.7l10.99 6.34 11-6.35V17.9l-11-6.34L3 17.9zM0 15l12.98-7.5V0h-2v6.35L0 12.69v2.3zm0 18.5L12.98 41v8h-2v-6.85L0 35.81v-2.3zM15 0v7.5L27.99 15H28v-2.31h-.01L17 6.35V0h-2zm0 49v-8l12.99-7.5H28v2.31h-.01L17 42.15V49h-2z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        /* Tarjetas Glassmorphism + Bisel Deportivo */
         .ucl-card {
-            background: linear-gradient(160deg, rgba(12, 30, 74, 0.93) 0%, rgba(4, 11, 29, 0.98) 100%);
-            border: 1px solid rgba(56, 189, 248, 0.26);
-            box-shadow: 0 10px 26px -8px rgba(0, 0, 0, 0.78), inset 0 1px 0 0 rgba(255, 255, 255, 0.12);
-            clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+            background: linear-gradient(160deg, var(--card-bg-1) 0%, var(--card-bg-2) 100%);
+            backdrop-filter: blur(14px);
+            border: 1px solid var(--card-border);
+            box-shadow: 0 12px 28px -8px rgba(0, 0, 0, 0.82), inset 0 1px 0 0 rgba(255, 255, 255, 0.12);
+            clip-path: polygon(0 0, calc(100% - 11px) 0, 100% 11px, 100% 100%, 11px 100%, 0 calc(100% - 11px));
         }
 
         .neon-ambient-cyan {
-            border: 1.5px solid rgba(0, 229, 255, 0.65) !important;
-            box-shadow: 0 0 26px -4px rgba(0, 229, 255, 0.32), inset 0 0 18px rgba(0, 229, 255, 0.10) !important;
+            border: 1.5px solid var(--accent-primary) !important;
+            box-shadow: 0 0 24px -6px var(--bg-glow-1), inset 0 0 14px rgba(255, 255, 255, 0.05) !important;
         }
         .neon-ambient-gold {
             border: 2px solid rgba(255, 215, 0, 0.82) !important;
-            box-shadow: 0 0 32px -4px rgba(255, 215, 0, 0.40), inset 0 0 22px rgba(255, 215, 0, 0.14) !important;
+            box-shadow: 0 0 30px -6px rgba(255, 215, 0, 0.36), inset 0 0 18px rgba(255, 215, 0, 0.12) !important;
         }
 
         .ucl-card-gold {
-            background: linear-gradient(165deg, rgba(58, 41, 8, 0.96) 0%, rgba(12, 24, 58, 0.98) 52%, rgba(44, 30, 6, 0.97) 100%);
-            border: 2px solid rgba(255, 215, 0, 0.72);
-            box-shadow: 0 14px 34px -8px rgba(255, 215, 0, 0.32), inset 0 1px 0 0 rgba(255, 245, 190, 0.35);
-            clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+            background: linear-gradient(165deg, rgba(52, 37, 7, 0.95) 0%, rgba(14, 18, 34, 0.98) 52%, rgba(40, 27, 5, 0.96) 100%);
+            border: 2px solid rgba(255, 215, 0, 0.75);
+            box-shadow: 0 14px 32px -8px rgba(255, 215, 0, 0.30);
+            clip-path: polygon(0 0, calc(100% - 13px) 0, 100% 13px, 100% 100%, 13px 100%, 0 calc(100% - 13px));
         }
 
+        /* Efecto Holográfico 3D */
         .holo-3d-card {
-            --rx: 0deg;
-            --ry: 0deg;
-            --holo-x: 50%;
-            --holo-y: 50%;
-            --holo-opacity: 0;
+            --rx: 0deg; --ry: 0deg; --holo-x: 50%; --holo-y: 50%; --holo-opacity: 0;
             transform: perspective(900px) rotateX(var(--rx)) rotateY(var(--ry));
             transition: transform 0.16s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.2s ease;
             will-change: transform;
         }
         .holo-3d-card::after {
-            content: "";
-            position: absolute;
-            inset: 0;
-            z-index: 20;
-            pointer-events: none;
-            opacity: var(--holo-opacity);
-            transition: opacity 0.25s ease;
+            content: ""; position: absolute; inset: 0; z-index: 20; pointer-events: none;
+            opacity: var(--holo-opacity); transition: opacity 0.25s ease;
             background:
-                radial-gradient(circle at var(--holo-x) var(--holo-y), rgba(255, 255, 255, 0.38) 0%, rgba(0, 229, 255, 0.22) 25%, rgba(255, 215, 0, 0.20) 50%, transparent 72%),
-                linear-gradient(125deg, transparent 20%, rgba(255, 255, 255, 0.18) 45%, rgba(0, 229, 255, 0.20) 50%, rgba(255, 215, 0, 0.18) 55%, transparent 80%);
+                radial-gradient(circle at var(--holo-x) var(--holo-y), rgba(255, 255, 255, 0.36) 0%, rgba(0, 229, 255, 0.20) 25%, rgba(255, 215, 0, 0.18) 50%, transparent 72%),
+                linear-gradient(125deg, transparent 20%, rgba(255, 255, 255, 0.16) 45%, rgba(204, 255, 0, 0.18) 50%, transparent 80%);
             mix-blend-mode: screen;
         }
+
+        /* Isla Dinámica Flotante para Temporadas */
+        .dynamic-island-nav {
+            background: rgba(8, 12, 24, 0.88);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.75);
+        }
+
+        /* Termómetro de Racha Animado */
+        @keyframes pulseFlame {
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 4px #f97316); }
+            50% { transform: scale(1.12); filter: drop-shadow(0 0 8px #ffd700); }
+        }
+        .streak-flame { animation: pulseFlame 1.6s infinite ease-in-out; }
 
         .cup-card-aspect { aspect-ratio: 355 / 466; }
         .gold-text-shine {
@@ -131,35 +179,41 @@
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         .ios-bottom-nav {
-            background: rgba(4, 12, 32, 0.96); backdrop-filter: blur(12px); border-top: 1px solid rgba(0, 229, 255, 0.24);
+            background: rgba(5, 8, 16, 0.95); backdrop-filter: blur(14px); border-top: 1px solid rgba(255, 255, 255, 0.15);
             padding-bottom: calc(var(--safe-bottom) + 2px);
         }
     </style>
 </head>
-<body class="bg-ucl-stadium hex-console-mesh min-h-screen flex flex-col pb-20 md:pb-8 selection:bg-uclCyan selection:text-uclNight">
+<body class="bg-ucl-stadium hex-console-mesh min-h-screen flex flex-col pb-20 md:pb-8 selection:bg-uclNeon selection:text-black">
 
     <!-- ==========================================
-         1. BARRA SUPERIOR CON RULETA PÚBLICA, SONIDO Y ADMIN
+         1. BARRA SUPERIOR CON SELECTOR DE TEMA, RULETA, SONIDO Y ADMIN
     =========================================== -->
-    <header class="sticky top-0 z-40 bg-[#020817]/95 border-b border-sky-400/25">
+    <header class="sticky top-0 z-40 bg-[#05070e]/90 backdrop-blur-md border-b border-white/10">
         <div class="max-w-6xl mx-auto px-3 h-12 sm:h-14 flex items-center justify-between gap-2">
             <div class="flex items-center gap-2 min-w-0">
-                <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-blue-500 via-uclCyan to-uclNeon p-[1.5px] shrink-0">
-                    <div class="w-full h-full bg-[#030b1e] rounded-[10px] flex items-center justify-center overflow-hidden">
+                <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-uclNeon via-uclCyan to-blue-600 p-[1.5px] shrink-0">
+                    <div class="w-full h-full bg-[#05070e] rounded-[10px] flex items-center justify-center overflow-hidden">
                         <img id="logoWeb" src="logo.jpg" data-step="0" fetchpriority="high" decoding="sync" alt="Logo" class="w-full h-full object-cover" onload="updateFavicon(this.src)" onerror="handleSmartImageError(this, 'logo')">
                     </div>
                 </div>
                 <div class="truncate">
                     <div class="flex items-center gap-1.5">
                         <span class="font-oswald font-bold tracking-wider text-xs sm:text-sm text-white uppercase">EA SPORTS TORNEOS FC</span>
-                        <span id="liveDotIndicator" onclick="pullStateFromCloud(false, true)" class="w-2 h-2 rounded-full bg-uclNeon shadow-[0_0_8px_#00ff87] cursor-pointer" title="Sincronizado con la Nube"></span>
+                        <span id="liveDotIndicator" onclick="pullStateFromCloud(false, true)" class="w-2 h-2 rounded-full bg-uclNeon shadow-[0_0_8px_#ccff00] cursor-pointer" title="Sincronizado con la Nube"></span>
                     </div>
-                    <p class="text-[10px] text-sky-200/80 truncate leading-none">Jesús • Sebastián • David</p>
+                    <p class="text-[10px] text-slate-300 truncate leading-none">Jesús • Sebastián • David</p>
                 </div>
             </div>
 
+            <!-- CONTROLES PÚBLICOS: TEMA + RULETA + SONIDO + ADMIN -->
             <div class="flex items-center gap-1.5 shrink-0">
-                <button onclick="openTurnRouletteModal()" title="Sortear Orden de Elección de Equipos" class="px-2.5 h-8 sm:h-9 rounded-xl bg-gradient-to-r from-uclCyan/20 to-blue-600/30 hover:from-uclCyan/30 hover:to-blue-600/40 border border-uclCyan/60 text-uclCyan font-oswald font-bold text-xs uppercase tracking-wider flex items-center gap-1.5 active:scale-95 transition shadow-[0_0_14px_rgba(0,229,255,0.25)]">
+                <button onclick="cycleVisualTheme()" title="Cambiar Tema Visual" class="px-2 h-8 sm:h-9 rounded-xl bg-white/5 hover:bg-white/10 border border-white/15 text-slate-200 font-oswald font-bold text-[11px] uppercase tracking-wider flex items-center gap-1 active:scale-95 transition">
+                    <i class="fa-solid fa-palette text-uclNeon text-xs"></i>
+                    <span id="themeBtnLabel" class="hidden sm:inline">EA FC</span>
+                </button>
+
+                <button onclick="openTurnRouletteModal()" title="Sortear Orden de Elección de Equipos" class="px-2.5 h-8 sm:h-9 rounded-xl bg-gradient-to-r from-uclNeon/20 to-uclCyan/20 hover:from-uclNeon/30 hover:to-uclCyan/30 border border-uclNeon/60 text-uclNeon font-oswald font-bold text-xs uppercase tracking-wider flex items-center gap-1.5 active:scale-95 transition">
                     <i class="fa-solid fa-dice text-uclGold"></i>
                     <span>Turnos</span>
                 </button>
@@ -175,22 +229,22 @@
         </div>
 
         <!-- BARRA EXCLUSIVA DE ADMINISTRADOR -->
-        <div id="adminToolbar" class="bg-[#071636] border-t border-uclGold/50 shadow-xl hidden">
-            <div class="max-w-6xl mx-auto px-3 py-2 flex items-center justify-between gap-2 flex-wrap">
-                <span class="px-2.5 py-1 rounded-lg bg-uclNeon/20 border border-uclNeon/40 text-uclNeon font-extrabold text-[10px] uppercase tracking-wider flex items-center gap-1.5">
-                    <i class="fa-solid fa-shield-halved"></i> Admin Activo
+        <div id="adminToolbar" class="bg-[#0b1329] border-t border-uclGold/50 shadow-xl hidden">
+            <div class="max-w-6xl mx-auto px-3 py-1.5 flex items-center justify-between gap-2 flex-wrap">
+                <span class="px-2 py-0.5 rounded-lg bg-uclNeon/20 border border-uclNeon/40 text-uclNeon font-extrabold text-[10px] uppercase tracking-wider flex items-center gap-1">
+                    <i class="fa-solid fa-shield-halved"></i> Admin
                 </span>
-                <div class="flex items-center gap-2 flex-wrap">
-                    <button onclick="openWhatsAppModal()" class="px-3 py-1.5 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-400/50 font-extrabold text-[11px] flex items-center gap-1.5 active:scale-95 shadow">
-                        <i class="fa-brands fa-whatsapp text-sm"></i> <span id="adminBarTempLabel">Temporada 1 - FC27</span>
+                <div class="flex items-center gap-1.5 flex-wrap">
+                    <button onclick="openWhatsAppModal()" class="px-3 py-1 rounded-xl bg-emerald-500/25 hover:bg-emerald-500/35 text-emerald-300 border border-emerald-400/60 font-extrabold text-[11px] flex items-center gap-1.5 active:scale-95 shadow">
+                        <i class="fa-brands fa-whatsapp text-sm"></i> <span id="adminBarTempLabel">Temp. 1 - FC27</span>
                     </button>
-                    <button onclick="openCloudConfigModal()" title="Nube en Vivo" class="w-8 h-8 rounded-xl bg-sky-500/20 text-uclCyan border border-sky-400/40 flex items-center justify-center active:scale-95">
+                    <button onclick="openCloudConfigModal()" title="Nube en Vivo" class="w-7 h-7 rounded-lg bg-sky-500/20 text-uclCyan border border-sky-400/40 flex items-center justify-center active:scale-95">
                         <i class="fa-solid fa-cloud text-xs"></i>
                     </button>
-                    <button onclick="openChangePinModal()" title="Cambiar PIN" class="w-8 h-8 rounded-xl bg-amber-500/15 text-amber-300 border border-amber-400/30 flex items-center justify-center active:scale-95">
+                    <button onclick="openChangePinModal()" title="Cambiar PIN" class="w-7 h-7 rounded-lg bg-amber-500/15 text-amber-300 border border-amber-400/30 flex items-center justify-center active:scale-95">
                         <i class="fa-solid fa-key text-xs"></i>
                     </button>
-                    <button onclick="lockAdminMode()" class="px-2.5 py-1 rounded-xl text-[10px] font-bold bg-red-500/20 text-red-300 border border-red-400/30 flex items-center gap-1 active:scale-95">
+                    <button onclick="lockAdminMode()" class="px-2 py-1 rounded-lg text-[10px] font-bold bg-red-500/20 text-red-300 border border-red-400/30 flex items-center gap-1 active:scale-95">
                         <i class="fa-solid fa-lock"></i> Salir
                     </button>
                 </div>
@@ -198,165 +252,161 @@
         </div>
     </header>
 
-    <!-- 2. HERO BANNER -->
-    <section class="relative overflow-hidden border-b border-sky-400/20 pt-2.5 pb-3 sm:py-4">
+    <!-- 2. HERO BANNER + ISLA DINÁMICA FLOTANTE DE NAVEGACIÓN -->
+    <section class="relative overflow-hidden pt-2.5 pb-2">
         <div class="relative z-10 max-w-6xl mx-auto px-3 text-center">
-            <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-blue-950/90 border border-uclCyan/40 text-[9px] font-extrabold uppercase tracking-widest text-uclCyan mb-1">
+            <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white/5 border border-white/15 text-[9px] font-extrabold uppercase tracking-widest text-uclNeon mb-1">
                 <i class="fa-brands fa-playstation"></i>
                 <span>PS5 • SALÓN DE LA FAMA OFICIAL</span>
             </div>
-            <h1 class="font-display text-3xl sm:text-5xl tracking-wider uppercase leading-none mb-1 drop-shadow-[0_4px_10px_rgba(0,0,0,0.8)]">
+            <h1 class="font-display text-3xl sm:text-5xl tracking-wider uppercase leading-none mb-2 drop-shadow-[0_4px_10px_rgba(0,0,0,0.8)]">
                 <span>🏆 </span><span class="text-white">ROAD TO </span><span class="gold-text-shine">GOAT</span><span> 🐐</span>
             </h1>
-            <p class="max-w-lg mx-auto text-sky-100/85 text-[11px] font-medium mb-2.5">
-                Torneos competitivos oficiales entre <span class="text-white font-bold">Jesús</span>, <span class="text-white font-bold">Sebastián</span> y <span class="text-white font-bold">David</span>
-            </p>
-            <div class="flex md:grid md:grid-cols-5 gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar pb-0.5 -mx-3 px-3 md:mx-0 md:px-0 snap-x snap-mandatory" id="seasonTabsContainer"></div>
+
+            <!-- ISLA DINÁMICA FLOTANTE PARA TEMPORADAS -->
+            <div class="dynamic-island-nav inline-flex items-center gap-1 p-1 rounded-2xl max-w-full overflow-x-auto no-scrollbar" id="seasonTabsContainer"></div>
         </div>
     </section>
 
-    <!-- 3. CONTENIDO PRINCIPAL -->
-    <main class="flex-grow max-w-6xl w-full mx-auto px-2.5 sm:px-5 pt-3 pb-6 space-y-4 sm:space-y-5">
+    <!-- 3. CONTENIDO PRINCIPAL (BENTO GRID + FULL-BLEED CARDS) -->
+    <main class="flex-grow max-w-6xl w-full mx-auto px-2.5 sm:px-5 pt-2 pb-6 space-y-4">
 
-        <!-- VISTA DE TEMPORADA -->
-        <div id="seasonViewContainer" class="space-y-4 sm:space-y-5">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-3.5 sm:gap-4 items-stretch">
+        <!-- VISTA DE TEMPORADA (BENTO GRID TODO EN UNO) -->
+        <div id="seasonViewContainer" class="space-y-4">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-3.5 items-stretch">
 
-                <!-- TARJETA DEL BALÓN DE ORO -->
-                <div id="ballonDorCardWrapper" class="lg:col-span-5 ucl-card-gold rounded-2xl p-3.5 sm:p-4 flex flex-col justify-between gap-3 relative overflow-hidden order-1 lg:order-2 transition-all duration-300">
-                    <div class="relative z-10 flex flex-col items-center text-center gap-1">
-                        <div class="w-full flex items-center justify-between gap-2">
-                            <div id="ballonDorStatusBadge" class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-uclGold text-uclNight text-[9px] font-extrabold uppercase shadow"></div>
-                            <div id="adminBallonDorControls" class="flex items-center gap-1 hidden">
-                                <button onclick="toggleBallonDorMode()" class="px-2 py-0.5 rounded-md bg-black/60 border border-uclGold/40 text-[9px] font-bold text-uclGold">Modo</button>
-                                <button onclick="openStatsEditorModal()" class="px-2 py-0.5 rounded-md bg-uclGold text-uclNight text-[9px] font-extrabold">Ganador</button>
-                            </div>
-                        </div>
-                        <div class="mt-1">
-                            <div class="text-[10px] uppercase tracking-widest text-amber-300 font-extrabold leading-none mb-0.5" id="ballonDorSeasonLabel"></div>
-                            <h3 id="ballonDorWinnerName" class="font-display text-3xl sm:text-4xl tracking-wider gold-text-shine leading-none"></h3>
-                        </div>
-                    </div>
-
-                    <div class="holo-3d-card relative z-10 w-full max-w-[235px] sm:max-w-[260px] mx-auto cup-card-aspect rounded-2xl overflow-hidden border-2 border-uclGold/85 bg-[#03091a] group flex items-center justify-center cursor-pointer" onclick="openLightboxBallonDor()">
-                        <div class="absolute inset-[3.5%] rounded-xl overflow-hidden border border-uclGold/35">
-                            <img id="ballonDorImageDisplay" src="balon-fc27.jpg" data-step="0" loading="eager" fetchpriority="high" decoding="sync" alt="Balón de Oro" class="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-105" onerror="handleSmartImageError(this, 'balon-fc27')">
-                            <div class="absolute inset-x-0 bottom-0 h-14 bg-gradient-to-t from-black/90 via-black/40 to-transparent pointer-events-none"></div>
-                        </div>
-                        <button type="button" class="absolute top-2.5 right-2.5 z-30 w-7 h-7 rounded-lg bg-black/80 border border-uclGold/60 text-xs text-uclGold flex items-center justify-center">
-                            <i class="fa-solid fa-music"></i>
-                        </button>
-                        <div class="absolute bottom-2.5 inset-x-3 z-30 flex items-center justify-center pointer-events-none">
-                            <span class="px-2.5 py-0.5 rounded-full bg-black/85 border border-uclGold/50 text-[9px] font-extrabold uppercase tracking-wider text-uclGold">
-                                <i class="fa-solid fa-star mr-1"></i> Ver Points Ranking
-                            </span>
-                        </div>
-                    </div>
-
-                    <div class="relative z-10 flex flex-col gap-2">
-                        <p id="ballonDorWinnerDesc" class="w-full text-xs sm:text-[13px] text-slate-100 leading-relaxed text-center bg-black/55 px-3.5 py-2.5 rounded-xl border border-uclGold/30 font-medium"></p>
-                        <div id="adminBallonFooter" class="pt-1 border-t border-uclGold/25 flex items-center justify-center hidden">
-                            <button onclick="promptCustomBallonText()" class="px-3 py-1 rounded-lg bg-white/10 text-amber-200 text-[10px] font-semibold">
-                                <i class="fa-solid fa-pen mr-1"></i> Editar Reseña
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- TABLA GENERAL -->
-                <div id="seasonTableCardWrapper" class="lg:col-span-7 ucl-card rounded-2xl p-3 sm:p-4 flex flex-col justify-between gap-3 relative overflow-hidden order-2 lg:order-1 transition-all duration-300">
-                    <div class="flex items-center justify-between gap-2 border-b border-sky-400/15 pb-2">
+                <!-- BENTO PRINCIPAL: PODIO ESCALONADO EN 3 COLUMNAS + CATEGORÍAS + BOTA DE ORO -->
+                <div id="seasonTableCardWrapper" class="lg:col-span-8 ucl-card rounded-2xl p-3 sm:p-4 flex flex-col justify-between gap-3 relative overflow-hidden order-2 lg:order-1">
+                    <div class="flex items-center justify-between gap-2 border-b border-white/10 pb-2">
                         <div>
                             <div class="flex items-center gap-1.5 flex-wrap">
-                                <span id="seasonBadgeTag" class="text-[10px] font-extrabold uppercase tracking-widest text-uclCyan"></span>
+                                <span id="seasonBadgeTag" class="text-[10px] font-extrabold uppercase tracking-widest text-uclNeon"></span>
                                 <span id="seasonStatusPill" class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[8px] font-extrabold uppercase"></span>
                                 <button id="adminToggleSeasonStatusBtn" onclick="toggleCurrentSeasonStatus()" class="px-2 py-0.5 rounded-lg bg-white/10 text-[9px] font-bold text-amber-300 border border-amber-400/30 hidden">
                                     <i class="fa-solid fa-repeat mr-1"></i> Estado
                                 </button>
                             </div>
-                            <h2 id="seasonMainTitle" class="font-oswald text-lg sm:text-xl font-bold text-white uppercase tracking-wide leading-tight mt-0.5"></h2>
+                            <h2 id="seasonMainTitle" class="font-oswald text-base sm:text-xl font-bold text-white uppercase tracking-wide leading-tight mt-0.5"></h2>
                         </div>
-                        <div class="px-2.5 py-1 rounded-xl bg-blue-950/90 border border-sky-400/30 text-right shrink-0">
-                            <span class="text-[8px] uppercase tracking-wider text-sky-300/80 block leading-none">Total Edición</span>
+                        <div class="px-2.5 py-1 rounded-xl bg-black/50 border border-white/15 text-right shrink-0">
+                            <span class="text-[8px] uppercase tracking-wider text-slate-400 block leading-none">Total Edición</span>
                             <span id="seasonTotalCupsCounter" class="font-oswald text-sm sm:text-base font-bold text-uclGold"></span>
                         </div>
                     </div>
-                    <div id="seasonPodiumCards" class="space-y-2.5 my-auto"></div>
-                    <div id="seasonBreakdownFooter" class="pt-2.5 border-t border-sky-400/15 grid grid-cols-2 sm:grid-cols-4 gap-1.5 text-center"></div>
+
+                    <!-- PODIO ESCALONADO EN 3 COLUMNAS CON TERMÓMETRO DE RACHA -->
+                    <div id="seasonPodiumCards" class="grid grid-cols-3 gap-2 sm:gap-3 items-end my-auto pt-1"></div>
+
+                    <!-- MINI-BENTO: BOTA DE ORO INTEGRADA (SOLO FC27) -->
+                    <div id="goldenBootSectionWrapper" class="bg-black/50 border border-uclGold/45 rounded-xl p-2 hidden">
+                        <div class="flex items-center justify-between gap-2 pb-1 mb-1.5 border-b border-white/10">
+                            <div class="flex items-center gap-1.5 min-w-0">
+                                <span class="text-xs">👟</span>
+                                <h3 class="font-oswald text-[11px] sm:text-xs font-bold text-white uppercase tracking-wide truncate">CARRERA BOTA DE ORO FC27</h3>
+                                <span id="goldenBootStatusPill" class="px-1.5 py-0.2 rounded-full bg-uclGold/20 text-uclGold text-[8px] font-extrabold uppercase">Pichichis</span>
+                            </div>
+                            <span id="goldenBootLeaderBadge" class="font-oswald text-[10px] sm:text-xs font-bold text-uclGold shrink-0">Por definir</span>
+                        </div>
+                        <div id="goldenBootCardsGrid" class="grid grid-cols-3 gap-1.5"></div>
+                    </div>
+
+                    <!-- CATEGORÍAS CLAVE -->
+                    <div id="seasonBreakdownFooter" class="pt-2 border-t border-white/10 grid grid-cols-2 sm:grid-cols-4 gap-1.5 text-center"></div>
+                </div>
+
+                <!-- BENTO LATERAL: BALÓN DE ORO FULL-BLEED HOLOGRÁFICO -->
+                <div id="ballonDorCardWrapper" class="lg:col-span-4 ucl-card-gold rounded-2xl p-3 sm:p-3.5 flex flex-col justify-between gap-2.5 relative overflow-hidden order-1 lg:order-2">
+                    <div class="relative z-10 flex flex-col items-center text-center gap-0.5">
+                        <div class="w-full flex items-center justify-between gap-2">
+                            <div id="ballonDorStatusBadge" class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-uclGold text-black text-[8px] font-extrabold uppercase shadow"></div>
+                            <div id="adminBallonDorControls" class="flex items-center gap-1 hidden">
+                                <button onclick="toggleBallonDorMode()" class="px-2 py-0.5 rounded bg-black/60 border border-uclGold/40 text-[8px] font-bold text-uclGold">Modo</button>
+                                <button onclick="openStatsEditorModal()" class="px-2 py-0.5 rounded bg-uclGold text-black text-[8px] font-extrabold">Ganador</button>
+                            </div>
+                        </div>
+                        <div class="text-[9px] uppercase tracking-widest text-amber-300 font-extrabold leading-none mt-1" id="ballonDorSeasonLabel"></div>
+                        <h3 id="ballonDorWinnerName" class="font-display text-2xl sm:text-3xl tracking-wider gold-text-shine leading-none"></h3>
+                    </div>
+
+                    <div class="holo-3d-card relative z-10 w-full max-w-[205px] sm:max-w-[225px] mx-auto cup-card-aspect rounded-2xl overflow-hidden border border-uclGold/80 bg-[#03091a] group flex items-center justify-center cursor-pointer" onclick="openLightboxBallonDor()">
+                        <img id="ballonDorImageDisplay" src="balon-fc27.jpg" data-step="0" loading="eager" fetchpriority="high" decoding="sync" alt="Balón de Oro" class="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-105" onerror="handleSmartImageError(this, 'balon-fc27')">
+                        <div class="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/95 via-black/45 to-transparent pointer-events-none"></div>
+                        <button type="button" class="absolute top-2 right-2 z-30 w-6 h-6 rounded-lg bg-black/80 border border-uclGold/60 text-[10px] text-uclGold flex items-center justify-center">
+                            <i class="fa-solid fa-music"></i>
+                        </button>
+                        <div class="absolute bottom-2 inset-x-2 z-30 flex items-center justify-center pointer-events-none">
+                            <span class="px-2.5 py-0.5 rounded-full bg-black/85 backdrop-blur-md border border-uclGold/50 text-[8px] font-extrabold uppercase tracking-wider text-uclGold">
+                                <i class="fa-solid fa-star mr-1"></i> Points Ranking
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="relative z-10 flex flex-col gap-1.5">
+                        <p id="ballonDorWinnerDesc" class="w-full text-[11px] text-slate-100 leading-snug text-center bg-black/60 px-3 py-2 rounded-xl border border-uclGold/30 font-medium"></p>
+                        <div id="adminBallonFooter" class="flex items-center justify-center hidden">
+                            <button onclick="promptCustomBallonText()" class="px-2.5 py-0.5 rounded-lg bg-white/10 text-amber-200 text-[9px] font-semibold">
+                                <i class="fa-solid fa-pen mr-1"></i> Editar Reseña
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- FRANJA COMPACTA: BOTA DE ORO FC27 -->
-            <div id="goldenBootSectionWrapper" class="ucl-card border border-uclGold/50 rounded-xl p-2 sm:p-2.5 hidden">
-                <div class="flex items-center justify-between gap-2 pb-1.5 mb-2 border-b border-white/10">
-                    <div class="flex items-center gap-1.5 min-w-0">
-                        <span class="text-xs sm:text-sm">👟</span>
-                        <h3 class="font-oswald text-xs sm:text-sm font-bold text-white uppercase tracking-wide truncate">BOTA DE ORO FC27</h3>
-                        <span id="goldenBootStatusPill" class="px-1.5 py-0.5 rounded-full bg-uclGold/20 text-uclGold border border-uclGold/40 text-[8px] font-extrabold uppercase shrink-0">Pichichis</span>
-                    </div>
-                    <div class="flex items-center gap-1.5 shrink-0">
-                        <span class="text-[9px] text-sky-200/70 hidden sm:inline">Toca un jugador •</span>
-                        <span id="goldenBootLeaderBadge" class="font-oswald text-[11px] sm:text-xs font-bold text-uclGold">Por definir</span>
-                    </div>
-                </div>
-                <div id="goldenBootCardsGrid" class="grid grid-cols-3 gap-1.5 sm:gap-2"></div>
-            </div>
-
-            <!-- COPAS DE CLUBES -->
+            <!-- COPAS DE CLUBES (FULL-BLEED SIN MARCOS) -->
             <div class="space-y-2.5">
-                <div class="flex items-center justify-between gap-2 border-b border-sky-400/20 pb-2">
+                <div class="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
                     <div class="flex items-center gap-2">
-                        <div class="w-8 h-8 rounded-xl bg-blue-600/30 border border-uclCyan/40 flex items-center justify-center text-uclCyan text-sm">
+                        <div class="w-7 h-7 rounded-lg bg-uclNeon/15 border border-uclNeon/40 flex items-center justify-center text-uclNeon text-xs">
                             <i class="fa-solid fa-shield-halved"></i>
                         </div>
                         <div>
-                            <span class="text-[9px] font-extrabold uppercase tracking-widest text-uclCyan block leading-none">Competiciones de Clubes • Toca una Copa para escuchar su Himno</span>
-                            <h2 class="font-oswald text-base sm:text-xl font-bold text-white uppercase tracking-wide">🕹️ A NIVEL DE CLUBES 👾</h2>
+                            <span class="text-[8px] font-extrabold uppercase tracking-widest text-uclNeon block leading-none">Full-Bleed Cards • Toca una Copa para su Himno</span>
+                            <h2 class="font-oswald text-sm sm:text-lg font-bold text-white uppercase tracking-wide">🕹️ A NIVEL DE CLUBES</h2>
                         </div>
                     </div>
-                    <span id="clubCupsCountBadge" class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-white/5 text-sky-200 border border-sky-400/20"></span>
+                    <span id="clubCupsCountBadge" class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-white/5 text-slate-300 border border-white/15"></span>
                 </div>
-                <div id="clubTrophiesGrid" class="flex flex-wrap justify-center gap-2.5 sm:gap-3.5"></div>
+                <div id="clubTrophiesGrid" class="flex flex-wrap justify-center gap-2.5 sm:gap-3"></div>
             </div>
 
-            <!-- COPAS DE SELECCIÓN -->
+            <!-- COPAS DE SELECCIÓN (FULL-BLEED SIN MARCOS) -->
             <div class="space-y-2.5">
-                <div class="flex items-center justify-between gap-2 border-b border-sky-400/20 pb-2">
+                <div class="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
                     <div class="flex items-center gap-2">
-                        <div class="w-8 h-8 rounded-xl bg-amber-500/25 border border-amber-400/40 flex items-center justify-center text-uclGold text-sm">
+                        <div class="w-7 h-7 rounded-lg bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-uclGold text-xs">
                             <i class="fa-solid fa-earth-americas"></i>
                         </div>
                         <div>
-                            <span class="text-[9px] font-extrabold uppercase tracking-widest text-uclGold block leading-none">Selecciones Nacionales • Toca una Copa para escuchar su Himno</span>
-                            <h2 class="font-oswald text-base sm:text-xl font-bold text-white uppercase tracking-wide">🥅 A NIVEL DE SELECCIÓN 📢</h2>
+                            <span class="text-[8px] font-extrabold uppercase tracking-widest text-uclGold block leading-none">Selecciones Nacionales • Toca una Copa para su Himno</span>
+                            <h2 class="font-oswald text-sm sm:text-lg font-bold text-white uppercase tracking-wide">🥅 A NIVEL DE SELECCIÓN</h2>
                         </div>
                     </div>
-                    <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-amber-500/10 text-uclGold border border-uclGold/30">2 Torneos</span>
+                    <span class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-amber-500/10 text-uclGold border border-uclGold/30">2 Torneos</span>
                 </div>
-                <div id="nationalTrophiesGrid" class="flex flex-wrap justify-center gap-2.5 sm:gap-3.5"></div>
+                <div id="nationalTrophiesGrid" class="flex flex-wrap justify-center gap-2.5 sm:gap-3"></div>
             </div>
         </div>
 
         <!-- ==========================================
              VISTA HISTÓRICA GENERAL (RANKING GENERAL + DATOS CURIOSOS + RÉCORDS)
         =========================================== -->
-        <div id="historicalViewContainer" class="space-y-5 hidden">
+        <div id="historicalViewContainer" class="space-y-4 hidden">
             <div class="ucl-card neon-ambient-gold rounded-2xl p-3.5 sm:p-5">
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4 border-b border-sky-400/15 pb-3">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3.5 border-b border-white/10 pb-2.5">
                     <div>
                         <span class="text-[9px] font-extrabold uppercase tracking-widest text-uclGold block">🏆 SALÓN DE LA FAMA • ACUMULADO GENERAL (FC27 - FC24)</span>
-                        <h2 class="font-oswald text-xl sm:text-2xl font-bold text-white uppercase tracking-wide">RANKING HISTÓRICO DE CAMPEONES</h2>
+                        <h2 class="font-oswald text-lg sm:text-2xl font-bold text-white uppercase tracking-wide">RANKING HISTÓRICO DE CAMPEONES</h2>
                     </div>
                     <div class="px-3 py-1 rounded-xl bg-uclGold/15 border border-uclGold/35 text-left sm:text-right shrink-0">
                         <span class="text-[8px] uppercase tracking-wider text-amber-200 block">Total Histórico Jugado</span>
                         <span id="historicalGrandTotalBadge" class="font-display text-2xl text-uclGold"></span>
                     </div>
                 </div>
-                <div id="historicalPodiumGrid" class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4"></div>
-                <div class="overflow-x-auto rounded-xl border border-sky-400/20 bg-[#03091c]">
+                <div id="historicalPodiumGrid" class="grid grid-cols-1 md:grid-cols-3 gap-2.5 mb-3.5"></div>
+                <div class="overflow-x-auto rounded-xl border border-white/15 bg-black/50">
                     <table class="w-full text-left border-collapse">
                         <thead>
-                            <tr class="border-b border-sky-400/15 text-[9px] sm:text-[10px] uppercase tracking-wider text-sky-200/70 bg-white/5">
+                            <tr class="border-b border-white/10 text-[9px] sm:text-[10px] uppercase tracking-wider text-slate-300 bg-white/5">
                                 <th class="py-2 px-2.5">Jugador</th>
                                 <th class="py-2 px-1.5 text-center">FC27</th>
                                 <th class="py-2 px-1.5 text-center">FC26</th>
@@ -375,45 +425,36 @@
             </div>
 
             <!-- DATOS CURIOSOS DE FINALES Y PICHICHIS -->
-            <div id="finalsFunFactsWrapper" class="ucl-card neon-ambient-cyan rounded-2xl p-3 sm:p-3.5">
-                <div class="flex items-center justify-between gap-2 mb-2 border-b border-sky-400/20 pb-1.5">
+            <div id="finalsFunFactsWrapper" class="ucl-card neon-ambient-cyan rounded-2xl p-3">
+                <div class="flex items-center justify-between gap-2 mb-2 border-b border-white/10 pb-1.5">
                     <div class="flex items-center gap-2">
-                        <div class="w-7 h-7 rounded-lg bg-uclCyan/20 border border-uclCyan/40 flex items-center justify-center text-uclCyan text-xs">
+                        <div class="w-6 h-6 rounded-lg bg-uclCyan/20 border border-uclCyan/40 flex items-center justify-center text-uclCyan text-xs">
                             <i class="fa-solid fa-scale-balanced"></i>
                         </div>
-                        <div>
-                            <span class="text-[8px] font-extrabold uppercase tracking-widest text-uclCyan block leading-none">Estadísticas • Temporada Activa</span>
-                            <h3 id="finalsFunFactsTitle" class="font-oswald text-sm sm:text-base font-bold text-white uppercase tracking-wide">⚖️ DATOS CURIOSOS Y BOTA DE ORO</h3>
-                        </div>
+                        <h3 id="finalsFunFactsTitle" class="font-oswald text-xs sm:text-sm font-bold text-white uppercase tracking-wide">⚖️ DATOS CURIOSOS Y BOTA DE ORO</h3>
                     </div>
-                    <span id="finalsFunFactsSubBadge" class="text-[9px] font-extrabold px-2 py-0.5 rounded-full bg-uclNeon/15 text-uclNeon border border-uclNeon/40">En Vivo</span>
+                    <span id="finalsFunFactsSubBadge" class="text-[8px] font-extrabold px-2 py-0.5 rounded-full bg-uclNeon/15 text-uclNeon border border-uclNeon/40">En Vivo</span>
                 </div>
                 <div id="finalsFunFactsGrid" class="grid grid-cols-2 lg:grid-cols-4 gap-2"></div>
             </div>
 
             <!-- RÉCORDS EN AÑO CALENDARIO -->
-            <div class="space-y-2.5">
-                <div class="flex items-center justify-between gap-2 border-b border-uclGold/30 pb-2">
-                    <div class="flex items-center gap-2">
-                        <div class="w-8 h-8 rounded-xl bg-uclGold/20 border border-uclGold/50 flex items-center justify-center text-uclGold text-sm">
-                            <i class="fa-solid fa-bolt"></i>
-                        </div>
-                        <div>
-                            <span class="text-[9px] font-extrabold uppercase tracking-widest text-uclGold block leading-none">Hitos Oficiales • Año Calendario y Era PS5</span>
-                            <h3 class="font-oswald text-base sm:text-xl font-bold text-white uppercase tracking-wide">⚡ RÉCORDS HISTÓRICOS Y LEYENDAS</h3>
-                        </div>
+            <div class="space-y-2">
+                <div class="flex items-center gap-2 border-b border-uclGold/30 pb-1.5">
+                    <div class="w-7 h-7 rounded-lg bg-uclGold/20 border border-uclGold/50 flex items-center justify-center text-uclGold text-xs">
+                        <i class="fa-solid fa-bolt"></i>
                     </div>
+                    <h3 class="font-oswald text-sm sm:text-lg font-bold text-white uppercase tracking-wide">⚡ RÉCORDS HISTÓRICOS Y LEYENDAS</h3>
                 </div>
-                <div id="historicalRecordsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-3"></div>
+                <div id="historicalRecordsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5"></div>
             </div>
 
             <!-- REYES HISTÓRICOS DE CADA COPA -->
-            <div class="space-y-2.5">
-                <div class="border-b border-sky-400/20 pb-2">
-                    <span class="text-[9px] font-extrabold uppercase tracking-widest text-uclCyan block">Acumulado por Competición • Toca una Copa para escuchar su Himno</span>
-                    <h3 class="font-oswald text-base sm:text-xl font-bold text-white uppercase tracking-wide">👑 REYES HISTÓRICOS DE CADA COPA</h3>
+            <div class="space-y-2">
+                <div class="border-b border-white/10 pb-1.5">
+                    <h3 class="font-oswald text-sm sm:text-lg font-bold text-white uppercase tracking-wide">👑 REYES HISTÓRICOS DE CADA COPA</h3>
                 </div>
-                <div id="historicalPerCupGrid" class="flex flex-wrap justify-center gap-2.5 sm:gap-3"></div>
+                <div id="historicalPerCupGrid" class="flex flex-wrap justify-center gap-2.5"></div>
             </div>
         </div>
     </main>
@@ -424,25 +465,21 @@
     </nav>
 
     <!-- ==========================================
-         MODAL COMPACTO: DESGLOSE DE PICHICHIS POR COPA (CUADRÍCULA 2x5)
+         MODAL COMPACTO: DESGLOSE DE PICHICHIS POR COPA (CUADRÍCULA 2x5 SIN DESLIZAR)
     =========================================== -->
     <div id="pichichiBreakdownModal" onclick="closePichichiBreakdownModal()" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden flex items-center justify-center p-3">
-        <div class="ucl-card border border-uclGold/60 max-w-md w-full rounded-2xl p-3 sm:p-3.5 flex flex-col shadow-2xl" onclick="event.stopPropagation()">
-            <div class="flex items-center justify-between border-b border-white/10 pb-2">
+        <div class="ucl-card border border-uclGold/60 max-w-md w-full rounded-2xl p-3 flex flex-col shadow-2xl" onclick="event.stopPropagation()">
+            <div class="flex items-center justify-between border-b border-white/10 pb-1.5">
                 <div class="flex items-center gap-1.5">
                     <span class="text-sm">👟</span>
-                    <h3 id="pichichiModalPlayerTitle" class="font-oswald text-sm sm:text-base font-bold text-white uppercase tracking-wide">PICHICHIS • JESÚS</h3>
+                    <h3 id="pichichiModalPlayerTitle" class="font-oswald text-sm font-bold text-white uppercase tracking-wide">PICHICHIS • JESÚS</h3>
                 </div>
                 <div class="flex items-center gap-1.5">
-                    <span id="pichichiModalTotalBadge" class="px-2 py-0.5 rounded-lg bg-uclGold text-uclNight font-oswald font-bold text-[11px] uppercase">0 Total</span>
+                    <span id="pichichiModalTotalBadge" class="px-2 py-0.5 rounded-lg bg-uclGold text-black font-oswald font-bold text-[11px] uppercase">0 Total</span>
                     <button onclick="closePichichiBreakdownModal()" class="w-6 h-6 rounded-lg bg-white/10 text-slate-300 text-xs flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button>
                 </div>
             </div>
-
-            <!-- Pestañas compactas para cambiar de jugador -->
             <div id="pichichiModalPlayerTabs" class="grid grid-cols-3 gap-1.5 my-2"></div>
-
-            <!-- Cuadrícula compacta de 2 columnas para las 10 copas -->
             <div id="pichichiModalCupsList" class="grid grid-cols-2 gap-1.5"></div>
         </div>
     </div>
@@ -450,58 +487,50 @@
     <!-- ==========================================
          MODAL PÚBLICO: RULETA PASO A PASO (1° PICK -> 2° PICK + 3° AUTOMÁTICO)
     =========================================== -->
-    <div id="turnRouletteModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden flex items-center justify-center p-3 sm:p-5">
-        <div class="ucl-card neon-ambient-cyan max-w-md w-full rounded-3xl p-4 sm:p-5 flex flex-col gap-3 text-center">
-            <div class="flex items-center justify-between border-b border-white/10 pb-2.5">
+    <div id="turnRouletteModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden flex items-center justify-center p-3">
+        <div class="ucl-card neon-ambient-cyan max-w-md w-full rounded-2xl p-4 flex flex-col gap-2.5 text-center">
+            <div class="flex items-center justify-between border-b border-white/10 pb-2">
                 <div class="flex items-center gap-2 text-left">
-                    <div class="w-8 h-8 rounded-xl bg-uclCyan/20 border border-uclCyan/50 flex items-center justify-center text-uclGold">
-                        <i class="fa-solid fa-dice text-base"></i>
+                    <div class="w-7 h-7 rounded-lg bg-uclCyan/20 border border-uclCyan/50 flex items-center justify-center text-uclGold">
+                        <i class="fa-solid fa-dice text-sm"></i>
                     </div>
-                    <div>
-                        <span class="text-[9px] font-extrabold uppercase tracking-widest text-uclCyan block leading-none">Sorteo Clásico Paso a Paso</span>
-                        <h3 class="font-oswald text-lg font-bold text-white uppercase">RULETA DE TURNOS DE EQUIPO</h3>
-                    </div>
+                    <h3 class="font-oswald text-base font-bold text-white uppercase">RULETA DE TURNOS PS5</h3>
                 </div>
-                <button onclick="closeTurnRouletteModal()" class="w-8 h-8 rounded-xl bg-white/10 text-slate-300 flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button>
+                <button onclick="closeTurnRouletteModal()" class="w-7 h-7 rounded-lg bg-white/10 text-slate-300 flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button>
             </div>
 
-            <div class="p-3.5 rounded-2xl bg-[#020817] border-2 border-uclCyan/50 shadow-inner relative overflow-hidden">
-                <span id="rouletteStageSubtitle" class="text-[10px] font-extrabold uppercase tracking-widest text-uclCyan block mb-0.5">
+            <div class="p-3 rounded-xl bg-black/70 border border-uclCyan/50 shadow-inner">
+                <span id="rouletteStageSubtitle" class="text-[9px] font-extrabold uppercase tracking-widest text-uclCyan block">
                     PASO 1: SORTEAR QUIÉN ELIGE PRIMERO
                 </span>
-                <div id="rouletteCentralBanner" class="font-display text-4xl sm:text-5xl tracking-wider text-white uppercase leading-none py-1">
+                <div id="rouletteCentralBanner" class="font-display text-4xl tracking-wider text-white uppercase leading-none py-1">
                     ¿QUIÉN SALE?
                 </div>
             </div>
 
             <div class="grid grid-cols-3 gap-2">
-                <div id="pickSlot_0" class="p-2.5 rounded-2xl bg-[#020817]/90 border border-white/15 flex flex-col items-center justify-center gap-1 transition-all duration-300">
-                    <span class="px-2 py-0.5 rounded-full bg-uclGold/20 text-uclGold text-[9px] font-extrabold uppercase">🥇 1.° PICK</span>
-                    <span id="pickName_0" class="font-oswald text-base sm:text-lg font-bold text-slate-400 uppercase tracking-wide mt-0.5">Pendiente</span>
-                    <span class="text-[8px] text-slate-400">Elige 1.°</span>
+                <div id="pickSlot_0" class="p-2 rounded-xl bg-black/60 border border-white/15 flex flex-col items-center justify-center">
+                    <span class="px-1.5 py-0.5 rounded-full bg-uclGold/20 text-uclGold text-[8px] font-extrabold uppercase">🥇 1.° PICK</span>
+                    <span id="pickName_0" class="font-oswald text-sm sm:text-base font-bold text-slate-400 uppercase mt-0.5">Pendiente</span>
                 </div>
-
-                <div id="pickSlot_1" class="p-2.5 rounded-2xl bg-[#020817]/90 border border-white/15 flex flex-col items-center justify-center gap-1 transition-all duration-300">
-                    <span class="px-2 py-0.5 rounded-full bg-uclCyan/20 text-uclCyan text-[9px] font-extrabold uppercase">🥈 2.° PICK</span>
-                    <span id="pickName_1" class="font-oswald text-base sm:text-lg font-bold text-slate-400 uppercase tracking-wide mt-0.5">Pendiente</span>
-                    <span class="text-[8px] text-slate-400">Elige 2.°</span>
+                <div id="pickSlot_1" class="p-2 rounded-xl bg-black/60 border border-white/15 flex flex-col items-center justify-center">
+                    <span class="px-1.5 py-0.5 rounded-full bg-uclCyan/20 text-uclCyan text-[8px] font-extrabold uppercase">🥈 2.° PICK</span>
+                    <span id="pickName_1" class="font-oswald text-sm sm:text-base font-bold text-slate-400 uppercase mt-0.5">Pendiente</span>
                 </div>
-
-                <div id="pickSlot_2" class="p-2.5 rounded-2xl bg-[#020817]/90 border border-white/15 flex flex-col items-center justify-center gap-1 transition-all duration-300">
-                    <span class="px-2 py-0.5 rounded-full bg-orange-500/20 text-orange-300 text-[9px] font-extrabold uppercase">🥉 3.° PICK</span>
-                    <span id="pickName_2" class="font-oswald text-base sm:text-lg font-bold text-slate-400 uppercase tracking-wide mt-0.5">Pendiente</span>
-                    <span class="text-[8px] text-slate-400">Elige 3.°</span>
+                <div id="pickSlot_2" class="p-2 rounded-xl bg-black/60 border border-white/15 flex flex-col items-center justify-center">
+                    <span class="px-1.5 py-0.5 rounded-full bg-orange-500/20 text-orange-300 text-[8px] font-extrabold uppercase">🥉 3.° PICK</span>
+                    <span id="pickName_2" class="font-oswald text-sm sm:text-base font-bold text-slate-400 uppercase mt-0.5">Pendiente</span>
                 </div>
             </div>
 
-            <div class="flex flex-col sm:flex-row gap-2 pt-1">
-                <button id="spinRouletteBtn" onclick="spinTurnRouletteStep()" class="flex-1 py-2.5 px-4 rounded-xl bg-gradient-to-r from-uclGold via-amber-400 to-yellow-300 text-uclNight font-oswald font-bold text-sm uppercase tracking-wider shadow-lg active:scale-95 transition">
+            <div class="flex gap-2 pt-1">
+                <button id="spinRouletteBtn" onclick="spinTurnRouletteStep()" class="flex-1 py-2 px-3 rounded-xl bg-gradient-to-r from-uclGold via-amber-400 to-yellow-300 text-black font-oswald font-bold text-xs sm:text-sm uppercase tracking-wider shadow active:scale-95">
                     🎲 Girar para el 1.° Pick
                 </button>
-                <button id="resetRouletteBtn" onclick="resetTurnRoulette()" class="py-2.5 px-3 rounded-xl bg-white/10 hover:bg-white/15 text-slate-200 font-bold text-xs uppercase hidden active:scale-95">
-                    <i class="fa-solid fa-rotate-right mr-1"></i> Reiniciar
+                <button id="resetRouletteBtn" onclick="resetTurnRoulette()" class="py-2 px-2.5 rounded-xl bg-white/10 text-slate-200 font-bold text-xs hidden">
+                    <i class="fa-solid fa-rotate-right"></i>
                 </button>
-                <button id="copyRouletteWaBtn" onclick="copyRouletteOrderToWhatsApp()" class="py-2.5 px-3.5 rounded-xl bg-emerald-500/20 border border-emerald-400/50 text-emerald-300 font-bold text-xs uppercase hidden active:scale-95">
+                <button id="copyRouletteWaBtn" onclick="copyRouletteOrderToWhatsApp()" class="py-2 px-3 rounded-xl bg-emerald-500/20 border border-emerald-400/50 text-emerald-300 font-bold text-xs uppercase hidden">
                     <i class="fa-brands fa-whatsapp mr-1"></i> Copiar
                 </button>
             </div>
@@ -509,236 +538,206 @@
     </div>
 
     <!-- ==========================================
-         MODAL EXCLUSIVO ADMIN: CONTROL DE TEMPORADAS FC27, BOTA DE ORO & WHATSAPP
+         MODAL EXCLUSIVO ADMIN: WHATSAPP ULTRA-PRÁCTICO (CERO SCROLL / TODO EN 1 PANTALLA)
     =========================================== -->
-    <div id="whatsappModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden flex items-center justify-center p-2.5 sm:p-5">
-        <div class="ucl-card max-w-xl w-full rounded-3xl p-4 sm:p-5 border border-emerald-500/40 shadow-2xl max-h-[92vh] flex flex-col">
+    <div id="whatsappModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden flex items-center justify-center p-2 sm:p-4">
+        <div class="ucl-card max-w-lg w-full rounded-2xl p-3 sm:p-3.5 border border-emerald-500/50 shadow-2xl flex flex-col gap-2">
 
-            <div class="flex items-center justify-between gap-2 pb-2.5 border-b border-white/10">
-                <div class="flex items-center gap-2.5">
-                    <div class="w-9 h-9 rounded-xl bg-emerald-500/20 border border-emerald-400/40 text-emerald-400 flex items-center justify-center shrink-0">
-                        <i class="fa-brands fa-whatsapp text-lg"></i>
-                    </div>
-                    <div>
-                        <div class="flex items-center gap-1.5">
-                            <span id="waModalSeasonBadge" class="font-oswald text-base sm:text-lg font-bold text-uclGold uppercase tracking-wide">TEMPORADA 1 - FC27</span>
-                            <button onclick="changeMiniSeasonNumber(-1)" title="Temporada anterior" class="w-5 h-5 rounded bg-white/10 hover:bg-white/20 text-xs text-slate-300 flex items-center justify-center">-</button>
-                            <button onclick="changeMiniSeasonNumber(1)" title="Siguiente temporada" class="w-5 h-5 rounded bg-white/10 hover:bg-white/20 text-xs text-slate-300 flex items-center justify-center">+</button>
-                        </div>
-                        <p id="waModalSeasonRuleSub" class="text-[10px] text-sky-200/80 leading-none mt-0.5"></p>
-                    </div>
+            <!-- Fila 1: Cabecera Compacta + Contador de Temporada + Reiniciar -->
+            <div class="flex items-center justify-between gap-1 pb-1.5 border-b border-white/10">
+                <div class="flex items-center gap-1.5">
+                    <i class="fa-brands fa-whatsapp text-emerald-400 text-base"></i>
+                    <span id="waModalSeasonBadge" class="font-oswald text-sm sm:text-base font-bold text-uclGold uppercase">TEMP. 1 - FC27</span>
+                    <button onclick="changeMiniSeasonNumber(-1)" class="w-5 h-5 rounded bg-white/10 text-xs text-slate-200 flex items-center justify-center">-</button>
+                    <button onclick="changeMiniSeasonNumber(1)" class="w-5 h-5 rounded bg-white/10 text-xs text-slate-200 flex items-center justify-center">+</button>
+                    <span id="waProgressCounterBadge" class="px-1.5 py-0.5 rounded-full bg-uclCyan/20 text-uclCyan text-[9px] font-extrabold">0/7</span>
                 </div>
-                <button onclick="closeWhatsAppModal()" class="w-8 h-8 rounded-xl bg-white/10 text-slate-300 flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button>
+                <div class="flex items-center gap-1">
+                    <button type="button" onclick="promptResetCurrentMiniSeason()" title="Reiniciar esta temporada" class="px-2 py-1 rounded-lg bg-white/5 hover:bg-white/10 text-[9px] text-slate-400 font-semibold">
+                        <i class="fa-solid fa-rotate-left"></i>
+                    </button>
+                    <button type="button" onclick="closeWhatsAppModal()" class="w-6 h-6 rounded-lg bg-white/10 text-slate-300 text-xs flex items-center justify-center">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
             </div>
 
-            <div class="my-3 space-y-3 overflow-y-auto flex-1 pr-1">
-                <div class="p-2.5 rounded-2xl bg-[#020817]/90 border border-sky-400/20">
-                    <div class="flex items-center justify-between mb-1.5">
-                        <span class="text-[10px] font-extrabold uppercase tracking-wider text-uclCyan">Progreso de Copas en esta Temporada:</span>
-                        <span id="waProgressCounterBadge" class="px-2 py-0.5 rounded-full bg-uclCyan/20 text-uclCyan text-[9px] font-extrabold">0 / 7 Jugadas</span>
-                    </div>
-                    <div id="waCupsStatusPills" class="grid grid-cols-2 sm:grid-cols-3 gap-1.5"></div>
+            <!-- Banner Compacto cuando se completan todas las copas -->
+            <div id="waSeasonCompleteBanner" class="px-2.5 py-1.5 rounded-xl ucl-card-gold flex items-center justify-between gap-2 hidden">
+                <span class="text-[10px] font-extrabold text-uclGold uppercase">🎉 ¡Temporada Completa!</span>
+                <button onclick="finishAndAdvanceMiniSeason()" class="px-2.5 py-1 rounded-lg bg-uclGold text-black font-extrabold text-[10px] uppercase shadow active:scale-95">
+                    🚀 Pasar a <span id="waNextSeasonBtnLabel">Temp. 2</span>
+                </button>
+            </div>
+
+            <!-- Fila 2: Cuadrícula Directa de Copas (Toca la copa jugada sin abrir listas) -->
+            <div>
+                <div class="flex items-center justify-between mb-1">
+                    <span class="text-[9px] font-extrabold uppercase text-amber-300">1. Toca la Copa jugada:</span>
+                    <span id="waSelectedCupTitle" class="text-[10px] font-extrabold text-uclCyan">🔴 Champions League</span>
                 </div>
+                <input type="hidden" id="waCupSelect" value="champions">
+                <div id="waCupsStatusPills" class="grid grid-cols-4 sm:grid-cols-5 gap-1"></div>
+            </div>
 
-                <div id="waSeasonCompleteBanner" class="p-3 rounded-2xl ucl-card-gold hidden">
-                    <div class="flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
-                        <div>
-                            <span class="text-[10px] font-extrabold uppercase tracking-wider text-uclGold block">🎉 ¡TEMPORADA COMPLETADA!</span>
-                            <p class="text-xs text-white font-semibold">Ya se jugaron todas las copas. Envía el Resumen Final al grupo y pasa a la siguiente temporada.</p>
-                        </div>
-                        <button onclick="finishAndAdvanceMiniSeason()" class="w-full sm:w-auto shrink-0 px-3.5 py-2 rounded-xl bg-uclGold text-uclNight font-extrabold text-xs uppercase shadow-lg active:scale-95">
-                            🚀 Pasar a <span id="waNextSeasonBtnLabel">Temporada 2</span>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="p-3 rounded-2xl bg-[#030b1e] border border-white/10 space-y-2.5">
+            <!-- Fila 3: Instancias en 1 sola línea (3 Columnas) -->
+            <div class="p-2 rounded-xl bg-black/55 border border-white/10 space-y-2">
+                <div class="grid grid-cols-3 gap-1.5">
                     <div>
-                        <label class="block text-[10px] font-extrabold uppercase tracking-wider text-amber-300 mb-1">1. Selecciona la Copa jugada:</label>
-                        <select id="waCupSelect" onchange="loadSavedCupResultsIntoSelectors()" class="w-full px-3 py-2 rounded-xl bg-[#020817] border border-sky-400/40 text-xs text-white font-bold focus:outline-none focus:border-uclCyan"></select>
-                    </div>
-
-                    <div>
-                        <label class="block text-[10px] font-extrabold uppercase tracking-wider text-uclCyan mb-1.5">2. ¿En qué instancia quedó cada jugador?</label>
-                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                            <div class="bg-black/50 p-2 rounded-xl border border-white/10">
-                                <label class="block text-[10px] font-extrabold text-white mb-1">⚽ Jesús</label>
-                                <select id="waInst_0" onchange="handleInstanceChange(0)" class="w-full px-2 py-1.5 rounded-lg bg-[#020817] border border-white/20 text-xs text-uclGold font-bold">
-                                    <option value="Campeón">👑 Campeón</option>
-                                    <option value="Subcampeón">🥈 Subcampeón</option>
-                                    <option value="Semis">🛑 Semis</option>
-                                    <option value="4tos">🛑 4tos</option>
-                                    <option value="8vos">🛑 8vos</option>
-                                    <option value="16vos">🛑 16vos</option>
-                                    <option value="Fase de grupos">🛑 Fase de grupos</option>
-                                </select>
-                            </div>
-
-                            <div class="bg-black/50 p-2 rounded-xl border border-white/10">
-                                <label class="block text-[10px] font-extrabold text-white mb-1">⚽ Sebastián</label>
-                                <select id="waInst_1" onchange="handleInstanceChange(1)" class="w-full px-2 py-1.5 rounded-lg bg-[#020817] border border-white/20 text-xs text-uclGold font-bold">
-                                    <option value="Campeón">👑 Campeón</option>
-                                    <option value="Subcampeón" selected>🥈 Subcampeón</option>
-                                    <option value="Semis">🛑 Semis</option>
-                                    <option value="4tos">🛑 4tos</option>
-                                    <option value="8vos">🛑 8vos</option>
-                                    <option value="16vos">🛑 16vos</option>
-                                    <option value="Fase de grupos">🛑 Fase de grupos</option>
-                                </select>
-                            </div>
-
-                            <div class="bg-black/50 p-2 rounded-xl border border-white/10">
-                                <label class="block text-[10px] font-extrabold text-white mb-1">⚽ David</label>
-                                <select id="waInst_2" onchange="handleInstanceChange(2)" class="w-full px-2 py-1.5 rounded-lg bg-[#020817] border border-white/20 text-xs text-uclGold font-bold">
-                                    <option value="Campeón">👑 Campeón</option>
-                                    <option value="Subcampeón">🥈 Subcampeón</option>
-                                    <option value="Semis">🛑 Semis</option>
-                                    <option value="4tos">🛑 4tos</option>
-                                    <option value="8vos" selected>🛑 8vos</option>
-                                    <option value="16vos">🛑 16vos</option>
-                                    <option value="Fase de grupos">🛑 Fase de grupos</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- SELECTOR: PICHICHI / GOLEADOR DE LA COPA -->
-                    <div class="p-2.5 rounded-xl bg-amber-500/10 border border-uclGold/40 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                        <div>
-                            <span class="text-[10px] font-extrabold uppercase tracking-wider text-uclGold block">3. 👟 Pichichi / Goleador de esta Copa:</span>
-                            <span class="text-[9px] text-amber-200/80">Suma +1 Pichichi en esta copa para la Bota de Oro FC27</span>
-                        </div>
-                        <select id="waScorerSelect" class="px-3 py-1.5 rounded-xl bg-[#020817] border border-uclGold/60 text-xs text-uclGold font-extrabold focus:outline-none">
-                            <option value="Jesús">👟 Jesús (+1 Pichichi)</option>
-                            <option value="Sebastián">👟 Sebastián (+1 Pichichi)</option>
-                            <option value="David">👟 David (+1 Pichichi)</option>
-                            <option value="Ninguno">❌ Ninguno / Sin definir</option>
+                        <label class="block text-[9px] font-extrabold text-slate-300 mb-0.5">⚽ Jesús</label>
+                        <select id="waInst_0" onchange="handleInstanceChange(0)" class="w-full px-1.5 py-1 rounded-lg bg-[#050814] border border-white/20 text-[11px] text-uclGold font-bold focus:outline-none">
+                            <option value="Campeón">👑 Campeón</option>
+                            <option value="Subcampeón">🥈 Subcampeón</option>
+                            <option value="Semis">🛑 Semis</option>
+                            <option value="4tos">🛑 4tos</option>
+                            <option value="8vos">🛑 8vos</option>
+                            <option value="16vos">🛑 16vos</option>
+                            <option value="Fase de grupos">🛑 Grupos</option>
                         </select>
                     </div>
-
-                    <div class="pt-1 flex flex-col sm:flex-row items-center justify-between gap-2">
-                        <span class="text-[10px] text-slate-300">💡 Si nadie campeonó, pon a los 3 en la fase en que fueron eliminados.</span>
-                        <button type="button" onclick="registerCupAndBuildWhatsApp()" class="w-full sm:w-auto px-4 py-2 rounded-xl bg-uclNeon text-uclNight font-extrabold text-xs uppercase tracking-wide shadow-lg active:scale-95">
-                            ✅ Registrar y Generar Reporte
-                        </button>
+                    <div>
+                        <label class="block text-[9px] font-extrabold text-slate-300 mb-0.5">⚽ Sebastián</label>
+                        <select id="waInst_1" onchange="handleInstanceChange(1)" class="w-full px-1.5 py-1 rounded-lg bg-[#050814] border border-white/20 text-[11px] text-uclGold font-bold focus:outline-none">
+                            <option value="Campeón">👑 Campeón</option>
+                            <option value="Subcampeón" selected>🥈 Subcampeón</option>
+                            <option value="Semis">🛑 Semis</option>
+                            <option value="4tos">🛑 4tos</option>
+                            <option value="8vos">🛑 8vos</option>
+                            <option value="16vos">🛑 16vos</option>
+                            <option value="Fase de grupos">🛑 Grupos</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-[9px] font-extrabold text-slate-300 mb-0.5">⚽ David</label>
+                        <select id="waInst_2" onchange="handleInstanceChange(2)" class="w-full px-1.5 py-1 rounded-lg bg-[#050814] border border-white/20 text-[11px] text-uclGold font-bold focus:outline-none">
+                            <option value="Campeón">👑 Campeón</option>
+                            <option value="Subcampeón">🥈 Subcampeón</option>
+                            <option value="Semis">🛑 Semis</option>
+                            <option value="4tos">🛑 4tos</option>
+                            <option value="8vos" selected>🛑 8vos</option>
+                            <option value="16vos">🛑 16vos</option>
+                            <option value="Fase de grupos">🛑 Grupos</option>
+                        </select>
                     </div>
                 </div>
 
-                <div>
-                    <div class="flex items-center justify-between mb-1">
-                        <label id="waOutputLabel" class="text-[10px] font-extrabold uppercase text-emerald-400">📲 Mensaje listo para copiar a WhatsApp:</label>
-                        <button type="button" onclick="copyWhatsAppText()" class="px-2.5 py-1 rounded-lg bg-emerald-500/20 border border-emerald-400/40 text-[10px] text-emerald-300 font-extrabold hover:bg-emerald-500/30">
-                            <i class="fa-regular fa-copy mr-1"></i> Copiar Texto
-                        </button>
-                    </div>
-                    <textarea id="whatsappOutputBox" rows="8" readonly placeholder="Aquí aparecerá el reporte de la copa o el resumen de la temporada..." class="w-full p-3 rounded-xl bg-[#020817] border border-emerald-500/40 text-xs text-white font-mono resize-none focus:outline-none"></textarea>
+                <!-- Botonera de 1 Toque para el Pichichi -->
+                <div class="flex items-center justify-between gap-1.5 pt-1 border-t border-white/10">
+                    <span class="text-[9px] font-extrabold uppercase text-uclGold shrink-0">👟 Pichichi:</span>
+                    <input type="hidden" id="waScorerSelect" value="Jesús">
+                    <div id="waScorerPillsContainer" class="grid grid-cols-4 gap-1 flex-1"></div>
                 </div>
             </div>
 
-            <div class="pt-2.5 border-t border-white/10 flex flex-wrap items-center justify-between gap-2">
-                <div class="flex items-center gap-1.5">
-                    <button type="button" onclick="generateMiniSeasonSummaryText(true)" class="px-3 py-1.5 rounded-xl bg-sky-500/20 hover:bg-sky-500/30 text-uclCyan border border-sky-400/40 font-extrabold text-[11px]">
-                        📋 Resumen de Temporada
-                    </button>
-                    <button type="button" onclick="promptResetCurrentMiniSeason()" class="px-2.5 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-400 text-[10px] font-semibold">
-                        Reiniciar Temp.
-                    </button>
-                </div>
-                <button type="button" onclick="closeWhatsAppModal()" class="px-4 py-1.5 rounded-xl bg-white/10 text-slate-200 font-bold text-xs">Cerrar</button>
+            <!-- Fila 4: Botones de Acción Directa -->
+            <div class="grid grid-cols-12 gap-1.5">
+                <button type="button" onclick="registerCupAndBuildWhatsApp()" class="col-span-8 py-2 px-3 rounded-xl bg-uclNeon text-black font-oswald font-bold text-xs sm:text-sm uppercase tracking-wide shadow active:scale-95">
+                    ✅ Registrar y Copiar WhatsApp
+                </button>
+                <button type="button" onclick="generateMiniSeasonSummaryText(true)" class="col-span-4 py-2 px-2 rounded-xl bg-sky-500/20 hover:bg-sky-500/30 text-uclCyan border border-sky-400/40 font-oswald font-bold text-xs uppercase active:scale-95">
+                    📋 Resumen Temp.
+                </button>
+            </div>
+
+            <!-- Fila 5: Visor Compacto de 3 Líneas con Botón Copiar -->
+            <div class="relative">
+                <textarea id="whatsappOutputBox" rows="3" readonly placeholder="El texto generado se copiará automáticamente aquí..." class="w-full p-2 pr-16 rounded-xl bg-black/80 border border-emerald-500/40 text-[10px] text-slate-200 font-mono resize-none focus:outline-none"></textarea>
+                <button type="button" onclick="copyWhatsAppText()" class="absolute top-1.5 right-1.5 px-2 py-1 rounded-lg bg-emerald-500/25 border border-emerald-400/50 text-[9px] text-emerald-300 font-extrabold">
+                    📲 Copiar
+                </button>
             </div>
         </div>
     </div>
 
     <!-- MODALES ESTÁNDAR -->
     <div id="adminPinModal" class="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4 hidden">
-        <div class="ucl-card max-w-xs w-full rounded-3xl p-5 border border-uclCyan/40 text-center">
-            <h3 class="font-oswald text-lg font-bold text-white uppercase">Acceso Administrador</h3>
-            <p class="text-[11px] text-sky-200/75 mt-1 mb-3.5">Ingresa tu PIN para editar marcadores</p>
-            <input type="password" id="adminPinInputField" inputmode="numeric" placeholder="••••" class="w-full text-center tracking-[0.4em] font-oswald text-xl py-2 rounded-xl bg-[#020817] border border-sky-400/30 text-white mb-2">
+        <div class="ucl-card max-w-xs w-full rounded-2xl p-4 border border-uclCyan/40 text-center">
+            <h3 class="font-oswald text-base font-bold text-white uppercase">Acceso Administrador</h3>
+            <p class="text-[10px] text-slate-300 mt-0.5 mb-3">Ingresa tu PIN para editar marcadores</p>
+            <input type="password" id="adminPinInputField" inputmode="numeric" placeholder="••••" class="w-full text-center tracking-[0.4em] font-oswald text-xl py-1.5 rounded-xl bg-black/80 border border-white/20 text-white mb-2">
             <p id="adminPinErrorMsg" class="text-xs text-red-400 font-bold mb-2 hidden">❌ PIN incorrecto</p>
             <div class="grid grid-cols-2 gap-2">
-                <button onclick="document.getElementById('adminPinModal').classList.add('hidden')" class="py-2 rounded-xl bg-white/10 text-slate-300 font-bold text-xs">Cancelar</button>
-                <button onclick="confirmAdminPinModal()" class="py-2 rounded-xl bg-uclNeon text-uclNight font-extrabold text-xs">Desbloquear</button>
+                <button onclick="document.getElementById('adminPinModal').classList.add('hidden')" class="py-1.5 rounded-xl bg-white/10 text-slate-300 font-bold text-xs">Cancelar</button>
+                <button onclick="confirmAdminPinModal()" class="py-1.5 rounded-xl bg-uclNeon text-black font-extrabold text-xs">Desbloquear</button>
             </div>
         </div>
     </div>
 
     <div id="cloudConfigModal" class="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4 hidden">
-        <div class="ucl-card max-w-md w-full rounded-3xl p-5 border border-uclCyan/40">
-            <div class="flex items-center justify-between mb-2.5">
-                <h3 class="font-oswald text-lg font-bold text-white uppercase">☁️ Nube en Vivo (JSONBin)</h3>
-                <button onclick="document.getElementById('cloudConfigModal').classList.add('hidden')" class="w-7 h-7 rounded-lg bg-white/5 text-slate-400 flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button>
+        <div class="ucl-card max-w-md w-full rounded-2xl p-4 border border-uclCyan/40">
+            <div class="flex items-center justify-between mb-2">
+                <h3 class="font-oswald text-base font-bold text-white uppercase">☁️ Nube en Vivo (JSONBin)</h3>
+                <button onclick="document.getElementById('cloudConfigModal').classList.add('hidden')" class="w-6 h-6 rounded-lg bg-white/5 text-slate-400 flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button>
             </div>
-            <div class="space-y-2.5 mb-3.5">
+            <div class="space-y-2 mb-3">
                 <div>
-                    <label class="block text-[11px] font-bold text-slate-300 mb-1">1. API Master Key:</label>
-                    <input type="password" id="cloudApiKeyInput" class="w-full px-3 py-2 rounded-xl bg-[#020817] border border-white/15 text-xs text-white">
+                    <label class="block text-[10px] font-bold text-slate-300 mb-0.5">1. API Master Key:</label>
+                    <input type="password" id="cloudApiKeyInput" class="w-full px-2.5 py-1.5 rounded-xl bg-black/80 border border-white/15 text-xs text-white">
                 </div>
                 <div>
-                    <label class="block text-[11px] font-bold text-slate-300 mb-1">2. Bin ID:</label>
-                    <input type="text" id="cloudBinIdInput" class="w-full px-3 py-2 rounded-xl bg-[#020817] border border-white/15 text-xs text-white">
+                    <label class="block text-[10px] font-bold text-slate-300 mb-0.5">2. Bin ID:</label>
+                    <input type="text" id="cloudBinIdInput" class="w-full px-2.5 py-1.5 rounded-xl bg-black/80 border border-white/15 text-xs text-white">
                 </div>
             </div>
-            <button onclick="saveExistingCloudConfig()" class="w-full py-2 px-4 rounded-xl bg-uclNeon text-uclNight font-extrabold text-xs uppercase">💾 Guardar y Sincronizar</button>
-            <p id="cloudModalFeedback" class="text-xs font-semibold text-center mt-2 text-uclGold min-h-[16px]"></p>
+            <button onclick="saveExistingCloudConfig()" class="w-full py-2 px-4 rounded-xl bg-uclNeon text-black font-extrabold text-xs uppercase">💾 Guardar y Sincronizar</button>
+            <p id="cloudModalFeedback" class="text-xs font-semibold text-center mt-1.5 text-uclGold min-h-[16px]"></p>
         </div>
     </div>
 
-    <div id="statsEditorModal" class="fixed inset-0 z-50 bg-black/80 hidden flex items-center justify-center p-3 sm:p-6">
-        <div class="ucl-card max-w-md w-full rounded-3xl p-4 sm:p-5 border border-uclCyan/40 flex flex-col">
-            <div class="flex items-center justify-between pb-2.5 border-b border-white/10">
-                <h3 class="font-oswald text-lg font-bold text-white uppercase">Ganador Balón de Oro</h3>
-                <button onclick="document.getElementById('statsEditorModal').classList.add('hidden')" class="w-8 h-8 rounded-xl bg-white/10 text-slate-300 flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button>
+    <div id="statsEditorModal" class="fixed inset-0 z-50 bg-black/80 hidden flex items-center justify-center p-3">
+        <div class="ucl-card max-w-sm w-full rounded-2xl p-4 border border-uclCyan/40 flex flex-col">
+            <div class="flex items-center justify-between pb-2 border-b border-white/10">
+                <h3 class="font-oswald text-base font-bold text-white uppercase">Ganador Balón de Oro</h3>
+                <button onclick="document.getElementById('statsEditorModal').classList.add('hidden')" class="w-7 h-7 rounded-lg bg-white/10 text-slate-300 flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div class="my-3 flex items-center justify-between gap-2">
                 <span class="text-xs text-slate-300 font-semibold">Ganador Oficial:</span>
-                <select id="editorBallonWinnerSelect" onchange="updateEditorBallonWinner(this.value)" class="px-3 py-1.5 rounded-xl bg-[#020817] border border-uclGold/40 text-xs text-uclGold font-bold">
-                    <option value="AUTO">Automático (1° en Points Ranking)</option>
+                <select id="editorBallonWinnerSelect" onchange="updateEditorBallonWinner(this.value)" class="px-2.5 py-1.5 rounded-xl bg-black/80 border border-uclGold/40 text-xs text-uclGold font-bold">
+                    <option value="AUTO">Automático (Points Ranking)</option>
                     <option value="Jesús">Jesús</option>
                     <option value="Sebastián">Sebastián</option>
                     <option value="David">David</option>
                 </select>
             </div>
             <div class="flex justify-end pt-2 border-t border-white/10">
-                <button onclick="document.getElementById('statsEditorModal').classList.add('hidden')" class="px-4 py-1.5 rounded-xl bg-uclNeon text-uclNight font-extrabold text-xs uppercase">Listo</button>
+                <button onclick="document.getElementById('statsEditorModal').classList.add('hidden')" class="px-4 py-1.5 rounded-xl bg-uclNeon text-black font-extrabold text-xs uppercase">Listo</button>
             </div>
         </div>
     </div>
 
     <!-- Visor Lightbox con Indicador de Himno en Vivo -->
-    <div id="trophyLightboxModal" onclick="closeTrophyLightbox()" class="fixed inset-0 z-50 bg-black/95 flex flex-col items-center justify-center p-3 sm:p-5 overflow-y-auto hidden">
+    <div id="trophyLightboxModal" onclick="closeTrophyLightbox()" class="fixed inset-0 z-50 bg-black/95 flex flex-col items-center justify-center p-3 overflow-y-auto hidden">
         <div class="max-w-md w-full flex flex-col items-center my-auto" onclick="event.stopPropagation()">
-            <img id="lightboxImg" src="" decoding="sync" alt="Trofeo" onclick="closeTrophyLightbox()" class="max-h-[48vh] w-auto object-contain rounded-3xl border-2 border-uclGold/60 p-2 bg-[#040d21]">
-            <h4 id="lightboxTitle" class="font-oswald text-xl sm:text-2xl font-bold text-uclGold mt-2.5 uppercase text-center"></h4>
-            <p id="lightboxSubtitle" class="text-[11px] text-sky-200/80 mt-0.5 text-center"></p>
+            <img id="lightboxImg" src="" decoding="sync" alt="Trofeo" onclick="closeTrophyLightbox()" class="max-h-[46vh] w-auto object-contain rounded-2xl border-2 border-uclGold/60 p-1.5 bg-[#040d21]">
+            <h4 id="lightboxTitle" class="font-oswald text-xl font-bold text-uclGold mt-2 uppercase text-center"></h4>
+            <p id="lightboxSubtitle" class="text-[11px] text-sky-200/80 text-center"></p>
 
-            <!-- Barra de Reproducción del Himno de la Copa -->
-            <div id="lightboxAnthemBar" class="mt-2 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-uclCyan/15 border border-uclCyan/40 text-[10px] font-extrabold text-uclCyan">
+            <div id="lightboxAnthemBar" class="mt-1.5 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-uclCyan/15 border border-uclCyan/40 text-[10px] font-extrabold text-uclCyan">
                 <i class="fa-solid fa-music animate-bounce"></i>
                 <span id="lightboxAnthemLabel">Reproduciendo Himno Oficial...</span>
                 <button type="button" onclick="stopCupAnthem()" class="ml-1 px-1.5 py-0.5 rounded bg-black/60 text-slate-300 hover:text-white text-[9px]">Silenciar</button>
             </div>
 
-            <div id="lightboxPointsRankingBox" class="w-full mt-3 ucl-card-gold rounded-2xl p-3 border border-uclGold/50 hidden">
-                <div class="flex items-center justify-between mb-2 pb-1.5 border-b border-white/15">
-                    <span class="text-[11px] font-extrabold uppercase tracking-wider text-uclGold"><i class="fa-solid fa-ranking-star mr-1"></i> POINTS RANKING</span>
-                    <span class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-black/50 text-amber-200 border border-uclGold/30">Base 2000 Pts • Bono ≥3</span>
+            <div id="lightboxPointsRankingBox" class="w-full mt-2.5 ucl-card-gold rounded-2xl p-3 border border-uclGold/50 hidden">
+                <div class="flex items-center justify-between mb-1.5 pb-1 border-b border-white/15">
+                    <span class="text-[10px] font-extrabold uppercase tracking-wider text-uclGold"><i class="fa-solid fa-ranking-star mr-1"></i> POINTS RANKING</span>
+                    <span class="text-[8px] font-bold px-2 py-0.5 rounded-full bg-black/50 text-amber-200 border border-uclGold/30">Base 2000 Pts</span>
                 </div>
                 <div id="lightboxPointsRankingList" class="space-y-1.5"></div>
             </div>
 
-            <button onclick="closeTrophyLightbox()" class="text-[11px] text-slate-300 mt-3 px-4 py-1.5 rounded-full bg-white/10 font-semibold">Cerrar vista</button>
+            <button onclick="closeTrophyLightbox()" class="text-[11px] text-slate-300 mt-2.5 px-4 py-1 rounded-full bg-white/10 font-semibold">Cerrar vista</button>
         </div>
     </div>
 
     <div id="toastNotification" class="fixed top-14 right-3 z-50 transform -translate-y-20 opacity-0 transition-all duration-200 pointer-events-none hidden">
-        <div class="ucl-card px-3.5 py-2 rounded-xl border border-uclNeon/50 flex items-center gap-2">
+        <div class="ucl-card px-3 py-1.5 rounded-xl border border-uclNeon/60 flex items-center gap-2">
             <i class="fa-solid fa-circle-check text-uclNeon text-xs"></i>
             <span id="toastMessageText" class="text-xs font-bold text-white"></span>
         </div>
     </div>
 
-    <footer class="border-t border-sky-400/15 bg-[#01050e] py-4 px-3 text-center text-[10px] text-slate-400">
+    <footer class="border-t border-white/10 bg-black/80 py-3.5 px-3 text-center text-[10px] text-slate-400">
         <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-1">
             <span>⚽ <strong>EA SPORTS TORNEOS FC • 🏆 ROAD TO GOAT 🐐</strong> • PlayStation 5</span>
             <span>Torneos Oficiales: <strong>Jesús • Sebastián • David</strong></span>
@@ -746,10 +745,43 @@
     </footer>
 
     <!-- ==========================================
-         5. MOTOR JAVASCRIPT COMPLETO + BOTA DE ORO COMPACTA
+         5. MOTOR JAVASCRIPT COMPLETO
     =========================================== -->
     <script>
-        // --- A. REPRODUCTOR DE HIMNOS CON PRIORIDAD EN CARPETA "audio/" ---
+        // --- A. MOTOR DE TEMAS VISUALES (EA FC VOLT / GALA VIP / CHAMPIONS / AUTO-LÍDER) ---
+        const VISUAL_THEMES = [
+            { id: "eafc", label: "EA FC", bodyClass: "" },
+            { id: "gala", label: "Gala VIP", bodyClass: "theme-gala" },
+            { id: "ucl", label: "Champions", bodyClass: "theme-ucl" }
+        ];
+        let currentThemeIdx = 0;
+
+        function loadSavedVisualTheme() {
+            try {
+                const saved = localStorage.getItem("EA_FC_VISUAL_THEME_IDX");
+                if (saved !== null) currentThemeIdx = Number(saved) % VISUAL_THEMES.length;
+            } catch (e) {}
+            applyVisualTheme();
+        }
+
+        function cycleVisualTheme() {
+            currentThemeIdx = (currentThemeIdx + 1) % VISUAL_THEMES.length;
+            try { localStorage.setItem("EA_FC_VISUAL_THEME_IDX", String(currentThemeIdx)); } catch (e) {}
+            applyVisualTheme();
+            playRouletteTick(680);
+            showToast(`🎨 Tema: ${VISUAL_THEMES[currentThemeIdx].label}`);
+        }
+
+        function applyVisualTheme() {
+            const theme = VISUAL_THEMES[currentThemeIdx] || VISUAL_THEMES[0];
+            document.body.classList.remove("theme-ucl", "theme-gala");
+            if (theme.bodyClass) document.body.classList.add(theme.bodyClass);
+            const lbl = document.getElementById("themeBtnLabel");
+            if (lbl) lbl.textContent = theme.label;
+        }
+        loadSavedVisualTheme();
+
+        // --- B. REPRODUCTOR DE HIMNOS CON PRIORIDAD EN CARPETA "audio/" ---
         let soundEnabled = true;
         let audioCtx = null;
         let currentAnthemAudio = null;
@@ -757,47 +789,17 @@
         const RESOLVED_AUDIO_URLS = {};
 
         const CUP_SYNTH_ANTHEMS = {
-            champions: [
-                { f: 523.25, d: 0.42 }, { f: 587.33, d: 0.42 }, { f: 659.25, d: 0.65 },
-                { f: 783.99, d: 0.45 }, { f: 698.46, d: 0.35 }, { f: 659.25, d: 0.35 }, { f: 783.99, d: 0.85 }
-            ],
-            libertadores: [
-                { f: 392.00, d: 0.25 }, { f: 523.25, d: 0.25 }, { f: 659.25, d: 0.35 },
-                { f: 783.99, d: 0.45 }, { f: 659.25, d: 0.25 }, { f: 783.99, d: 0.80 }
-            ],
-            mundial: [
-                { f: 523.25, d: 0.28 }, { f: 659.25, d: 0.28 }, { f: 783.99, d: 0.28 },
-                { f: 1046.50, d: 0.55 }, { f: 880.00, d: 0.30 }, { f: 1046.50, d: 0.85 }
-            ],
-            eurocopa: [
-                { f: 440.00, d: 0.28 }, { f: 554.37, d: 0.28 }, { f: 659.25, d: 0.35 },
-                { f: 880.00, d: 0.50 }, { f: 783.99, d: 0.30 }, { f: 880.00, d: 0.75 }
-            ],
-            intercontinental: [
-                { f: 493.88, d: 0.30 }, { f: 587.33, d: 0.30 }, { f: 783.99, d: 0.45 },
-                { f: 987.77, d: 0.75 }
-            ],
-            copadelrey: [
-                { f: 440.00, d: 0.22 }, { f: 523.25, d: 0.22 }, { f: 659.25, d: 0.28 },
-                { f: 698.46, d: 0.30 }, { f: 659.25, d: 0.65 }
-            ],
-            facup: [
-                { f: 392.00, d: 0.30 }, { f: 493.88, d: 0.30 }, { f: 587.33, d: 0.35 }, { f: 783.99, d: 0.70 }
-            ],
-            copaitaliana: [
-                { f: 523.25, d: 0.22 }, { f: 659.25, d: 0.22 }, { f: 587.33, d: 0.22 },
-                { f: 698.46, d: 0.25 }, { f: 783.99, d: 0.70 }
-            ],
-            dfbpokal: [
-                { f: 349.23, d: 0.28 }, { f: 440.00, d: 0.28 }, { f: 523.25, d: 0.35 }, { f: 698.46, d: 0.70 }
-            ],
-            copafrancesa: [
-                { f: 392.00, d: 0.24 }, { f: 523.25, d: 0.24 }, { f: 659.25, d: 0.32 }, { f: 783.99, d: 0.68 }
-            ],
-            balon: [
-                { f: 523.25, d: 0.30 }, { f: 659.25, d: 0.30 }, { f: 783.99, d: 0.35 },
-                { f: 987.77, d: 0.35 }, { f: 1046.50, d: 0.90 }
-            ]
+            champions: [{ f: 523.25, d: 0.42 }, { f: 587.33, d: 0.42 }, { f: 659.25, d: 0.65 }, { f: 783.99, d: 0.85 }],
+            libertadores: [{ f: 392.00, d: 0.25 }, { f: 523.25, d: 0.25 }, { f: 659.25, d: 0.35 }, { f: 783.99, d: 0.80 }],
+            mundial: [{ f: 523.25, d: 0.28 }, { f: 659.25, d: 0.28 }, { f: 783.99, d: 0.28 }, { f: 1046.50, d: 0.85 }],
+            eurocopa: [{ f: 440.00, d: 0.28 }, { f: 554.37, d: 0.28 }, { f: 659.25, d: 0.35 }, { f: 880.00, d: 0.75 }],
+            intercontinental: [{ f: 493.88, d: 0.30 }, { f: 587.33, d: 0.30 }, { f: 783.99, d: 0.45 }, { f: 987.77, d: 0.75 }],
+            copadelrey: [{ f: 440.00, d: 0.22 }, { f: 523.25, d: 0.22 }, { f: 659.25, d: 0.65 }],
+            facup: [{ f: 392.00, d: 0.30 }, { f: 493.88, d: 0.30 }, { f: 587.33, d: 0.35 }, { f: 783.99, d: 0.70 }],
+            copaitaliana: [{ f: 523.25, d: 0.22 }, { f: 659.25, d: 0.22 }, { f: 783.99, d: 0.70 }],
+            dfbpokal: [{ f: 349.23, d: 0.28 }, { f: 440.00, d: 0.28 }, { f: 698.46, d: 0.70 }],
+            copafrancesa: [{ f: 392.00, d: 0.24 }, { f: 523.25, d: 0.24 }, { f: 783.99, d: 0.68 }],
+            balon: [{ f: 523.25, d: 0.30 }, { f: 659.25, d: 0.30 }, { f: 783.99, d: 0.35 }, { f: 1046.50, d: 0.90 }]
         };
 
         function getAudioContext() {
@@ -811,10 +813,7 @@
 
         function stopCupAnthem() {
             if (currentAnthemAudio) {
-                try {
-                    currentAnthemAudio.pause();
-                    currentAnthemAudio.currentTime = 0;
-                } catch (e) {}
+                try { currentAnthemAudio.pause(); currentAnthemAudio.currentTime = 0; } catch (e) {}
                 currentAnthemAudio = null;
             }
             currentSynthTimers.forEach(t => clearTimeout(t));
@@ -831,26 +830,19 @@
                 const baseKey = cupKey.startsWith("balon") ? "balon" : cupKey;
                 const melody = CUP_SYNTH_ANTHEMS[baseKey] || CUP_SYNTH_ANTHEMS.champions;
                 let offsetMs = 0;
-
                 melody.forEach(note => {
                     const timer = setTimeout(() => {
                         if (!soundEnabled) return;
                         const osc = ctx.createOscillator();
-                        const osc2 = ctx.createOscillator();
                         const gain = ctx.createGain();
                         osc.type = "triangle";
-                        osc2.type = "sine";
                         osc.frequency.setValueAtTime(note.f, ctx.currentTime);
-                        osc2.frequency.setValueAtTime(note.f * 0.5, ctx.currentTime);
-                        gain.gain.setValueAtTime(0.11, ctx.currentTime);
+                        gain.gain.setValueAtTime(0.10, ctx.currentTime);
                         gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + note.d);
                         osc.connect(gain);
-                        osc2.connect(gain);
                         gain.connect(ctx.destination);
                         osc.start();
-                        osc2.start();
                         osc.stop(ctx.currentTime + note.d);
-                        osc2.stop(ctx.currentTime + note.d);
                     }, offsetMs);
                     currentSynthTimers.push(timer);
                     offsetMs += (note.d * 1000) * 0.88;
@@ -873,31 +865,25 @@
 
             const cleanKey = cupKey.startsWith("balon") ? "balon" : cupKey;
             const capKey = cleanKey.charAt(0).toUpperCase() + cleanKey.slice(1);
-
             const candidatePaths = RESOLVED_AUDIO_URLS[cleanKey]
                 ? [RESOLVED_AUDIO_URLS[cleanKey]]
                 : [
                     `audio/${cleanKey}.mp3`,
                     `audio/${cleanKey}.mp3.mp3`,
                     `Audio/${cleanKey}.mp3`,
-                    `Audio/${cleanKey}.mp3.mp3`,
                     `audio/${capKey}.mp3`,
                     `audios/${cleanKey}.mp3`,
-                    `Audios/${cleanKey}.mp3`,
-                    `${cleanKey}.mp3`,
-                    `${cleanKey}.mp3.mp3`
+                    `${cleanKey}.mp3`
                 ];
 
             let pathIdx = 0;
-
             const tryNextAudioPath = () => {
                 if (!soundEnabled) return;
                 if (pathIdx >= candidatePaths.length) {
-                    if (label) label.textContent = `Himno Base (No se halló audio/${cleanKey}.mp3)`;
+                    if (label) label.textContent = `Himno Base (${cupTitle || cleanKey})`;
                     playSynthesizedCupAnthem(cleanKey);
                     return;
                 }
-
                 const chosenPath = candidatePaths[pathIdx++];
                 const testAudio = new Audio();
                 testAudio.preload = "auto";
@@ -911,9 +897,7 @@
                     testAudio.oncanplay = null;
                     tryNextAudioPath();
                 };
-
                 testAudio.onerror = failAndNext;
-
                 testAudio.oncanplay = () => {
                     if (settled || currentAnthemAudio !== testAudio) return;
                     settled = true;
@@ -921,11 +905,9 @@
                     if (label) label.textContent = `Himno Oficial: ${cupTitle || cleanKey.toUpperCase()}`;
                     testAudio.play().catch(() => {});
                 };
-
                 testAudio.src = chosenPath;
                 testAudio.load();
             };
-
             tryNextAudioPath();
         }
 
@@ -937,12 +919,12 @@
                 icon.className = "fa-solid fa-volume-high text-xs";
                 btn.className = "w-8 h-8 sm:w-9 sm:h-9 rounded-xl border border-white/15 bg-white/5 text-uclCyan flex items-center justify-center transition";
                 playRouletteTick(660);
-                showToast("🔊 Himnos y Sonidos Activados");
+                showToast("🔊 Sonidos Activados");
             } else {
                 stopCupAnthem();
                 icon.className = "fa-solid fa-volume-xmark text-xs";
                 btn.className = "w-8 h-8 sm:w-9 sm:h-9 rounded-xl border border-white/10 bg-white/5 text-slate-500 flex items-center justify-center transition";
-                showToast("🔇 Sonidos Silenciados");
+                showToast("🔇 Silenciado");
             }
         }
 
@@ -990,8 +972,7 @@
             try {
                 const ctx = getAudioContext();
                 if (!ctx) return;
-                const notes = [523.25, 659.25, 783.99, 1046.50];
-                notes.forEach((freq, idx) => {
+                [523.25, 659.25, 783.99, 1046.50].forEach((freq, idx) => {
                     const osc = ctx.createOscillator();
                     const gain = ctx.createGain();
                     osc.type = "sine";
@@ -1007,33 +988,26 @@
             } catch (e) {}
         }
 
-        // --- B. EFECTO HOLOGRÁFICO 3D INTERACTIVO EN TARJETAS ---
+        // --- C. EFECTO HOLOGRÁFICO 3D ---
         function attachHolo3DEvents() {
             document.querySelectorAll(".holo-3d-card").forEach(card => {
                 if (card.dataset.holoBound === "1") return;
                 card.dataset.holoBound = "1";
-
                 const updateHolo = (clientX, clientY) => {
                     const rect = card.getBoundingClientRect();
-                    const x = clientX - rect.left;
-                    const y = clientY - rect.top;
-                    const pctX = Math.max(0, Math.min(100, (x / rect.width) * 100));
-                    const pctY = Math.max(0, Math.min(100, (y / rect.height) * 100));
-                    const rotY = ((pctX - 50) / 50) * 7;
-                    const rotX = ((50 - pctY) / 50) * 7;
-                    card.style.setProperty("--rx", `${rotX.toFixed(2)}deg`);
-                    card.style.setProperty("--ry", `${rotY.toFixed(2)}deg`);
+                    const pctX = Math.max(0, Math.min(100, ((clientX - rect.left) / rect.width) * 100));
+                    const pctY = Math.max(0, Math.min(100, ((clientY - rect.top) / rect.height) * 100));
+                    card.style.setProperty("--rx", `${(((50 - pctY) / 50) * 6.5).toFixed(2)}deg`);
+                    card.style.setProperty("--ry", `${(((pctX - 50) / 50) * 6.5).toFixed(2)}deg`);
                     card.style.setProperty("--holo-x", `${pctX.toFixed(1)}%`);
                     card.style.setProperty("--holo-y", `${pctY.toFixed(1)}%`);
                     card.style.setProperty("--holo-opacity", "1");
                 };
-
                 const resetHolo = () => {
                     card.style.setProperty("--rx", "0deg");
                     card.style.setProperty("--ry", "0deg");
                     card.style.setProperty("--holo-opacity", "0");
                 };
-
                 card.addEventListener("mousemove", e => updateHolo(e.clientX, e.clientY), { passive: true });
                 card.addEventListener("mouseleave", resetHolo, { passive: true });
                 card.addEventListener("touchmove", e => {
@@ -1043,10 +1017,10 @@
             });
         }
 
-        // --- C. PRE-CARGADOR DE FOTOS EN RAM ---
+        // --- D. PRE-CARGA DE IMÁGENES EN RAM ---
         const RESOLVED_IMAGE_URLS = {};
         const RAM_IMAGE_POOL = {};
-        const FAST_SCORES_CACHE_KEY = "EA_FC_FAST_SCORES_ONLY_V5";
+        const FAST_SCORES_CACHE_KEY = "EA_FC_FAST_SCORES_ONLY_V6";
 
         const ALL_PHOTO_KEYS = [
             "logo", "balon-fc27", "balon-fc26", "balon-fc25", "balon-fc24",
@@ -1075,8 +1049,8 @@
 
         function getFallbackSVG(type) {
             const isGold = type.startsWith("balon") || type === "mundial";
-            const c1 = isGold ? "#eab308" : "#38bdf8";
-            const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 355 466"><rect width="355" height="466" fill="#040d21"/><circle cx="177.5" cy="185" r="70" fill="${c1}" opacity="0.8"/><rect x="135" y="275" width="85" height="65" rx="10" fill="#cbd5e1"/></svg>`;
+            const c1 = isGold ? "#eab308" : "#00e5ff";
+            const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 355 466"><rect width="355" height="466" fill="#050814"/><circle cx="177.5" cy="185" r="70" fill="${c1}" opacity="0.8"/><rect x="135" y="275" width="85" height="65" rx="10" fill="#cbd5e1"/></svg>`;
             return "data:image/svg+xml;utf8," + encodeURIComponent(svg);
         }
 
@@ -1093,7 +1067,7 @@
             } else {
                 imgEl.onerror = null;
                 if (photoBaseName === "logo") {
-                    imgEl.parentNode.innerHTML = `<i class="fa-solid fa-futbol text-uclCyan text-xs sm:text-sm"></i>`;
+                    imgEl.parentNode.innerHTML = `<i class="fa-solid fa-futbol text-uclNeon text-xs"></i>`;
                 } else {
                     RESOLVED_IMAGE_URLS[photoBaseName] = getFallbackSVG(photoBaseName);
                     imgEl.src = RESOLVED_IMAGE_URLS[photoBaseName];
@@ -1102,16 +1076,16 @@
         }
 
         const TOURNAMENTS_CATALOG = [
-            { key: "champions", name: "Champions League", shortName: "Champions", subtitle: "UEFA Champions League", category: "clubes", subType: "importantes", dot: "🔴", barColor: "#00e5ff", borderGlow: "border-sky-400/40" },
-            { key: "libertadores", name: "Copa Libertadores", shortName: "Libertadores", subtitle: "CONMEBOL Libertadores", category: "clubes", subType: "importantes", dot: "🟢", barColor: "#00ff87", borderGlow: "border-emerald-400/40" },
-            { key: "copadelrey", name: "Copa del Rey", shortName: "Copa del Rey", subtitle: "Copa de S.M. El Rey", category: "clubes", subType: "locales", dot: "🟠", barColor: "#c084fc", borderGlow: "border-purple-400/40" },
-            { key: "facup", name: "FA Cup", shortName: "FA Cup", subtitle: "The Emirates FA Cup", category: "clubes", subType: "locales", dot: "⚪", barColor: "#facc15", borderGlow: "border-yellow-400/40" },
-            { key: "copaitaliana", name: "Copa Italiana", shortName: "Copa Italiana", subtitle: "Coppa Italia Oficial", category: "clubes", subType: "locales", dot: "🟢", barColor: "#34d399", borderGlow: "border-emerald-400/40" },
-            { key: "dfbpokal", name: "DFB-Pokal", shortName: "DFB-Pokal", subtitle: "Copa Alemana Pokal", category: "clubes", subType: "locales", dot: "🔴", barColor: "#fbbf24", borderGlow: "border-amber-400/40" },
-            { key: "copafrancesa", name: "Copa Francesa", shortName: "Copa Francesa", subtitle: "Coupe de France", category: "clubes", subType: "locales", dot: "🔵", barColor: "#60a5fa", borderGlow: "border-blue-400/40" },
-            { key: "intercontinental", name: "Copa Intercontinental", shortName: "Intercont.", subtitle: "Mundial de Clubes FIFA", category: "clubes", subType: "importantes", dot: "⚪", barColor: "#38bdf8", borderGlow: "border-sky-400/40" },
-            { key: "mundial", name: "Copa del Mundo", shortName: "Mundial", subtitle: "FIFA World Cup", category: "seleccion", subType: "seleccion", dot: "🟠", barColor: "#fb923c", borderGlow: "border-orange-400/40" },
-            { key: "eurocopa", name: "Eurocopa", shortName: "Eurocopa", subtitle: "UEFA Euro Championship", category: "seleccion", subType: "seleccion", dot: "🟤", barColor: "#ffd700", borderGlow: "border-amber-400/40" }
+            { key: "champions", name: "Champions League", shortName: "Champions", subtitle: "UEFA Champions League", category: "clubes", subType: "importantes", dot: "🔴", barColor: "#00e5ff", borderGlow: "border-sky-400/45" },
+            { key: "libertadores", name: "Copa Libertadores", shortName: "Libertadores", subtitle: "CONMEBOL Libertadores", category: "clubes", subType: "importantes", dot: "🟢", barColor: "#00ff87", borderGlow: "border-emerald-400/45" },
+            { key: "copadelrey", name: "Copa del Rey", shortName: "C. del Rey", subtitle: "Copa de S.M. El Rey", category: "clubes", subType: "locales", dot: "🟠", barColor: "#c084fc", borderGlow: "border-purple-400/45" },
+            { key: "facup", name: "FA Cup", shortName: "FA Cup", subtitle: "The Emirates FA Cup", category: "clubes", subType: "locales", dot: "⚪", barColor: "#facc15", borderGlow: "border-yellow-400/45" },
+            { key: "copaitaliana", name: "Copa Italiana", shortName: "C. Italiana", subtitle: "Coppa Italia Oficial", category: "clubes", subType: "locales", dot: "🟢", barColor: "#34d399", borderGlow: "border-emerald-400/45" },
+            { key: "dfbpokal", name: "DFB-Pokal", shortName: "DFB-Pokal", subtitle: "Copa Alemana Pokal", category: "clubes", subType: "locales", dot: "🔴", barColor: "#fbbf24", borderGlow: "border-amber-400/45" },
+            { key: "copafrancesa", name: "Copa Francesa", shortName: "C. Francesa", subtitle: "Coupe de France", category: "clubes", subType: "locales", dot: "🔵", barColor: "#60a5fa", borderGlow: "border-blue-400/45" },
+            { key: "intercontinental", name: "Copa Intercontinental", shortName: "Intercont.", subtitle: "Mundial de Clubes FIFA", category: "clubes", subType: "importantes", dot: "⚪", barColor: "#38bdf8", borderGlow: "border-sky-400/45" },
+            { key: "mundial", name: "Copa del Mundo", shortName: "Mundial", subtitle: "FIFA World Cup", category: "seleccion", subType: "seleccion", dot: "🟠", barColor: "#fb923c", borderGlow: "border-orange-400/45" },
+            { key: "eurocopa", name: "Eurocopa", shortName: "Eurocopa", subtitle: "UEFA Euro Championship", category: "seleccion", subType: "seleccion", dot: "🟤", barColor: "#ffd700", borderGlow: "border-amber-400/45" }
         ];
 
         const BASE_7_CLUB_CUPS = ["champions", "libertadores", "copadelrey", "facup", "copaitaliana", "dfbpokal", "copafrancesa"];
@@ -1130,7 +1104,8 @@
                 seasonNumber: 1,
                 cupsPlayed: {},
                 pichichis: { "Jesús": 0, "Sebastián": 0, "David": 0 },
-                pichichisByCup: {}
+                pichichisByCup: {},
+                recentWinners: []
             },
             seasons: {
                 FC24: {
@@ -1214,7 +1189,7 @@
 
         function ensureTrackerStructure() {
             if (!APP_STATE.fc27Tracker || typeof APP_STATE.fc27Tracker !== "object") {
-                APP_STATE.fc27Tracker = { seasonNumber: 1, cupsPlayed: {}, pichichis: { "Jesús": 0, "Sebastián": 0, "David": 0 }, pichichisByCup: {} };
+                APP_STATE.fc27Tracker = { seasonNumber: 1, cupsPlayed: {}, pichichis: { "Jesús": 0, "Sebastián": 0, "David": 0 }, pichichisByCup: {}, recentWinners: [] };
             }
             if (!APP_STATE.fc27Tracker.seasonNumber || APP_STATE.fc27Tracker.seasonNumber < 1) {
                 APP_STATE.fc27Tracker.seasonNumber = 1;
@@ -1228,6 +1203,9 @@
             if (!APP_STATE.fc27Tracker.pichichisByCup || typeof APP_STATE.fc27Tracker.pichichisByCup !== "object") {
                 APP_STATE.fc27Tracker.pichichisByCup = {};
             }
+            if (!Array.isArray(APP_STATE.fc27Tracker.recentWinners)) {
+                APP_STATE.fc27Tracker.recentWinners = [];
+            }
 
             TOURNAMENTS_CATALOG.forEach(c => {
                 if (!APP_STATE.fc27Tracker.pichichisByCup[c.key] || typeof APP_STATE.fc27Tracker.pichichisByCup[c.key] !== "object") {
@@ -1237,21 +1215,6 @@
                     APP_STATE.fc27Tracker.pichichisByCup[c.key][p] = Number(APP_STATE.fc27Tracker.pichichisByCup[c.key][p] || 0);
                 });
             });
-
-            let sumByCup = 0;
-            TOURNAMENTS_CATALOG.forEach(c => {
-                ORDERED_PLAYERS.forEach(p => {
-                    sumByCup += APP_STATE.fc27Tracker.pichichisByCup[c.key][p];
-                });
-            });
-            if (sumByCup === 0) {
-                Object.keys(APP_STATE.fc27Tracker.cupsPlayed).forEach(cupKey => {
-                    const entry = APP_STATE.fc27Tracker.cupsPlayed[cupKey];
-                    if (entry && entry.played && entry.scorer && entry.scorer !== "Ninguno" && APP_STATE.fc27Tracker.pichichisByCup[cupKey]) {
-                        APP_STATE.fc27Tracker.pichichisByCup[cupKey][entry.scorer] = Number(APP_STATE.fc27Tracker.pichichisByCup[cupKey][entry.scorer] || 0) + 1;
-                    }
-                });
-            }
 
             syncTotalPichichisFromCups();
         }
@@ -1391,7 +1354,7 @@
         function updateCloudIndicator(isOk) {
             const dot = document.getElementById("liveDotIndicator");
             dot.className = isOk
-                ? "w-2 h-2 rounded-full bg-uclNeon shadow-[0_0_8px_#00ff87] cursor-pointer"
+                ? "w-2 h-2 rounded-full bg-uclNeon shadow-[0_0_8px_#ccff00] cursor-pointer"
                 : "w-2 h-2 rounded-full bg-red-500 shadow-[0_0_8px_#ef4444] cursor-pointer";
         }
 
@@ -1400,6 +1363,34 @@
             refreshAllViews();
             pullStateFromCloud(true, false);
         });
+
+        // ==========================================
+        // TERMÓMETRO DE RACHA ("🔥 EN LLAMAS" / "❄️ EN FRÍO") PARA FC27
+        // ==========================================
+        function getPlayerStreakBadgeHTML(seasonId, player, totalCupsPlayer, seasonTotalCups) {
+            if (seasonId !== "FC27") return "";
+            ensureTrackerStructure();
+
+            const played = APP_STATE.fc27Tracker.cupsPlayed || {};
+            const playedEntries = Object.values(played).filter(e => e && e.played);
+            const recentList = APP_STATE.fc27Tracker.recentWinners || [];
+
+            const lastWinner = recentList.length > 0
+                ? recentList[recentList.length - 1]
+                : (playedEntries.length > 0 ? playedEntries[playedEntries.length - 1].winner : null);
+
+            const winsInMiniSeason = playedEntries.filter(e => e.winner === player).length;
+
+            if (lastWinner === player || winsInMiniSeason >= 2) {
+                return `<span class="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full bg-orange-500/20 border border-orange-400/50 text-[8px] font-extrabold text-orange-300"><span class="streak-flame">🔥</span> Racha</span>`;
+            }
+
+            if ((playedEntries.length >= 2 && winsInMiniSeason === 0) || (seasonTotalCups >= 3 && totalCupsPlayer === 0)) {
+                return `<span class="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full bg-sky-500/20 border border-sky-400/40 text-[8px] font-extrabold text-sky-300">❄️ Frío</span>`;
+            }
+
+            return "";
+        }
 
         // ==========================================
         // RULETA CLÁSICA PASO A PASO (1.° PICK -> LUEGO 2.° Y 3.° PICK)
@@ -1429,14 +1420,14 @@
             document.getElementById("rouletteStageSubtitle").textContent = "PASO 1: SORTEAR QUIÉN ELIGE PRIMERO";
             const banner = document.getElementById("rouletteCentralBanner");
             banner.textContent = "¿QUIÉN SALE?";
-            banner.className = "font-display text-4xl sm:text-5xl tracking-wider text-white uppercase leading-none py-1";
+            banner.className = "font-display text-4xl tracking-wider text-white uppercase leading-none py-1";
 
             [0, 1, 2].forEach(idx => {
                 const nameEl = document.getElementById(`pickName_${idx}`);
                 const slotEl = document.getElementById(`pickSlot_${idx}`);
                 nameEl.textContent = "Pendiente";
-                nameEl.className = "font-oswald text-base sm:text-lg font-bold text-slate-400 uppercase tracking-wide mt-0.5";
-                slotEl.className = "p-2.5 rounded-2xl bg-[#020817]/90 border border-white/15 flex flex-col items-center justify-center gap-1 transition-all duration-300";
+                nameEl.className = "font-oswald text-sm sm:text-base font-bold text-slate-400 uppercase mt-0.5";
+                slotEl.className = "p-2 rounded-xl bg-black/60 border border-white/15 flex flex-col items-center justify-center";
             });
 
             const spinBtn = document.getElementById("spinRouletteBtn");
@@ -1476,11 +1467,11 @@
 
                 const currentShown = candidates[tick % candidates.length];
                 banner.textContent = currentShown;
-                banner.className = "font-display text-4xl sm:text-5xl tracking-wider text-uclCyan uppercase leading-none py-1";
+                banner.className = "font-display text-4xl tracking-wider text-uclCyan uppercase leading-none py-1";
 
                 const targetSlotName = document.getElementById(`pickName_${rouletteStep}`);
                 targetSlotName.textContent = currentShown;
-                targetSlotName.className = "font-oswald text-base sm:text-lg font-bold text-uclCyan uppercase tracking-wide mt-0.5";
+                targetSlotName.className = "font-oswald text-sm sm:text-base font-bold text-uclCyan uppercase mt-0.5";
 
                 if (tick < totalTicks) {
                     const delay = 55 + Math.pow(tick, 1.55) * 2.2;
@@ -1493,19 +1484,19 @@
                     if (rouletteStep === 0) {
                         playSinglePickLockSound();
                         banner.textContent = `🥇 ${winner}`;
-                        banner.className = "font-display text-4xl sm:text-5xl tracking-wider gold-text-shine uppercase leading-none py-1";
-                        subtitle.textContent = `¡${winner.toUpperCase()} TIENE EL 1.° PICK! AHORA SORTEA EL 2.°`;
+                        banner.className = "font-display text-4xl tracking-wider gold-text-shine uppercase leading-none py-1";
+                        subtitle.textContent = `¡${winner.toUpperCase()} ELIGE 1.°! AHORA SORTEA EL 2.°`;
 
                         const name0 = document.getElementById("pickName_0");
                         const slot0 = document.getElementById("pickSlot_0");
                         name0.textContent = winner;
-                        name0.className = "font-oswald text-lg sm:text-xl font-bold text-uclGold uppercase tracking-wide mt-0.5";
-                        slot0.className = "p-2.5 rounded-2xl bg-amber-500/15 border-2 border-uclGold flex flex-col items-center justify-center gap-1 shadow-[0_0_15px_rgba(255,215,0,0.3)]";
+                        name0.className = "font-oswald text-base sm:text-lg font-bold text-uclGold uppercase mt-0.5";
+                        slot0.className = "p-2 rounded-xl bg-amber-500/15 border-2 border-uclGold flex flex-col items-center justify-center";
 
                         rouletteStep = 1;
                         spinBtn.disabled = false;
                         spinBtn.classList.remove("opacity-60");
-                        spinBtn.innerHTML = `🎲 Sortear 2.° Pick (${rouletteRemaining.join(" vs ")})`;
+                        spinBtn.innerHTML = `🎲 Sortear 2.° (${rouletteRemaining.join(" vs ")})`;
                         document.getElementById("resetRouletteBtn").classList.remove("hidden");
                         showToast(`🥇 1.° Pick: ${winner}`);
                     } else if (rouletteStep === 1) {
@@ -1515,20 +1506,20 @@
 
                         playGalaFanfare();
                         banner.textContent = `🥈 ${winner}`;
-                        banner.className = "font-display text-4xl sm:text-5xl tracking-wider text-uclNeon uppercase leading-none py-1";
-                        subtitle.textContent = "🎉 ¡ORDEN DE TURNOS COMPLETADO!";
+                        banner.className = "font-display text-4xl tracking-wider text-uclNeon uppercase leading-none py-1";
+                        subtitle.textContent = "🎉 ¡ORDEN DE TURNOS DEFINIDO!";
 
                         const name1 = document.getElementById("pickName_1");
                         const slot1 = document.getElementById("pickSlot_1");
                         name1.textContent = winner;
-                        name1.className = "font-oswald text-lg sm:text-xl font-bold text-uclCyan uppercase tracking-wide mt-0.5";
-                        slot1.className = "p-2.5 rounded-2xl bg-sky-500/15 border-2 border-uclCyan flex flex-col items-center justify-center gap-1 shadow-[0_0_15px_rgba(0,229,255,0.25)]";
+                        name1.className = "font-oswald text-base sm:text-lg font-bold text-uclCyan uppercase mt-0.5";
+                        slot1.className = "p-2 rounded-xl bg-sky-500/15 border-2 border-uclCyan flex flex-col items-center justify-center";
 
                         const name2 = document.getElementById("pickName_2");
                         const slot2 = document.getElementById("pickSlot_2");
                         name2.textContent = thirdPlayer;
-                        name2.className = "font-oswald text-lg sm:text-xl font-bold text-orange-300 uppercase tracking-wide mt-0.5";
-                        slot2.className = "p-2.5 rounded-2xl bg-orange-500/15 border-2 border-orange-400/80 flex flex-col items-center justify-center gap-1";
+                        name2.className = "font-oswald text-base sm:text-lg font-bold text-orange-300 uppercase mt-0.5";
+                        slot2.className = "p-2 rounded-xl bg-orange-500/15 border-2 border-orange-400/80 flex flex-col items-center justify-center";
 
                         rouletteStep = 2;
                         spinBtn.disabled = false;
@@ -1551,11 +1542,11 @@
                 `🥈 *2.° Pick:* ${currentRouletteOrder[1]}\n` +
                 `🥉 *3.° Pick:* ${currentRouletteOrder[2]}`;
             copyTextSilently(text);
-            showToast("📲 Orden de turnos copiado para WhatsApp");
+            showToast("📲 Orden de turnos copiado");
         }
 
         // ==========================================
-        // PANEL BOTA DE ORO COMPACTO + DESGLOSE 2x5 POR COPA
+        // BOTA DE ORO COMPACTA + DESGLOSE 2x5 POR COPA
         // ==========================================
         function openPichichiBreakdownModal(player) {
             ensureTrackerStructure();
@@ -1594,9 +1585,9 @@
             document.getElementById("pichichiModalPlayerTabs").innerHTML = ORDERED_PLAYERS.map(p => {
                 const pTot = Number(APP_STATE.fc27Tracker.pichichis[p] || 0);
                 const isSelected = p === player;
-                return `<button type="button" onclick="openPichichiBreakdownModal('${p}')" class="py-1 px-2 rounded-lg border text-[11px] font-oswald font-bold uppercase tracking-wide transition flex items-center justify-between ${isSelected ? 'bg-uclGold text-uclNight border-uclGold shadow' : 'bg-[#020817] text-slate-300 border-white/15 hover:border-uclGold/40'}">
+                return `<button type="button" onclick="openPichichiBreakdownModal('${p}')" class="py-1 px-2 rounded-lg border text-[11px] font-oswald font-bold uppercase tracking-wide transition flex items-center justify-between ${isSelected ? 'bg-uclGold text-black border-uclGold shadow' : 'bg-black/60 text-slate-300 border-white/15'}">
                     <span>${p}</span>
-                    <span class="px-1.5 rounded-full text-[10px] ${isSelected ? 'bg-black/20 text-uclNight font-extrabold' : 'bg-white/10 text-uclGold'}">${pTot}</span>
+                    <span class="px-1.5 rounded-full text-[10px] ${isSelected ? 'bg-black/20 text-black font-extrabold' : 'bg-white/10 text-uclGold'}">${pTot}</span>
                 </button>`;
             }).join("");
 
@@ -1611,12 +1602,12 @@
                 const adminBtns = isAdminUnlocked ? `
                     <div class="flex items-center gap-0.5 ml-1 shrink-0">
                         <button type="button" onclick="adjustCupPichichiScore('${cup.key}', '${player}', -1)" class="w-4 h-4 rounded bg-white/15 text-white font-bold text-[9px] flex items-center justify-center">-</button>
-                        <button type="button" onclick="adjustCupPichichiScore('${cup.key}', '${player}', 1)" class="w-4 h-4 rounded bg-uclGold text-uclNight font-extrabold text-[9px] flex items-center justify-center">+</button>
+                        <button type="button" onclick="adjustCupPichichiScore('${cup.key}', '${player}', 1)" class="w-4 h-4 rounded bg-uclGold text-black font-extrabold text-[9px] flex items-center justify-center">+</button>
                     </div>` : "";
 
-                return `<div class="px-2 py-1.5 rounded-xl border ${hasPichichis ? 'bg-amber-500/15 border-uclGold/50' : 'bg-[#03091c]/90 border-white/10 opacity-75'} flex items-center justify-between gap-1">
+                return `<div class="px-2 py-1.5 rounded-xl border ${hasPichichis ? 'bg-amber-500/15 border-uclGold/50' : 'bg-black/60 border-white/10 opacity-75'} flex items-center justify-between gap-1">
                     <div class="flex items-center gap-1.5 min-w-0">
-                        <img src="${getPhotoSrc(cup.key)}" data-step="0" alt="${cup.shortName}" class="w-5 h-6 rounded object-cover border border-white/20 shrink-0 bg-[#020817]" onerror="handleSmartImageError(this, '${cup.key}')">
+                        <img src="${getPhotoSrc(cup.key)}" data-step="0" alt="${cup.shortName}" class="w-5 h-6 rounded object-cover border border-white/20 shrink-0 bg-black" onerror="handleSmartImageError(this, '${cup.key}')">
                         <span class="font-oswald text-[11px] font-bold text-white uppercase truncate">${cup.shortName}</span>
                     </div>
                     <div class="flex items-center shrink-0">
@@ -1660,10 +1651,10 @@
                 const isLeader = maxP > 0 && item.count === maxP;
                 const barW = maxP > 0 ? Math.round((item.count / maxP) * 100) : 0;
 
-                return `<div onclick="openPichichiBreakdownModal('${item.player}')" class="px-2.5 py-1.5 rounded-xl border ${isLeader ? 'bg-amber-500/15 border-uclGold/70' : 'bg-[#030b1e] border-white/10 hover:border-uclGold/40'} flex flex-col justify-between gap-1 cursor-pointer transition active:scale-95">
+                return `<div onclick="openPichichiBreakdownModal('${item.player}')" class="px-2 py-1 rounded-lg border ${isLeader ? 'bg-amber-500/15 border-uclGold/70' : 'bg-black/60 border-white/10 hover:border-uclGold/40'} flex flex-col justify-between gap-0.5 cursor-pointer transition active:scale-95">
                     <div class="flex items-center justify-between gap-1">
-                        <span class="font-oswald text-xs sm:text-sm font-bold text-white uppercase truncate">${rankIcons[i]} ${item.player}</span>
-                        <span class="font-oswald text-xs sm:text-sm font-bold ${isLeader ? 'text-uclGold' : 'text-slate-200'} shrink-0">${item.count} <span class="text-[9px]">👟</span></span>
+                        <span class="font-oswald text-[11px] sm:text-xs font-bold text-white uppercase truncate">${rankIcons[i]} ${item.player}</span>
+                        <span class="font-oswald text-xs font-bold ${isLeader ? 'text-uclGold' : 'text-slate-200'} shrink-0">${item.count} <span class="text-[9px]">👟</span></span>
                     </div>
                     <div class="w-full h-1 rounded-full bg-black/60 overflow-hidden">
                         <div class="h-full rounded-full ${isLeader ? 'bg-uclGold' : 'bg-sky-400/60'}" style="width:${barW}%"></div>
@@ -1740,7 +1731,7 @@
                 : "Por definir";
 
             document.getElementById("finalsFunFactsGrid").innerHTML = `
-                <div class="p-2.5 rounded-xl bg-[#030b1e] border border-uclCyan/35 flex flex-col justify-between">
+                <div class="p-2.5 rounded-xl bg-black/55 border border-uclCyan/35 flex flex-col justify-between">
                     <span class="text-[8px] font-extrabold uppercase tracking-wider text-uclCyan">🏟️ MÁS FINALES</span>
                     <div class="flex items-baseline justify-between mt-0.5">
                         <span class="font-oswald text-sm font-bold text-white uppercase truncate">${mostFinalsPlayers}</span>
@@ -1749,7 +1740,7 @@
                     <span class="text-[8px] text-slate-400 truncate">J:${stats["Jesús"].finals} • S:${stats["Sebastián"].finals} • D:${stats["David"].finals}</span>
                 </div>
 
-                <div class="p-2.5 rounded-xl bg-[#030b1e] border border-uclNeon/35 flex flex-col justify-between">
+                <div class="p-2.5 rounded-xl bg-black/55 border border-uclNeon/35 flex flex-col justify-between">
                     <span class="text-[8px] font-extrabold uppercase tracking-wider text-uclNeon">🎯 EFECTIVIDAD</span>
                     <div class="flex items-baseline justify-between mt-0.5">
                         <span class="font-oswald text-sm font-bold text-white uppercase truncate">${bestEffLabel}</span>
@@ -1757,7 +1748,7 @@
                     <span class="text-[8px] text-slate-400 truncate">${bestEffSub}</span>
                 </div>
 
-                <div class="p-2.5 rounded-xl bg-[#030b1e] border border-amber-400/35 flex flex-col justify-between">
+                <div class="p-2.5 rounded-xl bg-black/55 border border-amber-400/35 flex flex-col justify-between">
                     <span class="text-[8px] font-extrabold uppercase tracking-wider text-amber-300">🥈 SUBCAMPEÓN</span>
                     <div class="flex items-baseline justify-between mt-0.5">
                         <span class="font-oswald text-sm font-bold text-white uppercase truncate">${mostSubPlayers}</span>
@@ -1766,7 +1757,7 @@
                     <span class="text-[8px] text-slate-400 truncate">J:${stats["Jesús"].sub} • S:${stats["Sebastián"].sub} • D:${stats["David"].sub}</span>
                 </div>
 
-                <div onclick="openPichichiBreakdownModal('${topPichichiPlayers.split(' ')[0] === 'Por' ? 'Jesús' : topPichichiPlayers.split(' ')[0]}')" class="p-2.5 rounded-xl bg-[#030b1e] border border-uclGold/50 flex flex-col justify-between cursor-pointer hover:border-uclGold transition">
+                <div onclick="openPichichiBreakdownModal('${topPichichiPlayers.split(' ')[0] === 'Por' ? 'Jesús' : topPichichiPlayers.split(' ')[0]}')" class="p-2.5 rounded-xl bg-black/55 border border-uclGold/50 flex flex-col justify-between cursor-pointer hover:border-uclGold transition">
                     <div class="flex items-center justify-between">
                         <span class="text-[8px] font-extrabold uppercase tracking-wider text-uclGold">👟 BOTA DE ORO</span>
                         <span class="text-[8px] text-uclGold font-bold">Ver ▸</span>
@@ -1893,7 +1884,7 @@
             ensureTrackerStructure();
             const barLabel = document.getElementById("adminBarTempLabel");
             if (barLabel) {
-                barLabel.textContent = `Temporada ${APP_STATE.fc27Tracker.seasonNumber} - FC27`;
+                barLabel.textContent = `Temp. ${APP_STATE.fc27Tracker.seasonNumber} - FC27`;
             }
             renderSeasonTabs();
             renderMobileBottomNav();
@@ -1912,56 +1903,44 @@
         function renderMobileBottomNav() {
             const items = [
                 { key: "HISTORICO", label: "General", icon: "fa-trophy" },
-                { key: "FC27", label: "FC27", icon: "fa-clock" },
+                { key: "FC27", label: "FC27", icon: "fa-bolt" },
                 { key: "FC26", label: "FC26", icon: "fa-star" },
                 { key: "FC25", label: "FC25", icon: "fa-crown" },
                 { key: "FC24", label: "FC24", icon: "fa-medal" }
             ];
             document.getElementById("mobileBottomNav").innerHTML = items.map(it => {
                 const active = currentSeason === it.key;
-                return `<button onclick="switchSeason('${it.key}')" class="flex flex-col items-center justify-center py-1 rounded-xl ${active ? 'bg-uclCyan/20 text-uclCyan font-extrabold' : 'text-slate-400'}">
+                return `<button onclick="switchSeason('${it.key}')" class="flex flex-col items-center justify-center py-1 rounded-xl ${active ? 'bg-uclNeon/20 text-uclNeon font-extrabold' : 'text-slate-400'}">
                     <i class="fa-solid ${it.icon} text-xs mb-0.5 ${active ? 'text-uclGold' : ''}"></i>
                     <span class="text-[10px]">${it.label}</span>
                 </button>`;
             }).join("");
         }
 
+        // ISLA DINÁMICA FLOTANTE PARA SELECCIÓN DE EDICIONES
         function renderSeasonTabs() {
-            const grandTotals = { "Jesús": 0, "Sebastián": 0, "David": 0 };
             let allCups = 0;
             SEASON_KEYS.forEach(sKey => {
-                const { totals, seasonTotal } = computeSeasonSummary(sKey);
+                const { seasonTotal } = computeSeasonSummary(sKey);
                 allCups += seasonTotal;
-                ORDERED_PLAYERS.forEach(p => grandTotals[p] += totals[p]);
             });
-            const sortedHist = ORDERED_PLAYERS.map(p => [p, grandTotals[p]]).sort((a, b) => b[1] - a[1]);
-            const histSub = sortedHist[0][1] === sortedHist[1][1]
-                ? `Empate (${sortedHist[0][1]})`
-                : `Líder: <strong>${sortedHist[0][0]} (${sortedHist[0][1]})</strong>`;
 
-            let html = `<button onclick="switchSeason('HISTORICO')" class="snap-start shrink-0 w-40 md:w-auto rounded-xl p-2 sm:p-2.5 text-left ${currentSeason === 'HISTORICO' ? 'ucl-card neon-ambient-gold' : 'ucl-card opacity-85'}">
-                <div class="flex items-center justify-between"><span class="text-[9px] font-extrabold uppercase text-uclGold"><i class="fa-solid fa-trophy"></i> Histórico</span><span class="px-1.5 py-0.5 text-[8px] font-extrabold rounded-full bg-uclGold/20 text-uclGold">${allCups}</span></div>
-                <div class="font-oswald text-sm sm:text-base font-bold gold-text-shine mt-0.5">RANKING GENERAL</div>
-                <div class="text-[10px] text-sky-100/85 truncate">${histSub}</div>
+            let html = `<button onclick="switchSeason('HISTORICO')" class="px-3 py-1.5 rounded-xl font-oswald text-xs sm:text-sm uppercase tracking-wider transition flex items-center gap-1.5 shrink-0 ${currentSeason === 'HISTORICO' ? 'bg-uclGold text-black font-bold shadow' : 'text-slate-300 hover:bg-white/5'}">
+                <i class="fa-solid fa-trophy text-[10px]"></i>
+                <span>Ranking General</span>
+                <span class="px-1.5 py-0.2 rounded-full text-[9px] ${currentSeason === 'HISTORICO' ? 'bg-black/20 text-black font-extrabold' : 'bg-white/10 text-uclGold'}">${allCups}</span>
             </button>`;
 
             DISPLAY_SEASON_ORDER.forEach(sKey => {
                 const s = APP_STATE.seasons[sKey];
-                const { ballonEvaluation, seasonTotal } = computeSeasonSummary(sKey);
+                const { seasonTotal } = computeSeasonSummary(sKey);
                 const isOngoing = s.status === "EN CURSO";
-                const isUpcoming = s.status === "PRÓXIMAMENTE";
-                const bWinner = (s.ballonDorWinner && s.ballonDorWinner !== "AUTO") ? s.ballonDorWinner : ballonEvaluation[0].player;
+                const active = currentSeason === sKey;
 
-                const statusBadge = isUpcoming
-                    ? `<span class="text-[9px] font-extrabold text-uclCyan">⏳ ${s.year}</span>`
-                    : (isOngoing ? `<span class="text-[9px] font-extrabold text-uclNeon">🟢 TEMP. ${APP_STATE.fc27Tracker.seasonNumber}</span>` : `<span class="text-[9px] font-bold text-uclGold">🏁 ${s.year}</span>`);
-                const subText = isUpcoming ? "Próximamente" : (isOngoing ? `Líder: <strong>${ballonEvaluation[0].player}</strong>` : `🌕 <strong>${bWinner}</strong>`);
-                const activeBorderClass = currentSeason === sKey ? (isOngoing ? 'ucl-card neon-ambient-cyan' : 'ucl-card neon-ambient-gold') : 'ucl-card opacity-80';
-
-                html += `<button onclick="switchSeason('${sKey}')" class="snap-start shrink-0 w-36 md:w-auto rounded-xl p-2 sm:p-2.5 text-left ${activeBorderClass}">
-                    <div class="flex items-center justify-between">${statusBadge}<span class="px-1.5 py-0.5 text-[8px] font-extrabold rounded-full bg-white/10 text-white">${seasonTotal}</span></div>
-                    <div class="font-oswald text-sm sm:text-base font-bold text-white mt-0.5">${s.id} • ${s.year}</div>
-                    <div class="text-[10px] text-sky-100/85 truncate">${subText}</div>
+                html += `<button onclick="switchSeason('${sKey}')" class="px-3 py-1.5 rounded-xl font-oswald text-xs sm:text-sm uppercase tracking-wider transition flex items-center gap-1.5 shrink-0 ${active ? 'bg-uclNeon text-black font-bold shadow' : 'text-slate-300 hover:bg-white/5'}">
+                    ${isOngoing ? `<span class="w-1.5 h-1.5 rounded-full ${active ? 'bg-black' : 'bg-uclNeon'}"></span>` : ''}
+                    <span>${s.id}</span>
+                    <span class="px-1.5 py-0.2 rounded-full text-[9px] ${active ? 'bg-black/20 text-black font-extrabold' : 'bg-white/10 text-slate-300'}">${seasonTotal}</span>
                 </button>`;
             });
             document.getElementById("seasonTabsContainer").innerHTML = html;
@@ -1973,6 +1952,7 @@
             return entries[0].val === entries[1].val ? `Empate (${entries[0].val})` : `${entries[0].player} (${entries[0].val})`;
         }
 
+        // BENTO GRID PRINCIPAL + PODIO ESCALONADO EN 3 COLUMNAS
         function renderSingleSeasonView(seasonId) {
             const season = APP_STATE.seasons[seasonId];
             const { clubesImportantes, clubesLocales, seleccion, ranking, ballonEvaluation, seasonTotal } = computeSeasonSummary(seasonId);
@@ -1983,49 +1963,54 @@
             const tableCard = document.getElementById("seasonTableCardWrapper");
             const ballonCard = document.getElementById("ballonDorCardWrapper");
             if (isOngoing || isDisputa) {
-                tableCard.className = "lg:col-span-7 ucl-card neon-ambient-cyan rounded-2xl p-3 sm:p-4 flex flex-col justify-between gap-3 relative overflow-hidden order-2 lg:order-1 transition-all duration-300";
-                ballonCard.className = "lg:col-span-5 ucl-card neon-ambient-cyan rounded-2xl p-3.5 sm:p-4 flex flex-col justify-between gap-3 relative overflow-hidden order-1 lg:order-2 transition-all duration-300";
+                tableCard.className = "lg:col-span-8 ucl-card neon-ambient-cyan rounded-2xl p-3 sm:p-4 flex flex-col justify-between gap-2.5 relative overflow-hidden order-2 lg:order-1";
+                ballonCard.className = "lg:col-span-4 ucl-card neon-ambient-cyan rounded-2xl p-3 sm:p-3.5 flex flex-col justify-between gap-2.5 relative overflow-hidden order-1 lg:order-2";
             } else {
-                tableCard.className = "lg:col-span-7 ucl-card neon-ambient-gold rounded-2xl p-3 sm:p-4 flex flex-col justify-between gap-3 relative overflow-hidden order-2 lg:order-1 transition-all duration-300";
-                ballonCard.className = "lg:col-span-5 ucl-card-gold neon-ambient-gold rounded-2xl p-3.5 sm:p-4 flex flex-col justify-between gap-3 relative overflow-hidden order-1 lg:order-2 transition-all duration-300";
+                tableCard.className = "lg:col-span-8 ucl-card neon-ambient-gold rounded-2xl p-3 sm:p-4 flex flex-col justify-between gap-2.5 relative overflow-hidden order-2 lg:order-1";
+                ballonCard.className = "lg:col-span-4 ucl-card-gold neon-ambient-gold rounded-2xl p-3 sm:p-3.5 flex flex-col justify-between gap-2.5 relative overflow-hidden order-1 lg:order-2";
             }
 
             document.getElementById("seasonBadgeTag").textContent = seasonId === "FC27"
                 ? `⚽ ${season.title} • TEMPORADA ${APP_STATE.fc27Tracker.seasonNumber}`
                 : `⚽ ${season.title}`;
-            document.getElementById("seasonMainTitle").textContent = `TABLA GENERAL ${season.year}`;
+            document.getElementById("seasonMainTitle").textContent = `PODIO OFICIAL ${season.year}`;
             document.getElementById("seasonTotalCupsCounter").textContent = `${seasonTotal} Títulos`;
 
             const statusPill = document.getElementById("seasonStatusPill");
             statusPill.className = `inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[8px] font-extrabold uppercase ${isUpcoming ? 'bg-uclCyan/20 text-uclCyan' : (isOngoing ? 'bg-uclNeon/20 text-uclNeon' : 'bg-uclGold/20 text-uclGold')}`;
             statusPill.textContent = season.status;
 
+            // Orden escalonado visual: [2° Lugar (Izq), 1° Lugar (Centro Elevado), 3° Lugar (Der)]
+            const podiumOrder = [
+                { data: ranking[1], rankIdx: 1, medal: "🥈 2.°", heightClass: "py-2.5", borderClass: "border-uclCyan/40 bg-black/55" },
+                { data: ranking[0], rankIdx: 0, medal: "👑 1.°", heightClass: "py-3.5 sm:py-4 -translate-y-1", borderClass: "border-2 border-uclGold bg-gradient-to-b from-amber-500/20 via-black/70 to-black/80 shadow-[0_0_20px_rgba(255,215,0,0.2)]" },
+                { data: ranking[2], rankIdx: 2, medal: "🥉 3.°", heightClass: "py-2", borderClass: "border-orange-400/35 bg-black/55" }
+            ];
             const topScore = Math.max(1, ranking[0].total);
-            const medals = ["🥇", "🥈", "🥉"];
-            const barGradients = ["from-uclGold via-amber-400 to-yellow-300", "from-sky-400 via-uclCyan to-blue-300", "from-amber-700 via-amber-600 to-orange-400"];
 
-            document.getElementById("seasonPodiumCards").innerHTML = ranking.map((r, idx) => {
-                const pct = seasonTotal > 0 ? Math.round((r.total / seasonTotal) * 100) : 0;
+            document.getElementById("seasonPodiumCards").innerHTML = podiumOrder.map(slot => {
+                const r = slot.data;
+                const isFirst = slot.rankIdx === 0 && seasonTotal > 0;
                 const barW = seasonTotal > 0 ? Math.round((r.total / topScore) * 100) : 0;
-                const isFirst = idx === 0 && seasonTotal > 0;
-                const pichichiPill = seasonId === "FC27"
-                    ? ` • <span onclick="openPichichiBreakdownModal('${r.player}')" class="cursor-pointer underline decoration-uclGold/60 hover:text-uclGold">👟 <strong class="text-uclGold">${APP_STATE.fc27Tracker.pichichis[r.player] || 0}</strong></span>`
-                    : "";
-                return `<div class="rounded-xl p-3 border ${isFirst ? 'bg-gradient-to-r from-amber-500/20 via-blue-950/60 to-transparent border-uclGold/50' : 'bg-[#040d24] border-sky-400/15'}">
-                    <div class="flex items-center justify-between gap-2 mb-1.5">
-                        <div class="flex items-center gap-2.5">
-                            <span class="text-xl">${medals[idx]}</span>
-                            <div>
-                                <span class="font-oswald text-base sm:text-lg font-bold text-white">${r.player}</span>
-                                <div class="text-[10px] text-sky-200/85">🌟 Imp: <strong>${r.importantes}</strong> • 🥅 Sel: <strong>${r.seleccion}</strong> • 🛡️ Loc: <strong>${r.locales}</strong>${pichichiPill}</div>
-                            </div>
-                        </div>
-                        <div class="text-right">
-                            <div class="font-display text-2xl sm:text-3xl ${isFirst ? 'text-uclGold' : 'text-white'} leading-none">${r.total} <span class="text-[10px] font-sans text-sky-200/75">copas</span></div>
-                            <span class="text-[9px] text-sky-300/70">${pct}% del total</span>
-                        </div>
+                const streakHTML = getPlayerStreakBadgeHTML(seasonId, r.player, r.total, seasonTotal);
+
+                return `<div class="rounded-2xl px-2.5 ${slot.heightClass} border ${slot.borderClass} flex flex-col justify-between text-center relative transition-all">
+                    <div class="flex items-center justify-between gap-1 mb-1">
+                        <span class="text-[9px] font-extrabold ${isFirst ? 'text-uclGold' : 'text-slate-300'}">${slot.medal}</span>
+                        ${streakHTML}
                     </div>
-                    <div class="w-full h-1.5 rounded-full bg-black/60 overflow-hidden"><div class="h-full rounded-full bg-gradient-to-r ${barGradients[idx]}" style="width:${barW}%"></div></div>
+                    <div class="font-oswald text-sm sm:text-lg font-bold text-white uppercase truncate">${r.player}</div>
+                    <div class="font-display text-3xl sm:text-4xl ${isFirst ? 'gold-text-shine' : 'text-white'} leading-none my-1">
+                        ${r.total} <span class="text-[9px] font-sans text-slate-400 block">copas</span>
+                    </div>
+                    <div class="w-full h-1.5 rounded-full bg-black/70 overflow-hidden my-1">
+                        <div class="h-full rounded-full ${isFirst ? 'bg-uclGold' : 'bg-uclCyan'}" style="width:${barW}%"></div>
+                    </div>
+                    <div class="text-[9px] text-slate-300 flex items-center justify-center gap-1.5 flex-wrap mt-0.5">
+                        <span>🌟${r.importantes}</span>
+                        <span>🥅${r.seleccion}</span>
+                        <span>🛡️${r.locales}</span>
+                    </div>
                 </div>`;
             }).join("");
 
@@ -2034,14 +2019,14 @@
             const locSub = seasonId === "FC24" ? "ESP • ING • ITA" : (seasonId === "FC25" ? "ESP • ING • ITA • GER" : "ESP • ING • ITA • GER • FRA");
 
             document.getElementById("seasonBreakdownFooter").innerHTML = `
-                <div class="p-2 rounded-xl bg-[#030b1e] border border-sky-400/20"><span class="text-[8px] uppercase text-amber-300 font-extrabold block">🌟 Copas Importantes</span><span class="text-xs font-extrabold text-uclGold block">${getCategoryLeaderLabel(clubesImportantes)}</span><span class="text-[8px] text-slate-400 block">Champions • Libertadores • Inter</span></div>
-                <div class="p-2 rounded-xl bg-[#030b1e] border border-sky-400/20"><span class="text-[8px] uppercase text-uclCyan font-extrabold block">🥅 Selección Nacional</span><span class="text-xs font-extrabold text-uclCyan block">${getCategoryLeaderLabel(seleccion)}</span><span class="text-[8px] text-slate-400 block">Copa del Mundo • Eurocopa</span></div>
-                <div class="p-2 rounded-xl bg-[#030b1e] border border-sky-400/20"><span class="text-[8px] uppercase text-uclNeon font-extrabold block">🛡️ Copas Locales</span><span class="text-xs font-extrabold text-uclNeon block">${getCategoryLeaderLabel(clubesLocales)}</span><span class="text-[8px] text-slate-400 block">${locSub}</span></div>
-                <div class="p-2 rounded-xl bg-[#030b1e] border border-sky-400/20"><span class="text-[8px] uppercase text-slate-300 font-extrabold block">⚡ Diferencia 1° vs 2°</span><span class="text-xs font-extrabold text-white block">${ventajaLabel}</span><span class="text-[8px] text-slate-400 block">Tabla General</span></div>
+                <div class="p-1.5 rounded-xl bg-black/50 border border-white/10"><span class="text-[8px] uppercase text-amber-300 font-extrabold block">🌟 Importantes</span><span class="text-xs font-extrabold text-uclGold block">${getCategoryLeaderLabel(clubesImportantes)}</span><span class="text-[8px] text-slate-400 block">UCL • LIB • INT</span></div>
+                <div class="p-1.5 rounded-xl bg-black/50 border border-white/10"><span class="text-[8px] uppercase text-uclCyan font-extrabold block">🥅 Selección</span><span class="text-xs font-extrabold text-uclCyan block">${getCategoryLeaderLabel(seleccion)}</span><span class="text-[8px] text-slate-400 block">Mundial • Euro</span></div>
+                <div class="p-1.5 rounded-xl bg-black/50 border border-white/10"><span class="text-[8px] uppercase text-uclNeon font-extrabold block">🛡️ Locales</span><span class="text-xs font-extrabold text-uclNeon block">${getCategoryLeaderLabel(clubesLocales)}</span><span class="text-[8px] text-slate-400 block">${locSub}</span></div>
+                <div class="p-1.5 rounded-xl bg-black/50 border border-white/10"><span class="text-[8px] uppercase text-slate-300 font-extrabold block">⚡ Ventaja 1° vs 2°</span><span class="text-xs font-extrabold text-white block">${ventajaLabel}</span><span class="text-[8px] text-slate-400 block">Tabla General</span></div>
             `;
 
             const winnerName = isUpcoming ? "PRÓXIMAMENTE" : ((season.ballonDorWinner && season.ballonDorWinner !== "AUTO") ? season.ballonDorWinner : ballonEvaluation[0].player);
-            document.getElementById("ballonDorStatusBadge").textContent = isUpcoming ? "⏳ PRÓXIMAMENTE" : (isDisputa ? "🔥 EN DISPUTA" : `🏆 GANADOR OFICIAL ${season.year}`);
+            document.getElementById("ballonDorStatusBadge").textContent = isUpcoming ? "⏳ PRÓXIMAMENTE" : (isDisputa ? "🔥 EN DISPUTA" : `🏆 GANADOR ${season.year}`);
 
             const ballonKey = `balon-${seasonId.toLowerCase()}`;
             const imgEl = document.getElementById("ballonDorImageDisplay");
@@ -2060,14 +2045,15 @@
             const visibleClubs = TOURNAMENTS_CATALOG.filter(c => c.category === "clubes" && isCupEnabledInSeason(seasonId, c.key));
             document.getElementById("clubCupsCountBadge").textContent = `${visibleClubs.length} Torneos`;
             const wClass = visibleClubs.length === 6
-                ? "w-[calc(50%-0.35rem)] sm:w-[calc(33.333%-0.6rem)] max-w-[260px]"
-                : "w-[calc(50%-0.35rem)] sm:w-[calc(33.333%-0.6rem)] lg:w-[calc(25%-0.75rem)] max-w-[250px]";
+                ? "w-[calc(50%-0.35rem)] sm:w-[calc(33.333%-0.6rem)] max-w-[255px]"
+                : "w-[calc(50%-0.35rem)] sm:w-[calc(33.333%-0.6rem)] lg:w-[calc(25%-0.65rem)] max-w-[245px]";
 
             document.getElementById("clubTrophiesGrid").innerHTML = visibleClubs.map(c => buildCupCardHTML(seasonId, c, wClass)).join("");
             const nationalCups = TOURNAMENTS_CATALOG.filter(c => c.category === "seleccion" && isCupEnabledInSeason(seasonId, c.key));
             document.getElementById("nationalTrophiesGrid").innerHTML = nationalCups.map(c => buildCupCardHTML(seasonId, c, wClass)).join("");
         }
 
+        // TARJETAS DE COPA "FULL-BLEED" (100% IMAGEN DE BORDE A BORDE + CÁPSULA DE CRISTAL INFERIOR)
         function buildCupCardHTML(seasonId, cup, sizeClasses) {
             const cupScores = APP_STATE.seasons[seasonId].scores[cup.key] || { "Jesús": 0, "Sebastián": 0, "David": 0 };
             const ordered = [...ORDERED_PLAYERS].sort((a, b) => (cupScores[b] || 0) - (cupScores[a] || 0));
@@ -2075,34 +2061,35 @@
             const gap12 = maxVal - Number(cupScores[ordered[1]] || 0);
 
             const kingBadge = maxVal === 0
-                ? `<span class="px-2 py-0.5 rounded-full text-[8px] font-extrabold bg-black/85 text-slate-300 border border-white/20">⏳ Por jugar</span>`
-                : (gap12 === 0 ? `<span class="px-2 py-0.5 rounded-full text-[8px] font-extrabold bg-black/85 text-uclCyan border border-uclCyan/50">⚡ Empate</span>`
-                : `<span class="px-2 py-0.5 rounded-full text-[8px] font-extrabold bg-black/90 text-uclGold border border-uclGold/60">👑 ${ordered[0]}</span>`);
+                ? `<span class="px-2 py-0.5 rounded-full text-[8px] font-extrabold bg-black/80 backdrop-blur-md text-slate-300 border border-white/20">⏳ Por jugar</span>`
+                : (gap12 === 0 ? `<span class="px-2 py-0.5 rounded-full text-[8px] font-extrabold bg-black/80 backdrop-blur-md text-uclCyan border border-uclCyan/50">⚡ Empate</span>`
+                : `<span class="px-2 py-0.5 rounded-full text-[8px] font-extrabold bg-black/85 backdrop-blur-md text-uclGold border border-uclGold/60">👑 ${ordered[0]}</span>`);
 
-            return `<div onclick="openTrophyLightbox('${cup.name}', '${cup.key}', '${cup.subtitle}')" class="holo-3d-card ${sizeClasses} cup-card-aspect ucl-card rounded-2xl p-2.5 flex flex-col justify-between relative overflow-hidden border ${cup.borderGlow} group shrink-0 cursor-pointer">
-                <div class="absolute inset-[5%] z-0 rounded-xl overflow-hidden pointer-events-none border border-white/15 bg-[#03091c]">
-                    <img src="${getPhotoSrc(cup.key)}" data-step="0" loading="eager" decoding="sync" alt="${cup.name}" class="w-full h-full object-cover object-center opacity-95" onload="RESOLVED_IMAGE_URLS['${cup.key}']=this.src" onerror="handleSmartImageError(this, '${cup.key}')">
-                    <div class="absolute inset-0 bg-gradient-to-t from-[#020817]/95 via-[#020817]/45 to-transparent"></div>
-                </div>
-                <div class="relative z-30 flex items-center justify-between px-1 pt-0.5">
+            return `<div onclick="openTrophyLightbox('${cup.name}', '${cup.key}', '${cup.subtitle}')" class="holo-3d-card ${sizeClasses} cup-card-aspect ucl-card rounded-2xl p-2 flex flex-col justify-between relative overflow-hidden border ${cup.borderGlow} group shrink-0 cursor-pointer">
+                <img src="${getPhotoSrc(cup.key)}" data-step="0" loading="eager" decoding="sync" alt="${cup.name}" class="absolute inset-0 z-0 w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-105" onload="RESOLVED_IMAGE_URLS['${cup.key}']=this.src" onerror="handleSmartImageError(this, '${cup.key}')">
+                <div class="absolute inset-0 z-0 bg-gradient-to-t from-black/95 via-black/35 to-black/20 pointer-events-none"></div>
+
+                <div class="relative z-30 flex items-center justify-between px-0.5 pt-0.5">
                     ${kingBadge}
-                    <button type="button" onclick="event.stopPropagation(); openTrophyLightbox('${cup.name}', '${cup.key}', '${cup.subtitle}')" title="Escuchar Himno y Ampliar" class="w-6 h-6 rounded-md bg-black/85 border border-uclCyan/40 text-[9px] text-uclCyan flex items-center justify-center"><i class="fa-solid fa-music"></i></button>
+                    <button type="button" onclick="event.stopPropagation(); openTrophyLightbox('${cup.name}', '${cup.key}', '${cup.subtitle}')" title="Escuchar Himno" class="w-6 h-6 rounded-lg bg-black/80 backdrop-blur-md border border-uclCyan/40 text-[9px] text-uclCyan flex items-center justify-center"><i class="fa-solid fa-music"></i></button>
                 </div>
-                <div class="relative z-30 mt-auto px-1 pb-0.5">
-                    <h3 class="font-oswald text-xs sm:text-[15px] font-bold text-white uppercase leading-tight mb-1 drop-shadow">${cup.dot} ${cup.name}</h3>
+
+                <!-- Cápsula Flotante de Cristal Oscuro -->
+                <div class="relative z-30 mt-auto bg-black/75 backdrop-blur-md border border-white/15 rounded-xl p-1.5">
+                    <h3 class="font-oswald text-xs sm:text-sm font-bold text-white uppercase leading-tight mb-1 px-0.5 truncate">${cup.dot} ${cup.name}</h3>
                     <div class="space-y-1">
                         ${ordered.map(player => {
                             const val = Number(cupScores[player] || 0);
                             const isLeader = maxVal > 0 && val === maxVal;
                             const barPct = maxVal > 0 ? Math.round((val / maxVal) * 100) : 0;
-                            const adminBtns = isAdminUnlocked ? `<div class="flex items-center gap-1 ml-1" onclick="event.stopPropagation()">
-                                <button type="button" onclick="adjustCupScore('${seasonId}', '${cup.key}', '${player}', -1)" class="w-5 h-5 rounded bg-white/15 text-white font-bold text-[10px]">-</button>
-                                <button type="button" onclick="adjustCupScore('${seasonId}', '${cup.key}', '${player}', 1)" class="w-5 h-5 rounded bg-uclNeon text-uclNight font-extrabold text-[10px]">+</button>
+                            const adminBtns = isAdminUnlocked ? `<div class="flex items-center gap-0.5 ml-1" onclick="event.stopPropagation()">
+                                <button type="button" onclick="adjustCupScore('${seasonId}', '${cup.key}', '${player}', -1)" class="w-4 h-4 rounded bg-white/15 text-white font-bold text-[9px]">-</button>
+                                <button type="button" onclick="adjustCupScore('${seasonId}', '${cup.key}', '${player}', 1)" class="w-4 h-4 rounded bg-uclNeon text-black font-extrabold text-[9px]">+</button>
                             </div>` : "";
-                            return `<div class="px-2 py-0.5 sm:py-1 rounded-lg ${isLeader ? 'bg-blue-950/90 border border-sky-400/45' : 'bg-black/85 border border-white/10'}">
+                            return `<div class="px-1.5 py-0.5 rounded-lg ${isLeader ? 'bg-white/10 border border-white/25' : 'bg-black/50'}">
                                 <div class="flex items-center justify-between">
-                                    <span class="text-[10px] sm:text-[11px] ${isLeader ? 'text-white font-extrabold' : 'text-slate-200'}">${isLeader ? '✔️' : '▫️'} ${player}</span>
-                                    <div class="flex items-center"><span class="font-oswald text-xs sm:text-sm font-bold ${isLeader ? 'text-uclGold' : 'text-white'}">${val}</span>${adminBtns}</div>
+                                    <span class="text-[10px] ${isLeader ? 'text-white font-extrabold' : 'text-slate-300'}">${isLeader ? '✔️' : '▫️'} ${player}</span>
+                                    <div class="flex items-center"><span class="font-oswald text-xs font-bold ${isLeader ? 'text-uclGold' : 'text-white'}">${val}</span>${adminBtns}</div>
                                 </div>
                                 <div class="w-full h-1 rounded-full bg-black/70 overflow-hidden mt-0.5"><div class="h-full rounded-full" style="width:${barPct}%;background:${isLeader ? cup.barColor : '#64748b'}"></div></div>
                             </div>`;
@@ -2113,7 +2100,7 @@
         }
 
         // ==========================================
-        // MOTOR DE TEMPORADAS INTERNAS FC27, BOTA DE ORO POR COPA Y WHATSAPP
+        // ASISTENTE DE WHATSAPP ULTRA-PRÁCTICO (CERO SCROLL)
         // ==========================================
         function getMiniSeasonRules() {
             ensureTrackerStructure();
@@ -2150,7 +2137,7 @@
 
         function openWhatsAppModal() {
             ensureTrackerStructure();
-            renderWhatsAppModalState();
+            renderWhatsAppModalState(false);
             document.getElementById("whatsappModal").classList.remove("hidden");
         }
 
@@ -2165,9 +2152,21 @@
             APP_STATE.fc27Tracker.seasonNumber = nextNum;
             APP_STATE.fc27Tracker.cupsPlayed = {};
             refreshAllViews();
-            renderWhatsAppModalState();
+            renderWhatsAppModalState(false);
             schedulePushToCloud();
             showToast(`🗓️ Activa: Temporada ${nextNum} - FC27`);
+        }
+
+        function setWaScorerPill(scorerValue) {
+            document.getElementById("waScorerSelect").value = scorerValue;
+            const options = ["Jesús", "Sebastián", "David", "Ninguno"];
+            document.getElementById("waScorerPillsContainer").innerHTML = options.map(opt => {
+                const active = opt === scorerValue;
+                const label = opt === "Ninguno" ? "Nadie" : opt;
+                return `<button type="button" onclick="setWaScorerPill('${opt}')" class="py-1 px-1.5 rounded-lg border text-[10px] font-oswald font-bold uppercase transition ${active ? 'bg-uclGold text-black border-uclGold shadow' : 'bg-black/60 text-slate-300 border-white/15'}">
+                    ${label}
+                </button>`;
+            }).join("");
         }
 
         function handleInstanceChange(changedIdx) {
@@ -2178,7 +2177,7 @@
                         document.getElementById(`waInst_${i}`).value = "Subcampeón";
                     }
                 });
-                document.getElementById("waScorerSelect").value = ORDERED_PLAYERS[changedIdx];
+                setWaScorerPill(ORDERED_PLAYERS[changedIdx]);
             }
         }
 
@@ -2186,78 +2185,56 @@
             const rules = getMiniSeasonRules();
             const played = APP_STATE.fc27Tracker.cupsPlayed;
 
-            document.getElementById("waModalSeasonBadge").textContent = `TEMPORADA ${rules.tNum} - FC27`;
-            document.getElementById("waModalSeasonRuleSub").textContent = rules.isEven
-                ? `🔥 Temporada Par (${rules.tNum}): Incluye Mundial y Eurocopa + Clubes`
-                : `⚽ Temporada Impar (${rules.tNum}): 7 Copas de Clubes (+ Intercontinental si hay campeón en Champions/Libertadores)`;
-
-            document.getElementById("waProgressCounterBadge").textContent = `${rules.playedRequiredCount} / ${rules.totalRequiredCount} Jugadas`;
+            document.getElementById("waModalSeasonBadge").textContent = `TEMP. ${rules.tNum} - FC27`;
+            document.getElementById("waProgressCounterBadge").textContent = `${rules.playedRequiredCount}/${rules.totalRequiredCount}`;
 
             const visibleInModal = TOURNAMENTS_CATALOG.filter(c => {
                 if (c.category === "seleccion") return rules.isEven;
                 return true;
             });
 
-            document.getElementById("waCupsStatusPills").innerHTML = visibleInModal.map(c => {
-                const entry = played[c.key];
-                let statusText = "⏳ Pendiente";
-                let pillClass = "bg-black/50 border-white/10 text-slate-300";
+            const hiddenInput = document.getElementById("waCupSelect");
+            let selectedCupKey = hiddenInput.value;
 
-                if (c.key === "intercontinental" && !rules.interUnlocked) {
-                    if (rules.interCancelled) {
-                        statusText = "🚫 No se juega";
-                        pillClass = "bg-red-950/40 border-red-500/30 text-red-300 opacity-75";
-                    } else {
-                        statusText = "🔒 Espera UCL/LIB";
-                        pillClass = "bg-black/40 border-white/10 text-slate-400";
-                    }
-                } else if (entry && entry.played) {
-                    const pichichiTag = (entry.scorer && entry.scorer !== "Ninguno") ? ` • 👟${entry.scorer[0]}` : "";
-                    if (entry.winner && entry.winner !== "Ninguno") {
-                        statusText = `👑 ${entry.winner}${pichichiTag}`;
-                        pillClass = "bg-uclNeon/15 border-uclNeon/50 text-uclNeon font-extrabold";
-                    } else {
-                        statusText = `❌ Ninguno${pichichiTag}`;
-                        pillClass = "bg-amber-500/15 border-amber-400/40 text-amber-300 font-bold";
-                    }
-                }
-
-                return `<button type="button" onclick="selectCupInModal('${c.key}')" class="px-2 py-1.5 rounded-xl border text-left transition flex items-center justify-between gap-1 ${pillClass}">
-                    <span class="text-[10px] font-bold truncate">${c.dot} ${c.name}</span>
-                    <span class="text-[9px] shrink-0">${statusText}</span>
-                </button>`;
-            }).join("");
-
-            const selectEl = document.getElementById("waCupSelect");
-            const prevValue = selectEl.value;
-            const selectableCups = visibleInModal.filter(c => {
-                if (c.key === "intercontinental" && rules.interCancelled) return false;
-                return true;
-            });
-
-            selectEl.innerHTML = selectableCups.map(c => {
-                const entry = played[c.key];
-                const tag = (entry && entry.played)
-                    ? ` (✅ ${entry.winner === 'Ninguno' ? 'Sin campeón' : entry.winner})`
-                    : (c.key === "intercontinental" && !rules.interUnlocked ? " (🔒 Requiere campeón UCL/LIB)" : "");
-                return `<option value="${c.key}">${c.dot} ${c.name}${tag}</option>`;
-            }).join("");
-
-            if (preserveSelectedCup && selectableCups.some(c => c.key === prevValue)) {
-                selectEl.value = prevValue;
-            } else {
-                const firstUnplayed = selectableCups.find(c => {
+            if (!preserveSelectedCup || !visibleInModal.some(c => c.key === selectedCupKey)) {
+                const firstPending = visibleInModal.find(c => {
                     if (c.key === "intercontinental" && !rules.interUnlocked) return false;
                     return !played[c.key] || !played[c.key].played;
                 });
-                if (firstUnplayed) selectEl.value = firstUnplayed.key;
+                selectedCupKey = firstPending ? firstPending.key : visibleInModal[0].key;
+                hiddenInput.value = selectedCupKey;
             }
+
+            const selectedCupObj = TOURNAMENTS_CATALOG.find(c => c.key === selectedCupKey) || visibleInModal[0];
+            document.getElementById("waSelectedCupTitle").textContent = `${selectedCupObj.dot} ${selectedCupObj.name}`;
+
+            document.getElementById("waCupsStatusPills").innerHTML = visibleInModal.map(c => {
+                const entry = played[c.key];
+                const isSelected = c.key === selectedCupKey;
+                let badge = "⏳";
+                let stateClass = "bg-black/60 border-white/15 text-slate-300";
+
+                if (c.key === "intercontinental" && !rules.interUnlocked) {
+                    badge = rules.interCancelled ? "🚫" : "🔒";
+                    stateClass = "bg-black/30 border-white/5 text-slate-500 opacity-60";
+                } else if (entry && entry.played) {
+                    badge = (entry.winner && entry.winner !== "Ninguno") ? `👑${entry.winner[0]}` : "❌";
+                    stateClass = "bg-emerald-500/15 border-emerald-400/40 text-emerald-300";
+                }
+
+                const activeRing = isSelected ? "ring-2 ring-uclNeon border-uclNeon text-white bg-uclNeon/15" : "";
+
+                return `<button type="button" onclick="selectCupInModal('${c.key}')" class="px-1.5 py-1 rounded-lg border text-left transition flex items-center justify-between gap-0.5 ${stateClass} ${activeRing}">
+                    <span class="text-[9px] font-bold truncate">${c.shortName}</span>
+                    <span class="text-[8px] font-extrabold shrink-0">${badge}</span>
+                </button>`;
+            }).join("");
 
             loadSavedCupResultsIntoSelectors();
 
             const banner = document.getElementById("waSeasonCompleteBanner");
             if (rules.isComplete) {
-                document.getElementById("waNextSeasonBtnLabel").textContent = `Temporada ${rules.tNum + 1} - FC27`;
+                document.getElementById("waNextSeasonBtnLabel").textContent = `Temp. ${rules.tNum + 1}`;
                 banner.classList.remove("hidden");
             } else {
                 banner.classList.add("hidden");
@@ -2265,11 +2242,13 @@
         }
 
         function selectCupInModal(cupKey) {
-            const selectEl = document.getElementById("waCupSelect");
-            if ([...selectEl.options].some(o => o.value === cupKey)) {
-                selectEl.value = cupKey;
-                loadSavedCupResultsIntoSelectors();
+            const rules = getMiniSeasonRules();
+            if (cupKey === "intercontinental" && rules.interCancelled) {
+                showToast("🚫 Intercontinental no se juega (sin campeón UCL/LIB)");
+                return;
             }
+            document.getElementById("waCupSelect").value = cupKey;
+            renderWhatsAppModalState(true);
         }
 
         function loadSavedCupResultsIntoSelectors() {
@@ -2280,12 +2259,12 @@
                     const savedVal = entry.results[p];
                     if (savedVal) document.getElementById(`waInst_${idx}`).value = savedVal;
                 });
-                document.getElementById("waScorerSelect").value = entry.scorer || "Ninguno";
+                setWaScorerPill(entry.scorer || "Ninguno");
             } else {
                 document.getElementById("waInst_0").value = "Campeón";
                 document.getElementById("waInst_1").value = "Semis";
                 document.getElementById("waInst_2").value = "8vos";
-                document.getElementById("waScorerSelect").value = "Jesús";
+                setWaScorerPill("Jesús");
             }
         }
 
@@ -2304,7 +2283,7 @@
             if (!cupObj) return;
 
             if (cupKey === "intercontinental" && !rulesBefore.interUnlocked) {
-                showToast("⚠️ Para jugar la Intercontinental debe haber campeón en Champions o Libertadores");
+                showToast("⚠️ Requiere campeón en Champions o Libertadores");
                 return;
             }
 
@@ -2337,6 +2316,10 @@
 
             if (winnerName !== "Ninguno") {
                 APP_STATE.seasons.FC27.scores[cupKey][winnerName] = Number(APP_STATE.seasons.FC27.scores[cupKey][winnerName] || 0) + 1;
+                APP_STATE.fc27Tracker.recentWinners.push(winnerName);
+                if (APP_STATE.fc27Tracker.recentWinners.length > 12) {
+                    APP_STATE.fc27Tracker.recentWinners.shift();
+                }
             }
             if (scorerName !== "Ninguno") {
                 APP_STATE.fc27Tracker.pichichisByCup[cupKey][scorerName] = Number(APP_STATE.fc27Tracker.pichichisByCup[cupKey][scorerName] || 0) + 1;
@@ -2383,15 +2366,13 @@
             if (rulesAfter.isComplete) {
                 const fullSeasonSummary = buildMiniSeasonSummaryString(tNum);
                 const combinedText = `${cupReport}\n\n━━━━━━━━━━━━━━━━━━━━\n\n${fullSeasonSummary}`;
-                document.getElementById("waOutputLabel").textContent = `🎉 ¡TEMPORADA ${tNum} COMPLETA! REPORTE + RESUMEN LISTO:`;
                 document.getElementById("whatsappOutputBox").value = combinedText;
                 copyTextSilently(combinedText);
-                showToast(`🎉 ¡Temporada ${tNum} completada! Resumen copiado`);
+                showToast(`🎉 ¡Temp. ${tNum} completa! Copiado a WhatsApp`);
             } else {
-                document.getElementById("waOutputLabel").textContent = `📲 REPORTE DE ${cupObj.name.toUpperCase()} (COPIADO):`;
                 document.getElementById("whatsappOutputBox").value = cupReport;
                 copyTextSilently(cupReport);
-                showToast(`✅ ${cupObj.name} y Pichichi registrados`);
+                showToast(`✅ ${cupObj.shortName} registrada y copiada`);
             }
         }
 
@@ -2453,11 +2434,10 @@
             ensureTrackerStructure();
             const tNum = APP_STATE.fc27Tracker.seasonNumber;
             const summaryText = buildMiniSeasonSummaryString(tNum);
-            document.getElementById("waOutputLabel").textContent = `📋 RESUMEN DE LA TEMPORADA ${tNum} - FC27:`;
             document.getElementById("whatsappOutputBox").value = summaryText;
             if (copyNow) {
                 copyTextSilently(summaryText);
-                showToast(`📋 Resumen de Temporada ${tNum} copiado`);
+                showToast(`📋 Resumen Temp. ${tNum} copiado`);
             }
         }
 
@@ -2475,14 +2455,13 @@
             renderWhatsAppModalState(false);
             schedulePushToCloud();
 
-            document.getElementById("waOutputLabel").textContent = `✅ RESUMEN TEMP. ${finishedNum} COPIADO • AHORA EN TEMPORADA ${finishedNum + 1}:`;
             document.getElementById("whatsappOutputBox").value = summaryText;
             showToast(`🚀 ¡Iniciada la Temporada ${finishedNum + 1} - FC27!`);
         }
 
         function promptResetCurrentMiniSeason() {
             const tNum = APP_STATE.fc27Tracker.seasonNumber;
-            if (confirm(`¿Deseas limpiar el registro de copas de la Temporada ${tNum} - FC27 para volver a empezarla?`)) {
+            if (confirm(`¿Limpiar el registro de copas de la Temporada ${tNum} - FC27?`)) {
                 APP_STATE.fc27Tracker.cupsPlayed = {};
                 refreshAllViews();
                 renderWhatsAppModalState(false);
@@ -2576,77 +2555,25 @@
             const ballonLeaderYears = ballonLeaders.map(p => ballonYears[p].join(" y ")).join(" • ");
 
             const recordsCards = [
-                {
-                    badge: "🔵 MR. CHAMPIONS",
-                    icon: "fa-trophy",
-                    accent: "border-sky-400/50",
-                    titleColor: "text-uclCyan",
-                    heroName: uclRec.singlePlayer,
-                    heroStat: `${uclRec.singleVal} Champions`,
-                    subLine: `🗓️ <strong>En un año calendario:</strong> ${uclRec.singleSeason}`
-                },
-                {
-                    badge: "🌍 MR. MUNDIALES",
-                    icon: "fa-earth-americas",
-                    accent: "border-amber-400/50",
-                    titleColor: "text-uclGold",
-                    heroName: wcRec.singlePlayer,
-                    heroStat: `${wcRec.singleVal} Mundiales`,
-                    subLine: `🗓️ <strong>En un año calendario:</strong> ${wcRec.singleSeason}`
-                },
-                {
-                    badge: "🟢 REY DE LIBERTADORES",
-                    icon: "fa-shield-halved",
-                    accent: "border-emerald-400/50",
-                    titleColor: "text-uclNeon",
-                    heroName: libRec.singlePlayer,
-                    heroStat: `${libRec.singleVal} Libertadores`,
-                    subLine: `🗓️ <strong>En un año calendario:</strong> ${libRec.singleSeason}`
-                },
-                {
-                    badge: "🛡️ REY DE COPAS LOCALES",
-                    icon: "fa-chess-rook",
-                    accent: "border-purple-400/50",
-                    titleColor: "text-purple-300",
-                    heroName: bestLocalYear.player,
-                    heroStat: `${bestLocalYear.val} Locales`,
-                    subLine: `🗓️ <strong>En un año calendario:</strong> ${bestLocalYear.seasonLabel}`
-                },
-                {
-                    badge: "🌕 MÁXIMO GANADOR BALÓN DE ORO",
-                    icon: "fa-crown",
-                    accent: "border-uclGold/70",
-                    titleColor: "text-uclGold",
-                    heroName: ballonLeaderName,
-                    heroStat: `${maxBallons} Balones de Oro`,
-                    subLine: `🏆 <strong>Temporadas ganadas:</strong> ${ballonLeaderYears}`
-                },
-                {
-                    badge: "⚡ RÉCORD EN AÑO CALENDARIO",
-                    icon: "fa-fire-flame-curved",
-                    accent: "border-orange-400/50",
-                    titleColor: "text-orange-300",
-                    heroName: bestTotalYear.player,
-                    heroStat: `${bestTotalYear.val} Títulos`,
-                    subLine: `🗓️ <strong>En un año calendario:</strong> ${bestTotalYear.seasonLabel}`
-                }
+                { badge: "🔵 MR. CHAMPIONS", icon: "fa-trophy", accent: "border-sky-400/50", titleColor: "text-uclCyan", heroName: uclRec.singlePlayer, heroStat: `${uclRec.singleVal} Champions`, subLine: `🗓️ <strong>Año calendario:</strong> ${uclRec.singleSeason}` },
+                { badge: "🌍 MR. MUNDIALES", icon: "fa-earth-americas", accent: "border-amber-400/50", titleColor: "text-uclGold", heroName: wcRec.singlePlayer, heroStat: `${wcRec.singleVal} Mundiales`, subLine: `🗓️ <strong>Año calendario:</strong> ${wcRec.singleSeason}` },
+                { badge: "🟢 REY DE LIBERTADORES", icon: "fa-shield-halved", accent: "border-emerald-400/50", titleColor: "text-uclNeon", heroName: libRec.singlePlayer, heroStat: `${libRec.singleVal} Libertadores`, subLine: `🗓️ <strong>Año calendario:</strong> ${libRec.singleSeason}` },
+                { badge: "🛡️ REY DE COPAS LOCALES", icon: "fa-chess-rook", accent: "border-purple-400/50", titleColor: "text-purple-300", heroName: bestLocalYear.player, heroStat: `${bestLocalYear.val} Locales`, subLine: `🗓️ <strong>Año calendario:</strong> ${bestLocalYear.seasonLabel}` },
+                { badge: "🌕 MÁXIMO BALÓN DE ORO", icon: "fa-crown", accent: "border-uclGold/70", titleColor: "text-uclGold", heroName: ballonLeaderName, heroStat: `${maxBallons} Balones`, subLine: `🏆 <strong>Ediciones:</strong> ${ballonLeaderYears}` },
+                { badge: "⚡ RÉCORD EN UN AÑO", icon: "fa-fire-flame-curved", accent: "border-orange-400/50", titleColor: "text-orange-300", heroName: bestTotalYear.player, heroStat: `${bestTotalYear.val} Títulos`, subLine: `🗓️ <strong>Año calendario:</strong> ${bestTotalYear.seasonLabel}` }
             ];
 
             document.getElementById("historicalRecordsGrid").innerHTML = recordsCards.map(r => `
-                <div class="ucl-card rounded-2xl p-3.5 border ${r.accent} flex flex-col justify-between gap-2">
+                <div class="ucl-card rounded-2xl p-3 border ${r.accent} flex flex-col justify-between gap-1.5">
                     <div class="flex items-center justify-between gap-2">
-                        <span class="px-2.5 py-0.5 rounded-full bg-black/60 border border-white/15 text-[9px] font-extrabold uppercase tracking-wider ${r.titleColor}">
-                            ${r.badge}
-                        </span>
-                        <i class="fa-solid ${r.icon} ${r.titleColor} text-sm"></i>
+                        <span class="px-2 py-0.5 rounded-full bg-black/60 border border-white/15 text-[9px] font-extrabold uppercase tracking-wider ${r.titleColor}">${r.badge}</span>
+                        <i class="fa-solid ${r.icon} ${r.titleColor} text-xs"></i>
                     </div>
-                    <div class="flex items-baseline justify-between gap-2 my-0.5">
-                        <h4 class="font-oswald text-lg sm:text-xl font-bold text-white uppercase truncate">${r.heroName}</h4>
-                        <span class="font-display text-2xl sm:text-3xl gold-text-shine leading-none shrink-0">${r.heroStat}</span>
+                    <div class="flex items-baseline justify-between gap-2">
+                        <h4 class="font-oswald text-base sm:text-lg font-bold text-white uppercase truncate">${r.heroName}</h4>
+                        <span class="font-display text-2xl gold-text-shine leading-none shrink-0">${r.heroStat}</span>
                     </div>
-                    <div class="pt-2 border-t border-white/10 text-[10px] text-sky-100/90">
-                        <div class="bg-black/45 px-2.5 py-1.5 rounded-lg border border-white/5 truncate">${r.subLine}</div>
-                    </div>
+                    <div class="text-[10px] text-slate-300 bg-black/45 px-2 py-1 rounded-lg border border-white/5 truncate">${r.subLine}</div>
                 </div>
             `).join("");
         }
@@ -2681,28 +2608,28 @@
 
             const medals = ["🥇", "🥈", "🥉"];
             document.getElementById("historicalPodiumGrid").innerHTML = histData.map((d, i) => `
-                <div class="rounded-2xl p-4 border ${i === 0 ? 'ucl-card-gold' : 'ucl-card'} flex flex-col justify-between">
-                    <div class="flex items-center justify-between mb-1.5"><span class="text-2xl">${medals[i]}</span><span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-black/50 text-uclGold border border-uclGold/40">🏆 ${d.ballons} Balón de Oro</span></div>
-                    <div><h4 class="font-oswald text-xl font-bold text-white uppercase">${d.player}</h4><div class="font-display text-4xl gold-text-shine leading-none my-0.5">${d.total} <span class="text-sm font-sans text-slate-300">Títulos</span></div></div>
-                    <div class="mt-2.5 pt-2 border-t border-white/10 grid grid-cols-3 gap-1 text-[9px] text-sky-100 text-center">
-                        <span class="bg-black/40 py-1 rounded-lg">🌟 Imp: <strong>${d.importantes}</strong></span>
-                        <span class="bg-black/40 py-1 rounded-lg">🥅 Sel: <strong>${d.seleccion}</strong></span>
-                        <span class="bg-black/40 py-1 rounded-lg">🛡️ Loc: <strong>${d.locales}</strong></span>
+                <div class="rounded-2xl p-3.5 border ${i === 0 ? 'ucl-card-gold' : 'ucl-card'} flex flex-col justify-between">
+                    <div class="flex items-center justify-between mb-1"><span class="text-xl">${medals[i]}</span><span class="px-2 py-0.5 rounded-full text-[9px] font-extrabold bg-black/50 text-uclGold border border-uclGold/40">🏆 ${d.ballons} Balón de Oro</span></div>
+                    <div class="flex items-baseline justify-between"><h4 class="font-oswald text-lg font-bold text-white uppercase">${d.player}</h4><div class="font-display text-3xl gold-text-shine leading-none">${d.total} <span class="text-xs font-sans text-slate-300">Títulos</span></div></div>
+                    <div class="mt-2 pt-1.5 border-t border-white/10 grid grid-cols-3 gap-1 text-[9px] text-slate-200 text-center">
+                        <span class="bg-black/40 py-0.5 rounded">🌟 Imp: <strong>${d.importantes}</strong></span>
+                        <span class="bg-black/40 py-0.5 rounded">🥅 Sel: <strong>${d.seleccion}</strong></span>
+                        <span class="bg-black/40 py-0.5 rounded">🛡️ Loc: <strong>${d.locales}</strong></span>
                     </div>
                 </div>`).join("");
 
             document.getElementById("historicalComparisonTableBody").innerHTML = histData.map((d, i) => `
                 <tr>
-                    <td class="py-2.5 px-2.5 font-bold text-white">${medals[i]} ${d.player}</td>
-                    <td class="py-2.5 px-1.5 text-center text-uclCyan font-semibold">${d.fc27}</td>
-                    <td class="py-2.5 px-1.5 text-center text-uclNeon font-semibold">${d.fc26}</td>
-                    <td class="py-2.5 px-1.5 text-center text-slate-300">${d.fc25}</td>
-                    <td class="py-2.5 px-1.5 text-center text-slate-300">${d.fc24}</td>
-                    <td class="py-2.5 px-1.5 text-center hidden md:table-cell text-amber-300">${d.importantes}</td>
-                    <td class="py-2.5 px-1.5 text-center hidden sm:table-cell text-uclCyan">${d.seleccion}</td>
-                    <td class="py-2.5 px-1.5 text-center hidden md:table-cell text-slate-300">${d.locales}</td>
-                    <td class="py-2.5 px-1.5 text-center font-bold text-uclGold">🌕 ${d.ballons}</td>
-                    <td class="py-2.5 px-2.5 text-right font-oswald text-lg font-bold text-uclGold">${d.total}</td>
+                    <td class="py-2 px-2.5 font-bold text-white">${medals[i]} ${d.player}</td>
+                    <td class="py-2 px-1.5 text-center text-uclCyan font-semibold">${d.fc27}</td>
+                    <td class="py-2 px-1.5 text-center text-uclNeon font-semibold">${d.fc26}</td>
+                    <td class="py-2 px-1.5 text-center text-slate-300">${d.fc25}</td>
+                    <td class="py-2 px-1.5 text-center text-slate-300">${d.fc24}</td>
+                    <td class="py-2 px-1.5 text-center hidden md:table-cell text-amber-300">${d.importantes}</td>
+                    <td class="py-2 px-1.5 text-center hidden sm:table-cell text-uclCyan">${d.seleccion}</td>
+                    <td class="py-2 px-1.5 text-center hidden md:table-cell text-slate-300">${d.locales}</td>
+                    <td class="py-2 px-1.5 text-center font-bold text-uclGold">🌕 ${d.ballons}</td>
+                    <td class="py-2 px-2.5 text-right font-oswald text-base font-bold text-uclGold">${d.total}</td>
                 </tr>`).join("");
 
             renderFinalsFunFacts();
@@ -2717,14 +2644,12 @@
                 });
                 const ord = [...ORDERED_PLAYERS].sort((a, b) => cupTotals[b] - cupTotals[a]);
                 const badge = cupTotals[ord[0]] === 0 ? "⏳ Por jugar" : (cupTotals[ord[0]] === cupTotals[ord[1]] ? "⚡ Empate" : `👑 ${ord[0]}`);
-                return `<div onclick="openTrophyLightbox('${cup.name}', '${cup.key}', '${cup.subtitle}')" class="holo-3d-card w-[calc(50%-0.35rem)] sm:w-[calc(33.333%-0.6rem)] lg:w-[calc(20%-0.65rem)] max-w-[210px] cup-card-aspect ucl-card rounded-xl p-2 flex flex-col justify-between relative overflow-hidden cursor-pointer border ${cup.borderGlow}">
-                    <div class="absolute inset-[5%] z-0 rounded-lg overflow-hidden border border-white/15 bg-[#03091c]">
-                        <img src="${getPhotoSrc(cup.key)}" data-step="0" loading="eager" decoding="sync" alt="${cup.name}" class="w-full h-full object-cover" onerror="handleSmartImageError(this, '${cup.key}')">
-                        <div class="absolute inset-0 bg-gradient-to-t from-[#020817]/95 via-[#020817]/50 to-transparent"></div>
-                    </div>
-                    <div class="relative z-30 flex items-center justify-between"><span class="w-5 h-5 rounded-md bg-black/80 border border-uclCyan/40 text-[8px] text-uclCyan flex items-center justify-center"><i class="fa-solid fa-music"></i></span><span class="text-[8px] font-extrabold px-2 py-0.5 rounded-full bg-black/85 text-uclGold border border-uclGold/50">${badge}</span></div>
-                    <div class="relative z-30 mt-auto"><h4 class="font-oswald text-xs sm:text-sm font-bold text-white uppercase mb-1">${cup.dot} ${cup.name}</h4>
-                        <div class="text-[10px] text-slate-200 space-y-0.5 bg-black/85 p-1.5 rounded-lg border border-white/10">
+                return `<div onclick="openTrophyLightbox('${cup.name}', '${cup.key}', '${cup.subtitle}')" class="holo-3d-card w-[calc(50%-0.35rem)] sm:w-[calc(33.333%-0.6rem)] lg:w-[calc(20%-0.65rem)] max-w-[205px] cup-card-aspect ucl-card rounded-xl p-2 flex flex-col justify-between relative overflow-hidden cursor-pointer border ${cup.borderGlow}">
+                    <img src="${getPhotoSrc(cup.key)}" data-step="0" loading="eager" decoding="sync" alt="${cup.name}" class="absolute inset-0 z-0 w-full h-full object-cover" onerror="handleSmartImageError(this, '${cup.key}')">
+                    <div class="absolute inset-0 z-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent"></div>
+                    <div class="relative z-30 flex items-center justify-between"><span class="w-5 h-5 rounded bg-black/80 border border-uclCyan/40 text-[8px] text-uclCyan flex items-center justify-center"><i class="fa-solid fa-music"></i></span><span class="text-[8px] font-extrabold px-2 py-0.5 rounded-full bg-black/85 text-uclGold border border-uclGold/50">${badge}</span></div>
+                    <div class="relative z-30 mt-auto bg-black/80 backdrop-blur-md p-1.5 rounded-lg border border-white/10"><h4 class="font-oswald text-xs font-bold text-white uppercase mb-0.5 truncate">${cup.dot} ${cup.name}</h4>
+                        <div class="text-[10px] text-slate-200 space-y-0.5">
                             ${ord.map((p, idx) => `<div class="flex justify-between"><span class="${idx === 0 && cupTotals[p] > 0 ? 'text-uclGold font-bold' : ''}">${p}</span><span class="font-bold">${cupTotals[p]}</span></div>`).join("")}
                         </div>
                     </div>
@@ -2875,10 +2800,10 @@
 
             document.getElementById("lightboxPointsRankingList").innerHTML = ballonEvaluation.map((item, idx) => {
                 const isFirst = idx === 0 && seasonTotal > 0;
-                return `<div class="px-3 py-2 rounded-xl border ${isFirst ? 'bg-amber-500/15 border-uclGold/60' : 'bg-black/50 border-white/10'}">
+                return `<div class="px-3 py-1.5 rounded-xl border ${isFirst ? 'bg-amber-500/15 border-uclGold/60' : 'bg-black/50 border-white/10'}">
                     <div class="flex items-center justify-between mb-1">
-                        <div class="flex items-center gap-2"><span class="text-[11px] font-extrabold ${isFirst ? 'text-uclGold' : 'text-slate-300'}">${posLabels[idx]}</span><span class="font-oswald font-bold text-sm text-white uppercase">${item.player}</span></div>
-                        <div class="flex items-center gap-2"><span class="px-2 py-0.5 rounded-md bg-black/70 font-oswald text-xs font-bold text-amber-300">${item.points} pts</span><span class="font-oswald text-sm font-bold ${isFirst ? 'text-uclGold' : 'text-uclCyan'}">${item.pct.toFixed(1)}%</span></div>
+                        <div class="flex items-center gap-2"><span class="text-[10px] font-extrabold ${isFirst ? 'text-uclGold' : 'text-slate-300'}">${posLabels[idx]}</span><span class="font-oswald font-bold text-xs sm:text-sm text-white uppercase">${item.player}</span></div>
+                        <div class="flex items-center gap-2"><span class="px-1.5 py-0.5 rounded bg-black/70 font-oswald text-xs font-bold text-amber-300">${item.points} pts</span><span class="font-oswald text-xs sm:text-sm font-bold ${isFirst ? 'text-uclGold' : 'text-uclCyan'}">${item.pct.toFixed(1)}%</span></div>
                     </div>
                     <div class="w-full h-1.5 rounded-full bg-black/70 overflow-hidden"><div class="h-full rounded-full ${barColors[idx]}" style="width:${Math.min(100, Math.round(item.pct))}%"></div></div>
                 </div>`;
